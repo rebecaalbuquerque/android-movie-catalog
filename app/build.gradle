@@ -1,0 +1,58 @@
+apply plugin: "com.android.application"
+
+apply plugin: "kotlin-android"
+
+apply plugin: "kotlin-android-extensions"
+
+apply plugin: "kotlin-kapt"
+
+android {
+    buildToolsVersion "29.0.3"
+
+    compileSdkVersion rootProject.compile_sdk_version
+
+    defaultConfig {
+        applicationId "com.albuquerque.moviecatalog"
+        minSdkVersion rootProject.min_sdk_version
+        targetSdkVersion rootProject.target_sdk_version
+        versionCode rootProject.app_version_code
+        versionName rootProject.app_version_name
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding { enabled = true }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
+
+dependencies(kotlin_dependencies)
+dependencies(android_dependencies)
+dependencies(room_dependencies)
+dependencies(lifecycle_dependencies)
+dependencies(retrofit_dependencies)
+dependencies(rx_dependencies)
+dependencies(debug_dependencies)
+dependencies(utils_dependencies)
