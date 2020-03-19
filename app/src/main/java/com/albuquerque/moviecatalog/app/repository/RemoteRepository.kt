@@ -1,4 +1,10 @@
 package com.albuquerque.moviecatalog.app.repository
 
-class RemoteRepository {
+import com.albuquerque.moviecatalog.app.model.dto.Movie
+
+class RemoteRepository: IRemoteRepository {
+
+    override suspend fun getPopular(): List<Movie> {
+        return emptyList()
+    }
 }
