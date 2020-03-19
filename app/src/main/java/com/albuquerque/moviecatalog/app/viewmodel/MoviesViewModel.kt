@@ -1,4 +1,4 @@
-package com.albuquerque.moviecatalog
+package com.albuquerque.moviecatalog.app.viewmodel
 
 import androidx.lifecycle.ViewModel
 

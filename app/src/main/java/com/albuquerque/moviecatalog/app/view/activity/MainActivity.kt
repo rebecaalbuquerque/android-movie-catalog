@@ -1,7 +1,8 @@
-package com.albuquerque.moviecatalog
+package com.albuquerque.moviecatalog.app.view.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.albuquerque.moviecatalog.R
 
 
 class MainActivity: AppCompatActivity() {

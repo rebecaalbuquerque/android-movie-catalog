@@ -1,5 +1,7 @@
-package com.albuquerque.moviecatalog
+package com.albuquerque.moviecatalog.core.remote
 
+import com.albuquerque.moviecatalog.app.remote.Config
+import com.albuquerque.moviecatalog.app.remote.MoviesInterceptor
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

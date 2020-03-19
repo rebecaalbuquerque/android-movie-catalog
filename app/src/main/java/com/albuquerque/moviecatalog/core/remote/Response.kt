@@ -1,4 +1,4 @@
-package com.albuquerque.moviecatalog
+package com.albuquerque.moviecatalog.core.remote
 
 data class Response<T>(
         val page: Int = 0,

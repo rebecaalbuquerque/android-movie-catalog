@@ -1,4 +1,4 @@
-package com.albuquerque.moviecatalog
+package com.albuquerque.moviecatalog.app.remote
 
 import okhttp3.Interceptor
 import okhttp3.Response
