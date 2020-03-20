@@ -19,9 +19,6 @@ class MainActivity: AppCompatActivity() {
 
         subscribeUI()
 
-        btn.setOnClickListener{
-            moviesViewModel.getNext()
-        }
     }
 
     private fun subscribeUI() {
