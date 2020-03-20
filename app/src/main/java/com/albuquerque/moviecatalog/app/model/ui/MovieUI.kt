@@ -1,4 +1,6 @@
 package com.albuquerque.moviecatalog.app.model.ui
 
-class MovieUI {
-}
+data class MovieUI(
+        val id: Int,
+        val title: String
+)
