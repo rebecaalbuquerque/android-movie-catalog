@@ -1,6 +1,7 @@
 package com.albuquerque.moviecatalog.core.application
 
 import android.app.Application
+import com.albuquerque.moviecatalog.app.data.AppDatabase
 import com.albuquerque.moviecatalog.app.repository.IRemoteRepository
 import com.albuquerque.moviecatalog.app.repository.IRepository
 import com.albuquerque.moviecatalog.app.repository.RemoteRepository
@@ -17,7 +18,12 @@ class MovieCatalogApplication: Application() {
     override fun onCreate() {
         super.onCreate()
 
+        setupRoom()
         setupKoin()
+    }
+
+    private fun setupRoom() {
+        AppDatabase.getInstance(this)
     }
 
     private fun setupKoin() {
@@ -26,7 +32,8 @@ class MovieCatalogApplication: Application() {
             androidContext(this@MovieCatalogApplication)
 
             val databaseModule = module {
-
+                single { AppDatabase.getInstance(get())
+                single { get<AppDatabase>().movieDAO }}
             }
 
             val repositoryModule = module {

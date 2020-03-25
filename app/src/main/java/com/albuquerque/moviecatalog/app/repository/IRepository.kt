@@ -1,6 +1,6 @@
 package com.albuquerque.moviecatalog.app.repository
 
-import com.albuquerque.moviecatalog.app.model.dto.Movie
+import com.albuquerque.moviecatalog.app.data.dto.Movie
 import com.albuquerque.moviecatalog.core.remote.IPaginationController
 import com.albuquerque.moviecatalog.core.remote.Result
 

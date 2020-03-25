@@ -1,7 +1,7 @@
 package com.albuquerque.moviecatalog.app.usecase
 
-import com.albuquerque.moviecatalog.app.model.toUI
-import com.albuquerque.moviecatalog.app.model.ui.MovieUI
+import com.albuquerque.moviecatalog.app.data.toUI
+import com.albuquerque.moviecatalog.app.data.ui.MovieUI
 import com.albuquerque.moviecatalog.app.repository.IRepository
 import com.albuquerque.moviecatalog.core.remote.IPaginationController
 import com.albuquerque.moviecatalog.core.remote.Result

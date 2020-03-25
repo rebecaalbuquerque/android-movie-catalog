@@ -1,7 +1,7 @@
 package com.albuquerque.moviecatalog.app.remote
 
-import com.albuquerque.moviecatalog.app.model.dto.Movie
-import com.albuquerque.moviecatalog.app.model.dto.Movies
+import com.albuquerque.moviecatalog.app.data.dto.Movie
+import com.albuquerque.moviecatalog.app.data.dto.Movies
 import retrofit2.http.GET
 import retrofit2.http.Query
 

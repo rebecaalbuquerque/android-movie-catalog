@@ -1,4 +1,4 @@
-package com.albuquerque.moviecatalog.app.model.dto
+package com.albuquerque.moviecatalog.app.data.dto
 
 import com.google.gson.annotations.SerializedName
 
