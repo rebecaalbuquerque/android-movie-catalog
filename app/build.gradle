@@ -56,3 +56,7 @@ dependencies(retrofit_dependencies)
 dependencies(rx_dependencies)
 dependencies(debug_dependencies)
 dependencies(utils_dependencies)
+
+dependencies {
+    implementation 'androidx.legacy:legacy-support-v4:+'
+}
