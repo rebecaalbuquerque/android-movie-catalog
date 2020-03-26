@@ -8,12 +8,12 @@ import androidx.room.Query
 @Dao
 abstract class MovieDao: BaseDao<MovieEntity> {
 
-    @Query("select * from movie")
+    @Query("select * from movieentity")
     abstract fun getAll(): LiveData<List<MovieEntity>>
 
-    @Query("select * from movie where id = 1")
+    @Query("select * from movieentity where id = 1")
     abstract fun get(): LiveData<MovieEntity?>
 
-    @Query("delete from movie")
+    @Query("delete from movieentity")
     abstract fun dropTable()
 }

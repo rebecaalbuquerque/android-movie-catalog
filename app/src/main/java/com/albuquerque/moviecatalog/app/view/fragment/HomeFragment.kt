@@ -25,6 +25,9 @@ class HomeFragment : Fragment() {
         button.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_movieDetailFragment)
         }
+
+        activity?.let { slider.setup(arrayListOf("https://i.pinimg.com/736x/5e/62/b6/5e62b67f13ee0d57d7789945493de45b.jpg", "https://i.pinimg.com/736x/5e/62/b6/5e62b67f13ee0d57d7789945493de45b.jpg", "https://i.pinimg.com/736x/5e/62/b6/5e62b67f13ee0d57d7789945493de45b.jpg")) }
+
     }
 
 }
