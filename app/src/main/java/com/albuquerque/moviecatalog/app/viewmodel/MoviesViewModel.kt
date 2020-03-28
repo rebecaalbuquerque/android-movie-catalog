@@ -8,7 +8,6 @@ import com.albuquerque.moviecatalog.app.usecase.GetLatestUseCase
 import com.albuquerque.moviecatalog.app.usecase.GetNowPlayingUseCase
 import com.albuquerque.moviecatalog.app.usecase.GetPopularUseCase
 import com.albuquerque.moviecatalog.app.usecase.GetTopRatedUseCase
-import com.albuquerque.moviecatalog.core.remote.IPaginationController
 import com.albuquerque.moviecatalog.core.remote.Remote.Companion.FIRST_PAGE_PAGINATION
 import kotlinx.coroutines.launch
 
@@ -17,11 +16,7 @@ class MoviesViewModel(
         val getNowPlayingUseCase: GetNowPlayingUseCase,
         val getTopRatedUseCase: GetTopRatedUseCase,
         val getLatestUseCase: GetLatestUseCase
-): ViewModel(), IPaginationController {
-
-    // TODO: lógica para impedir request depois da última página
-    override var totalPages: Int = 0
-    override var nextPage: Int = FIRST_PAGE_PAGINATION
+): ViewModel() {
 
     val popular: MutableLiveData<List<MovieUI>> = MutableLiveData()
     val nowPlaying: MutableLiveData<List<MovieUI>> = MutableLiveData()
@@ -37,29 +32,28 @@ class MoviesViewModel(
         viewModelScope.launch {
 
             try {
-                popular.postValue(getPopularUseCase.invoke(this@MoviesViewModel, nextPage))
+                popular.postValue(getPopularUseCase.invoke(FIRST_PAGE_PAGINATION))
             } catch (e: Exception) {
                 // TODO:
                 e
             }
 
             try {
-                nowPlaying.postValue(getNowPlayingUseCase.invoke(this@MoviesViewModel, nextPage))
-            } catch (e: Exception) {
-                // TODO:
-                e
-            }
-
-
-            try {
-                topRated.postValue(getTopRatedUseCase.invoke(this@MoviesViewModel, nextPage))
+                nowPlaying.postValue(getNowPlayingUseCase.invoke(FIRST_PAGE_PAGINATION))
             } catch (e: Exception) {
                 // TODO:
                 e
             }
 
             try {
-                latest.postValue(getLatestUseCase.invoke(this@MoviesViewModel, nextPage))
+                topRated.postValue(getTopRatedUseCase.invoke(FIRST_PAGE_PAGINATION))
+            } catch (e: Exception) {
+                // TODO:
+                e
+            }
+
+            try {
+                latest.postValue(getLatestUseCase.invoke(FIRST_PAGE_PAGINATION))
             } catch (e: Exception) {
                 // TODO:
                 e
@@ -67,10 +61,6 @@ class MoviesViewModel(
 
         }
 
-    }
-
-    override fun getNext(refresh: Boolean) {
-        getMovies()
     }
 
 }

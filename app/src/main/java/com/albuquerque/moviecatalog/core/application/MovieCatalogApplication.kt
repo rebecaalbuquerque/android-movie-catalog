@@ -10,6 +10,7 @@ import com.albuquerque.moviecatalog.app.usecase.GetLatestUseCase
 import com.albuquerque.moviecatalog.app.usecase.GetNowPlayingUseCase
 import com.albuquerque.moviecatalog.app.usecase.GetPopularUseCase
 import com.albuquerque.moviecatalog.app.usecase.GetTopRatedUseCase
+import com.albuquerque.moviecatalog.app.viewmodel.MoviesPaginationViewModel
 import com.albuquerque.moviecatalog.app.viewmodel.MoviesViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -53,6 +54,13 @@ class MovieCatalogApplication: Application() {
 
             val viewModelModule = module {
                 viewModel { MoviesViewModel(
+                        getPopularUseCase = get(),
+                        getNowPlayingUseCase = get(),
+                        getTopRatedUseCase = get(),
+                        getLatestUseCase = get()
+                ) }
+
+                viewModel { MoviesPaginationViewModel(
                         getPopularUseCase = get(),
                         getNowPlayingUseCase = get(),
                         getTopRatedUseCase = get(),

@@ -10,7 +10,7 @@ class GetLatestUseCase(
         private val repository: IRepository
 ) {
 
-    suspend fun invoke(paginationController: IPaginationController, page: Int): List<MovieUI> {
+    suspend fun invoke(page: Int, paginationController: IPaginationController? = null): List<MovieUI> {
         val result = repository.getLatest(paginationController, page)
 
         return if(result is Result.Success) {

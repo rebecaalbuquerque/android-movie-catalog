@@ -20,12 +20,12 @@ class RemoteRepository: Remote(), IRemoteRepository {
         }
     }
 
-    override suspend fun getPopular(paginationController: IPaginationController, page: Int): Result<List<Movie>> {
+    override suspend fun getPopular(paginationController: IPaginationController?, page: Int): Result<List<Movie>> {
         val result = runRequest(API.fetchPopular(page))
 
         return if(result is Result.Success) {
-            paginationController.totalPages = result.data.totalPages
-            paginationController.nextPage = result.data.page + 1
+            paginationController?.totalPages = result.data.totalPages
+            paginationController?.nextPage = result.data.page + 1
 
             Result.Success(result.data.results)
         } else {
@@ -34,12 +34,12 @@ class RemoteRepository: Remote(), IRemoteRepository {
 
     }
 
-    override suspend fun getNowPlaying(paginationController: IPaginationController, page: Int): Result<List<Movie>> {
+    override suspend fun getNowPlaying(paginationController: IPaginationController?, page: Int): Result<List<Movie>> {
         val result = runRequest(API.fetchNowPlaying(page))
 
         return if(result is Result.Success) {
-            paginationController.totalPages = result.data.totalPages
-            paginationController.nextPage = result.data.page + 1
+            paginationController?.totalPages = result.data.totalPages
+            paginationController?.nextPage = result.data.page + 1
 
             Result.Success(result.data.results)
         } else {
@@ -47,12 +47,12 @@ class RemoteRepository: Remote(), IRemoteRepository {
         }
     }
 
-    override suspend fun getTopRated(paginationController: IPaginationController, page: Int): Result<List<Movie>> {
+    override suspend fun getTopRated(paginationController: IPaginationController?, page: Int): Result<List<Movie>> {
         val result = runRequest(API.fetchTopRated(page))
 
         return if(result is Result.Success) {
-            paginationController.totalPages = result.data.totalPages
-            paginationController.nextPage = result.data.page + 1
+            paginationController?.totalPages = result.data.totalPages
+            paginationController?.nextPage = result.data.page + 1
 
             Result.Success(result.data.results)
         } else {
@@ -60,12 +60,12 @@ class RemoteRepository: Remote(), IRemoteRepository {
         }
     }
 
-    override suspend fun getLatest(paginationController: IPaginationController, page: Int): Result<List<Movie>> {
+    override suspend fun getLatest(paginationController: IPaginationController?, page: Int): Result<List<Movie>> {
         val result = runRequest(API.fetchLatest(page))
 
         return if(result is Result.Success) {
-            paginationController.totalPages = result.data.totalPages
-            paginationController.nextPage = result.data.page + 1
+            paginationController?.totalPages = result.data.totalPages
+            paginationController?.nextPage = result.data.page + 1
 
             Result.Success(result.data.results)
         } else {
