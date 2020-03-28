@@ -6,7 +6,10 @@ import com.albuquerque.moviecatalog.app.repository.IRemoteRepository
 import com.albuquerque.moviecatalog.app.repository.IRepository
 import com.albuquerque.moviecatalog.app.repository.RemoteRepository
 import com.albuquerque.moviecatalog.app.repository.Repository
+import com.albuquerque.moviecatalog.app.usecase.GetLatestUseCase
+import com.albuquerque.moviecatalog.app.usecase.GetNowPlayingUseCase
 import com.albuquerque.moviecatalog.app.usecase.GetPopularUseCase
+import com.albuquerque.moviecatalog.app.usecase.GetTopRatedUseCase
 import com.albuquerque.moviecatalog.app.viewmodel.MoviesViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -43,10 +46,18 @@ class MovieCatalogApplication: Application() {
 
             val useCaseModule = module {
                 factory { GetPopularUseCase(repository = get()) }
+                factory { GetNowPlayingUseCase(repository = get()) }
+                factory { GetTopRatedUseCase(repository = get()) }
+                factory { GetLatestUseCase(repository = get()) }
             }
 
             val viewModelModule = module {
-                viewModel { MoviesViewModel(getPopularUseCase = get()) }
+                viewModel { MoviesViewModel(
+                        getPopularUseCase = get(),
+                        getNowPlayingUseCase = get(),
+                        getTopRatedUseCase = get(),
+                        getLatestUseCase = get()
+                ) }
             }
 
             modules(listOf(databaseModule, repositoryModule, useCaseModule, viewModelModule))

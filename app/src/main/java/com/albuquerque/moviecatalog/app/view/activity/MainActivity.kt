@@ -28,9 +28,22 @@ class MainActivity : AppCompatActivity() {
     private fun subscribeUI() {
 
         with(moviesViewModel) {
-            movies.observe(this@MainActivity) {
+            popular.observe(this@MainActivity) {
                 it
             }
+
+            nowPlaying.observe(this@MainActivity) {
+                it
+            }
+
+            topRated.observe(this@MainActivity) {
+                it
+            }
+
+            latest.observe(this@MainActivity) {
+                it
+            }
+
         }
 
     }

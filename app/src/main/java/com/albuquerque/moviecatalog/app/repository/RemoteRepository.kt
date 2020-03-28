@@ -10,6 +10,16 @@ class RemoteRepository: Remote(), IRemoteRepository {
 
     private val API by lazy { getRetrofitBuilder().create(MoviesAPI::class.java) }
 
+    override suspend fun getMovie(): Result<Movie> {
+        val result = runRequest(API.fetchMovie())
+
+        return if(result is Result.Success) {
+            Result.Success(result.data)
+        } else {
+            Result.Error((result as Result.Error).error)
+        }
+    }
+
     override suspend fun getPopular(paginationController: IPaginationController, page: Int): Result<List<Movie>> {
         val result = runRequest(API.fetchPopular(page))
 
@@ -24,14 +34,42 @@ class RemoteRepository: Remote(), IRemoteRepository {
 
     }
 
-    override suspend fun getMovie(): Result<Movie> {
-        val result = runRequest(API.fetchMovie())
+    override suspend fun getNowPlaying(paginationController: IPaginationController, page: Int): Result<List<Movie>> {
+        val result = runRequest(API.fetchNowPlaying(page))
 
         return if(result is Result.Success) {
-            Result.Success(result.data)
+            paginationController.totalPages = result.data.totalPages
+            paginationController.nextPage = result.data.page + 1
+
+            Result.Success(result.data.results)
         } else {
             Result.Error((result as Result.Error).error)
         }
     }
 
+    override suspend fun getTopRated(paginationController: IPaginationController, page: Int): Result<List<Movie>> {
+        val result = runRequest(API.fetchTopRated(page))
+
+        return if(result is Result.Success) {
+            paginationController.totalPages = result.data.totalPages
+            paginationController.nextPage = result.data.page + 1
+
+            Result.Success(result.data.results)
+        } else {
+            Result.Error((result as Result.Error).error)
+        }
+    }
+
+    override suspend fun getLatest(paginationController: IPaginationController, page: Int): Result<List<Movie>> {
+        val result = runRequest(API.fetchLatest(page))
+
+        return if(result is Result.Success) {
+            paginationController.totalPages = result.data.totalPages
+            paginationController.nextPage = result.data.page + 1
+
+            Result.Success(result.data.results)
+        } else {
+            Result.Error((result as Result.Error).error)
+        }
+    }
 }
