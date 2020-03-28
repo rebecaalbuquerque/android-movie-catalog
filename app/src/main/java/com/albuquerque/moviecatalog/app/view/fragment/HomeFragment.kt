@@ -43,19 +43,19 @@ class HomeFragment : Fragment() {
     private fun subscribeUI() {
 
         with(moviesViewModel) {
-            popular.observe(this@HomeFragment) { list ->
+            popular.observe(viewLifecycleOwner){ list ->
                 list?.let { moviesAdapter.refresh(it) }
             }
 
-            nowPlaying.observe(this@HomeFragment) {
+            nowPlaying.observe(viewLifecycleOwner) {
                 it
             }
 
-            topRated.observe(this@HomeFragment) {
+            topRated.observe(viewLifecycleOwner) {
                 it
             }
 
-            latest.observe(this@HomeFragment) {
+            latest.observe(viewLifecycleOwner) {
                 it
             }
 

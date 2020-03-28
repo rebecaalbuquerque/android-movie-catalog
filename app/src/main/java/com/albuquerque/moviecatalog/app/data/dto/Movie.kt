@@ -1,5 +1,6 @@
 package com.albuquerque.moviecatalog.app.data.dto
 
+import com.albuquerque.moviecatalog.app.remote.Config
 import com.google.gson.annotations.SerializedName
 
 data class Movie(
@@ -13,5 +14,11 @@ data class Movie(
         val overview: String,
 
         @SerializedName("release_date")
-        val releaseDate: String
-)
+        val releaseDate: String,
+
+        @SerializedName("poster_path")
+        val posterPath: String
+) {
+    val poster: String
+        get() = Config.BASE_IMAGE_URL.plus(posterPath)
+}

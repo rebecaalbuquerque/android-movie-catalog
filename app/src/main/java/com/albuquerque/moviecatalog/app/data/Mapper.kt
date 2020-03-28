@@ -15,6 +15,9 @@ fun MovieEntity.toUI(): MovieUI {
 fun Movie.toUI(): MovieUI {
     return MovieUI(
             this.id,
-            this.title
+            this.title,
+            this.overview,
+            this.releaseDate,
+            this.poster
     )
 }
