@@ -48,15 +48,25 @@ class HomeFragment : Fragment() {
             }
 
             nowPlaying.observe(viewLifecycleOwner) {
-                it
+
             }
 
             topRated.observe(viewLifecycleOwner) {
-                it
+
             }
 
             latest.observe(viewLifecycleOwner) {
-                it
+
+            }
+
+            onError.observe(viewLifecycleOwner) {
+
+            }
+
+            onLoading.observe(viewLifecycleOwner) { loading ->
+                loading?.let {
+
+                }
             }
 
         }
