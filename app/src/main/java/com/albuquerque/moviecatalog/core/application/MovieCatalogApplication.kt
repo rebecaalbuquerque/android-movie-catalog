@@ -6,12 +6,13 @@ import com.albuquerque.moviecatalog.app.repository.IRemoteRepository
 import com.albuquerque.moviecatalog.app.repository.IRepository
 import com.albuquerque.moviecatalog.app.repository.RemoteRepository
 import com.albuquerque.moviecatalog.app.repository.Repository
-import com.albuquerque.moviecatalog.app.usecase.GetLatestUseCase
+import com.albuquerque.moviecatalog.app.usecase.GetUpcomingUseCase
 import com.albuquerque.moviecatalog.app.usecase.GetNowPlayingUseCase
 import com.albuquerque.moviecatalog.app.usecase.GetPopularUseCase
 import com.albuquerque.moviecatalog.app.usecase.GetTopRatedUseCase
 import com.albuquerque.moviecatalog.app.viewmodel.MoviesPaginationViewModel
 import com.albuquerque.moviecatalog.app.viewmodel.MoviesViewModel
+import com.facebook.stetho.Stetho
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -22,8 +23,17 @@ class MovieCatalogApplication: Application() {
     override fun onCreate() {
         super.onCreate()
 
+        setupStetho()
         setupRoom()
         setupKoin()
+    }
+
+    private fun setupStetho() {
+        Stetho.initialize(
+                Stetho.newInitializerBuilder(this).apply {
+                    enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this@MovieCatalogApplication))
+                }.build()
+        )
     }
 
     private fun setupRoom() {
@@ -49,7 +59,7 @@ class MovieCatalogApplication: Application() {
                 factory { GetPopularUseCase(repository = get()) }
                 factory { GetNowPlayingUseCase(repository = get()) }
                 factory { GetTopRatedUseCase(repository = get()) }
-                factory { GetLatestUseCase(repository = get()) }
+                factory { GetUpcomingUseCase(repository = get()) }
             }
 
             val viewModelModule = module {
@@ -57,14 +67,14 @@ class MovieCatalogApplication: Application() {
                         getPopularUseCase = get(),
                         getNowPlayingUseCase = get(),
                         getTopRatedUseCase = get(),
-                        getLatestUseCase = get()
+                        getUpcomingUseCase = get()
                 ) }
 
                 viewModel { MoviesPaginationViewModel(
                         getPopularUseCase = get(),
                         getNowPlayingUseCase = get(),
                         getTopRatedUseCase = get(),
-                        getLatestUseCase = get()
+                        getUpcomingUseCase = get()
                 ) }
             }
 

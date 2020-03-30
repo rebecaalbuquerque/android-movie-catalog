@@ -6,12 +6,12 @@ import com.albuquerque.moviecatalog.app.repository.IRepository
 import com.albuquerque.moviecatalog.core.remote.IPaginationController
 import com.albuquerque.moviecatalog.core.remote.Result
 
-class GetLatestUseCase(
+class GetUpcomingUseCase(
         private val repository: IRepository
 ) {
 
     suspend fun invoke(page: Int, paginationController: IPaginationController? = null): List<MovieUI> {
-        val result = repository.getLatest(paginationController, page)
+        val result = repository.getUpcoming(paginationController, page)
 
         return if(result is Result.Success) {
             result.data.map { it.toUI() }

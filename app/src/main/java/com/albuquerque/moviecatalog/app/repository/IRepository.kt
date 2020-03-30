@@ -14,6 +14,6 @@ interface IRepository {
 
     suspend fun getTopRated(paginationController: IPaginationController?, page: Int): Result<List<Movie>>
 
-    suspend fun getLatest(paginationController: IPaginationController?, page: Int): Result<List<Movie>>
+    suspend fun getUpcoming(paginationController: IPaginationController?, page: Int): Result<List<Movie>>
 
 }

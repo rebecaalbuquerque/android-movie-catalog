@@ -15,13 +15,42 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp">
+        android:layout_marginEnd="4dp"
+        android:background="@color/colorAccentSecondary">
+
+        <ImageView
+            android:id="@+id/placeholder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_photo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@{movie.title}"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/placeholder"
+            tools:text="Lorem ipsum dolor sit amet" />
 
         <ImageView
             android:id="@+id/poster"
             android:layout_width="0dp"
             android:layout_height="160dp"
-            android:background="@android:color/darker_gray"
+            android:background="@android:color/transparent"
             android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="27:40"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,6 +64,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:src="@android:color/black"
+            android:visibility="gone"
             app:layout_constraintDimensionRatio="2:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline"

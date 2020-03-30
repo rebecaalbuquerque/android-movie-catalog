@@ -17,7 +17,9 @@ data class Movie(
         val releaseDate: String,
 
         @SerializedName("poster_path")
-        val posterPath: String
+        val posterPath: String,
+
+        val adult: Boolean
 ) {
     val poster: String
         get() = Config.BASE_IMAGE_URL.plus(posterPath)

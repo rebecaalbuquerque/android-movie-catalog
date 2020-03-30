@@ -24,7 +24,7 @@ class Repository(
         return remote.getTopRated(paginationController, page)
     }
 
-    override suspend fun getLatest(paginationController: IPaginationController?, page: Int): Result<List<Movie>> {
-        return remote.getLatest(paginationController, page)
+    override suspend fun getUpcoming(paginationController: IPaginationController?, page: Int): Result<List<Movie>> {
+        return remote.getUpcoming(paginationController, page)
     }
 }

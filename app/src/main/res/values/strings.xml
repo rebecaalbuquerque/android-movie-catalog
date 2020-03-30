@@ -3,5 +3,8 @@
     <string name="menu_home">Home</string>
     <string name="menu_search">Buscar</string>
     <string name="menu_favorites">Favoritos</string>
+    <string name="home_header_popular">Popular</string>
+    <string name="home_header_upcoming">Em Breve</string>
+    <string name="home_header_top_rated">Top Rated</string>
 
 </resources>

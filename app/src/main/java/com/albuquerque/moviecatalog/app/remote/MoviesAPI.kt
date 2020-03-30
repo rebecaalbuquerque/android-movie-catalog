@@ -25,8 +25,8 @@ interface MoviesAPI {
             @Query("page") page: Int = 1
     ): Movies
 
-    @GET("movie/latest?api_key=${Credentials.API_KEY}")
-    suspend fun fetchLatest(
+    @GET("movie/upcoming?api_key=${Credentials.API_KEY}")
+    suspend fun fetchUpcoming(
             @Query("page") page: Int = 1
     ): Movies
 

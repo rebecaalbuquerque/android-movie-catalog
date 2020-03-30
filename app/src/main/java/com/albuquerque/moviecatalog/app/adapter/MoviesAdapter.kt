@@ -9,7 +9,11 @@ import com.albuquerque.moviecatalog.core.adapter.BaseAdapter
 import com.albuquerque.moviecatalog.databinding.ItemMovieBinding
 import com.albuquerque.moviecatalog.databinding.ItemMovieBindingImpl
 
-class MoviesAdapter: BaseAdapter<MovieUI, MovieViewHolder>() {
+class MoviesAdapter(): BaseAdapter<MovieUI, MovieViewHolder>() {
+
+    constructor(list: List<MovieUI>) : this() {
+        refresh(list)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
-import androidx.navigation.fragment.findNavController
 import com.albuquerque.moviecatalog.R
 import com.albuquerque.moviecatalog.app.adapter.MoviesAdapter
 import com.albuquerque.moviecatalog.app.viewmodel.MoviesViewModel
@@ -16,7 +15,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class HomeFragment : Fragment() {
 
     private val moviesViewModel: MoviesViewModel by viewModel()
-    private val moviesAdapter: MoviesAdapter = MoviesAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
@@ -30,33 +28,29 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupView() {
-        button.setOnClickListener {
+        /*button.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_movieDetailFragment)
-        }
-
-        activity?.let { slider.setup(arrayListOf("https://i.pinimg.com/736x/5e/62/b6/5e62b67f13ee0d57d7789945493de45b.jpg", "https://i.pinimg.com/736x/5e/62/b6/5e62b67f13ee0d57d7789945493de45b.jpg", "https://i.pinimg.com/736x/5e/62/b6/5e62b67f13ee0d57d7789945493de45b.jpg")) }
-
-        rvPopular.adapter = moviesAdapter
-
+        }*/
     }
 
     private fun subscribeUI() {
 
         with(moviesViewModel) {
+
+            nowPlaying.observe(viewLifecycleOwner) { list ->
+                activity?.let { slider.setup(list.map { it.poster }) }
+            }
+
+            upcoming.observe(viewLifecycleOwner) { list ->
+                list?.let { rvUpcoming.adapter = MoviesAdapter(it) }
+            }
+
             popular.observe(viewLifecycleOwner){ list ->
-                list?.let { moviesAdapter.refresh(it) }
+                list?.let { rvPopular.adapter = MoviesAdapter(it) }
             }
 
-            nowPlaying.observe(viewLifecycleOwner) {
-
-            }
-
-            topRated.observe(viewLifecycleOwner) {
-
-            }
-
-            latest.observe(viewLifecycleOwner) {
-
+            topRated.observe(viewLifecycleOwner) { list ->
+                list?.let { rvTopRated.adapter = MoviesAdapter(it) }
             }
 
             onError.observe(viewLifecycleOwner) {
@@ -64,9 +58,7 @@ class HomeFragment : Fragment() {
             }
 
             onLoading.observe(viewLifecycleOwner) { loading ->
-                loading?.let {
-
-                }
+                loading?.let { }
             }
 
         }
