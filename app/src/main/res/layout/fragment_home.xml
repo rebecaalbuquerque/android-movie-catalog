@@ -32,11 +32,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
                 android:text="@string/home_header_upcoming"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/seeMoreUpcoming"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/slider" />
+
+            <TextView
+                android:id="@+id/seeMoreUpcoming"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="@string/home_header_see_more"
+                android:textColor="@color/colorAccentSecondary"
+                app:layout_constraintBottom_toBottomOf="@+id/headerUpcoming"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/headerUpcoming" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvUpcoming"
@@ -56,11 +68,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
                 android:text="@string/home_header_popular"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/seeMorePopular"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rvUpcoming" />
+
+            <TextView
+                android:id="@+id/seeMorePopular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="@string/home_header_see_more"
+                android:textColor="@color/colorAccentSecondary"
+                app:layout_constraintBottom_toBottomOf="@+id/headerPopular"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/headerPopular" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvPopular"
@@ -80,11 +104,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
                 android:text="@string/home_header_top_rated"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/seeMoreTopRated"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rvPopular" />
+
+            <TextView
+                android:id="@+id/seeMoreTopRated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="@string/home_header_see_more"
+                android:textColor="@color/colorAccentSecondary"
+                app:layout_constraintBottom_toBottomOf="@+id/headerTopRated"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/headerTopRated" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTopRated"

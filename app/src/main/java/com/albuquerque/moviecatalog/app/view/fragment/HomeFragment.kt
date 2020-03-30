@@ -1,5 +1,6 @@
 package com.albuquerque.moviecatalog.app.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import com.albuquerque.moviecatalog.R
 import com.albuquerque.moviecatalog.app.adapter.MoviesAdapter
+import com.albuquerque.moviecatalog.app.utils.TypeMovies
+import com.albuquerque.moviecatalog.app.view.activity.SeeMoreMoviesActivity
+import com.albuquerque.moviecatalog.app.view.activity.SeeMoreMoviesActivity.Companion.TYPE_MOVIE
 import com.albuquerque.moviecatalog.app.viewmodel.MoviesViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -31,6 +35,19 @@ class HomeFragment : Fragment() {
         /*button.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_movieDetailFragment)
         }*/
+
+        seeMoreUpcoming.setOnClickListener {
+            startActivity(Intent(context, SeeMoreMoviesActivity::class.java).apply { putExtra(TYPE_MOVIE, TypeMovies.UPCOMING.value) })
+        }
+
+        seeMorePopular.setOnClickListener {
+            startActivity(Intent(context, SeeMoreMoviesActivity::class.java).apply { putExtra(TYPE_MOVIE, TypeMovies.POPULAR.value) })
+        }
+
+        seeMoreTopRated.setOnClickListener {
+            startActivity(Intent(context, SeeMoreMoviesActivity::class.java).apply { putExtra(TYPE_MOVIE, TypeMovies.TOP_RATED.value) })
+        }
+
     }
 
     private fun subscribeUI() {

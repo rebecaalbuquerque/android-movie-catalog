@@ -35,10 +35,10 @@ class MoviesPaginationViewModel(
             try {
 
                 val response = when (type) {
-                    POPUPLAR    -> getPopularUseCase.invoke(FIRST_PAGE_PAGINATION, this@MoviesPaginationViewModel)
-                    NOW_PLAYING -> getNowPlayingUseCase.invoke(FIRST_PAGE_PAGINATION, this@MoviesPaginationViewModel)
-                    TOP_RATED   -> getTopRatedUseCase.invoke(FIRST_PAGE_PAGINATION, this@MoviesPaginationViewModel)
-                    UPCOMING      -> getUpcomingUseCase.invoke(FIRST_PAGE_PAGINATION, this@MoviesPaginationViewModel)
+                    POPULAR    -> getPopularUseCase.invoke(nextPage, this@MoviesPaginationViewModel)
+                    NOW_PLAYING -> getNowPlayingUseCase.invoke(nextPage, this@MoviesPaginationViewModel)
+                    TOP_RATED   -> getTopRatedUseCase.invoke(nextPage, this@MoviesPaginationViewModel)
+                    UPCOMING      -> getUpcomingUseCase.invoke(nextPage, this@MoviesPaginationViewModel)
                 }
 
                 movies.postValue(response)
@@ -49,7 +49,7 @@ class MoviesPaginationViewModel(
     }
 
     override fun getNext(refresh: Boolean) {
-
+        getMovies(type!!)
     }
 
 }
