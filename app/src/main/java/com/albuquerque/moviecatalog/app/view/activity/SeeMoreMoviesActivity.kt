@@ -12,7 +12,6 @@ import com.albuquerque.moviecatalog.app.viewmodel.MoviesPaginationViewModel
 import kotlinx.android.synthetic.main.activity_see_more_movies.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class SeeMoreMoviesActivity : AppCompatActivity() {
 
     companion object { const val TYPE_MOVIE = "TYPE_MOVIE" }
@@ -46,7 +45,6 @@ class SeeMoreMoviesActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
         typeMovies?.let { moviesViewModel.getMovies(it) }
 
     }
@@ -62,18 +60,21 @@ class SeeMoreMoviesActivity : AppCompatActivity() {
 
         }
 
-        rvMovies.adapter = moviesAdapter
+        with(rvMovies) {
+            adapter = moviesAdapter
 
-        rvMovies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
 
-                if (!recyclerView.canScrollVertically(1)) {
-                    moviesViewModel.getNext()
+                    if (!recyclerView.canScrollVertically(1) && newState == 0) {
+                        moviesViewModel.getMovies(typeMovies!!)
+                    }
+
                 }
+            })
+        }
 
-            }
-        })
     }
 
     private fun subscribeUI() {
