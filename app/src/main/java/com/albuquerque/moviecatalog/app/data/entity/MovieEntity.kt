@@ -6,9 +6,10 @@ import androidx.room.PrimaryKey
 
 @Entity
 class MovieEntity(
-        @PrimaryKey @ColumnInfo(name = "id")val id: Int,
-        @ColumnInfo(name = "originalTitle")val originalTitle: String,
-        @ColumnInfo(name = "title")val title: String,
-        @ColumnInfo(name = "overview")val overview: String,
-        @ColumnInfo(name = "releaseDate")val releaseDate: String
+        @PrimaryKey @ColumnInfo(name = "id") val id: Int,
+        @ColumnInfo(name = "originalTitle") val originalTitle: String,
+        @ColumnInfo(name = "title") val title: String,
+        @ColumnInfo(name = "overview") val overview: String,
+        @ColumnInfo(name = "releaseDate") val releaseDate: String,
+        @ColumnInfo(name = "category") val category: String
 )

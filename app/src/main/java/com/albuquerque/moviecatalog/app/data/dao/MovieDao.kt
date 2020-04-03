@@ -11,6 +11,9 @@ abstract class MovieDao: BaseDao<MovieEntity> {
     @Query("select * from movieentity")
     abstract fun getAll(): LiveData<List<MovieEntity>>
 
+    @Query("select * from movieentity where category = :value")
+    abstract fun getAllByCategory(value: String): LiveData<List<MovieEntity>>
+
     @Query("select * from movieentity where id = 1")
     abstract fun get(): LiveData<MovieEntity?>
 

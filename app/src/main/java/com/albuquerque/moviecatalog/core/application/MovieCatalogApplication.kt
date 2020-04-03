@@ -2,14 +2,11 @@ package com.albuquerque.moviecatalog.core.application
 
 import android.app.Application
 import com.albuquerque.moviecatalog.app.data.AppDatabase
-import com.albuquerque.moviecatalog.app.repository.IRemoteRepository
-import com.albuquerque.moviecatalog.app.repository.IRepository
-import com.albuquerque.moviecatalog.app.repository.RemoteRepository
-import com.albuquerque.moviecatalog.app.repository.Repository
-import com.albuquerque.moviecatalog.app.usecase.GetUpcomingUseCase
+import com.albuquerque.moviecatalog.app.repository.*
 import com.albuquerque.moviecatalog.app.usecase.GetNowPlayingUseCase
 import com.albuquerque.moviecatalog.app.usecase.GetPopularUseCase
 import com.albuquerque.moviecatalog.app.usecase.GetTopRatedUseCase
+import com.albuquerque.moviecatalog.app.usecase.GetUpcomingUseCase
 import com.albuquerque.moviecatalog.app.viewmodel.MoviesPaginationViewModel
 import com.albuquerque.moviecatalog.app.viewmodel.MoviesViewModel
 import com.facebook.stetho.Stetho
@@ -52,7 +49,8 @@ class MovieCatalogApplication: Application() {
 
             val repositoryModule = module {
                 factory<IRemoteRepository> { RemoteRepository() }
-                factory<IRepository> { Repository(remote = get()) }
+                factory<ILocalRepository> { LocalRepository(movieDao = get()) }
+                factory<IRepository> { Repository(remote = get(), local = get()) }
             }
 
             val useCaseModule = module {

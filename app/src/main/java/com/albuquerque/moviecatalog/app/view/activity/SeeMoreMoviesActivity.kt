@@ -1,18 +1,17 @@
 package com.albuquerque.moviecatalog.app.view.activity
 
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
 import com.albuquerque.moviecatalog.R
 import com.albuquerque.moviecatalog.app.adapter.MoviesAdapter
 import com.albuquerque.moviecatalog.app.utils.TypeMovies
 import com.albuquerque.moviecatalog.app.viewmodel.MoviesPaginationViewModel
+import com.albuquerque.moviecatalog.core.view.activity.BaseActivity
 import kotlinx.android.synthetic.main.activity_see_more_movies.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SeeMoreMoviesActivity : AppCompatActivity() {
+class SeeMoreMoviesActivity : BaseActivity() {
 
     companion object { const val TYPE_MOVIE = "TYPE_MOVIE" }
 
@@ -29,18 +28,6 @@ class SeeMoreMoviesActivity : AppCompatActivity() {
         setupView()
         subscribeUI()
 
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
-
-            android.R.id.home -> {
-                onBackPressed()
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 
     override fun onResume() {
