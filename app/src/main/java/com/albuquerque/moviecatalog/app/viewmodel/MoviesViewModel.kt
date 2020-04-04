@@ -57,7 +57,6 @@ class MoviesViewModel(
             onError.value = error.message
         }.launchIn(viewModelScope)
 
-
     }
 
     private fun updateLoadingStatus(requests: Int) {

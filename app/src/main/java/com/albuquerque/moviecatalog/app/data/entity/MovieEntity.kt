@@ -11,5 +11,6 @@ class MovieEntity(
         @ColumnInfo(name = "title") val title: String,
         @ColumnInfo(name = "overview") val overview: String,
         @ColumnInfo(name = "releaseDate") val releaseDate: String,
+        @ColumnInfo(name = "poster") val poster: String,
         @ColumnInfo(name = "category") val category: String
 )

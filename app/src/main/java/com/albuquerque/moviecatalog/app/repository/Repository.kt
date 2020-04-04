@@ -27,7 +27,7 @@ class Repository(
         return when(val result = remote.getMoviesPaginatedByCategory(paginationController, page, typeMovies)) {
 
             is Result.Success -> {
-                val moviesEntity = result.data.map { it.toEntity(POPULAR) }
+                val moviesEntity = result.data.map { it.toEntity(typeMovies) }
                 local.saveAll(moviesEntity)
                 Result.Success(moviesEntity)
             }

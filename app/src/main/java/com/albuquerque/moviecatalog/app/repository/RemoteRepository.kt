@@ -24,7 +24,7 @@ class RemoteRepository: Remote(), IRemoteRepository {
 
     override suspend fun getMoviesPaginatedByCategory(paginationController: Pagination, page: Int, typeMovies: TypeMovies): Result<List<Movie>> {
 
-        var result = when(typeMovies) {
+        val result = when(typeMovies) {
             TypeMovies.POPULAR -> runRequest(API.fetchPopular(page))
             TypeMovies.NOW_PLAYING -> runRequest(API.fetchNowPlaying(page))
             TypeMovies.TOP_RATED -> runRequest(API.fetchTopRated(page))
@@ -32,7 +32,7 @@ class RemoteRepository: Remote(), IRemoteRepository {
         }
 
         return if(result is Result.Success) {
-            paginationController?.updatePages(page, result.data.totalPages)
+            paginationController.updatePages(page, result.data.totalPages)
             Result.Success(result.data.results.filter { !it.adult })
         } else {
             Result.Error((result as Result.Error).error)

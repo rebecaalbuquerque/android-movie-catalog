@@ -60,7 +60,8 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/headerUpcoming" />
+                app:layout_constraintTop_toBottomOf="@id/headerUpcoming"
+                tools:listitem="@layout/item_movie"/>
 
             <TextView
                 android:id="@+id/headerPopular"
@@ -96,7 +97,8 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/headerPopular" />
+                app:layout_constraintTop_toBottomOf="@id/headerPopular"
+                tools:listitem="@layout/item_movie"/>
 
             <TextView
                 android:id="@+id/headerTopRated"
@@ -132,7 +134,8 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/headerTopRated" />
+                app:layout_constraintTop_toBottomOf="@id/headerTopRated"
+                tools:listitem="@layout/item_movie"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -31,7 +31,7 @@ class GetMoviesPaginatedUseCase(
         }
 
         if(result is Result.Success) {
-            Result.Success(result.data.map { it.toUI() })
+            Result.Success(result.data.filter { it.category == typeMovies.value }.map { it.toUI() })
         } else {
             throw (result as Result.Error).error
         }

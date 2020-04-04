@@ -12,6 +12,7 @@ fun Movie.toEntity(category: TypeMovies): MovieEntity {
             this.title,
             this.overview,
             this.releaseDate,
+            this.poster,
             category.value
     )
 }
@@ -22,16 +23,7 @@ fun MovieEntity.toUI(): MovieUI {
             this.title,
             this.overview,
             this.releaseDate,
-            ""
-    )
-}
-
-fun Movie.toUI(): MovieUI {
-    return MovieUI(
-            this.id,
-            this.title,
-            this.overview,
-            this.releaseDate,
-            this.poster
+            this.poster,
+            this.category
     )
 }
