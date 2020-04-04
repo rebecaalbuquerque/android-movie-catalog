@@ -1,6 +1,7 @@
 package com.albuquerque.moviecatalog.app.usecase
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.albuquerque.moviecatalog.app.data.entity.MovieEntity
 import com.albuquerque.moviecatalog.app.data.toUI
 import com.albuquerque.moviecatalog.app.data.ui.MovieUI
@@ -13,18 +14,20 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.coroutineContext
 
-class GetPopularUseCase(
+class GetMoviesPaginatedUseCase(
         private val repository: IRepository
 ) {
 
-    suspend fun invoke(page: Int, paginationController: Pagination? = null): Flow<LiveData<List<MovieEntity>>> = flow {
+    fun invoke(page: Int, typeMovies: TypeMovies, paginationController: Pagination): Flow<LiveData<List<MovieUI>>> = flow {
 
         emit(
-                repository.getMoviesFromDB(TypeMovies.POPULAR.value)
+                repository.getMoviesByCategoryFromDB(typeMovies.value).map { list ->
+                    list.map { it.toUI() }
+                }
         )
 
         val result = withContext(coroutineContext) {
-            repository.getPopular(paginationController, page)
+            repository.getMoviesPaginatedByCategory(paginationController, page, typeMovies)
         }
 
         if(result is Result.Success) {

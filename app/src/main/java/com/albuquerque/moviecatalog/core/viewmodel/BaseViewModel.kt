@@ -2,7 +2,6 @@ package com.albuquerque.moviecatalog.core.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import java.lang.Exception
 
 abstract class BaseViewModel: ViewModel() {
 

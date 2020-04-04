@@ -1,27 +1,27 @@
 package com.albuquerque.moviecatalog.app.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.albuquerque.moviecatalog.app.data.ui.MovieUI
-import com.albuquerque.moviecatalog.app.usecase.GetUpcomingUseCase
-import com.albuquerque.moviecatalog.app.usecase.GetNowPlayingUseCase
-import com.albuquerque.moviecatalog.app.usecase.GetPopularUseCase
-import com.albuquerque.moviecatalog.app.usecase.GetTopRatedUseCase
+import com.albuquerque.moviecatalog.app.usecase.GetMoviesPaginatedUseCase
+import com.albuquerque.moviecatalog.app.utils.TypeMovies
+import com.albuquerque.moviecatalog.core.mediator.SingleMediatorLiveData
+import com.albuquerque.moviecatalog.core.remote.Pagination
 import com.albuquerque.moviecatalog.core.remote.Remote.Companion.FIRST_PAGE_PAGINATION
 import com.albuquerque.moviecatalog.core.viewmodel.BaseViewModel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class MoviesViewModel(
-        val getPopularUseCase: GetPopularUseCase,
-        val getNowPlayingUseCase: GetNowPlayingUseCase,
-        val getTopRatedUseCase: GetTopRatedUseCase,
-        val getUpcomingUseCase: GetUpcomingUseCase
+        val getMoviesPaginatedUseCase: GetMoviesPaginatedUseCase
 ): BaseViewModel() {
 
-    val popular: MutableLiveData<List<MovieUI>> = MutableLiveData()
-    val nowPlaying: MutableLiveData<List<MovieUI>> = MutableLiveData()
-    val topRated: MutableLiveData<List<MovieUI>> = MutableLiveData()
-    val upcoming: MutableLiveData<List<MovieUI>> = MutableLiveData()
+    private val pagination = Pagination(0, FIRST_PAGE_PAGINATION)
+
+    val popular: SingleMediatorLiveData<List<MovieUI>> = SingleMediatorLiveData()
+    val nowPlaying: SingleMediatorLiveData<List<MovieUI>> = SingleMediatorLiveData()
+    val topRated: SingleMediatorLiveData<List<MovieUI>> = SingleMediatorLiveData()
+    val upcoming: SingleMediatorLiveData<List<MovieUI>> = SingleMediatorLiveData()
 
     private var requests: Int = 0
 
@@ -33,25 +33,30 @@ class MoviesViewModel(
     private fun getMovies() {
         onLoading.value = true
 
-        viewModelScope.launch {
+        getMoviesPaginatedUseCase.invoke(FIRST_PAGE_PAGINATION, TypeMovies.POPULAR, pagination).onEach {
+            popular.emit(it)
+        }.catch { error ->
+            onError.value = error.message
+        }.launchIn(viewModelScope)
 
-            try {
-                popular.postValue(getPopularUseCase.invoke(FIRST_PAGE_PAGINATION))
-            } catch (e: Exception) { handlerError(e) }
+        getMoviesPaginatedUseCase.invoke(FIRST_PAGE_PAGINATION, TypeMovies.NOW_PLAYING, pagination).onEach {
+            nowPlaying.emit(it)
+        }.catch { error ->
+            onError.value = error.message
+        }.launchIn(viewModelScope)
 
-            try {
-                nowPlaying.postValue(getNowPlayingUseCase.invoke(FIRST_PAGE_PAGINATION))
-            } catch (e: Exception){ handlerError(e) }
+        getMoviesPaginatedUseCase.invoke(FIRST_PAGE_PAGINATION, TypeMovies.TOP_RATED, pagination).onEach {
+            topRated.emit(it)
+        }.catch { error ->
+            onError.value = error.message
+        }.launchIn(viewModelScope)
 
-            try {
-                topRated.postValue(getTopRatedUseCase.invoke(FIRST_PAGE_PAGINATION))
-            } catch (e: Exception){ handlerError(e) }
+        getMoviesPaginatedUseCase.invoke(FIRST_PAGE_PAGINATION, TypeMovies.UPCOMING, pagination).onEach {
+            upcoming.emit(it)
+        }.catch { error ->
+            onError.value = error.message
+        }.launchIn(viewModelScope)
 
-            try {
-                upcoming.postValue(getUpcomingUseCase.invoke(FIRST_PAGE_PAGINATION))
-            } catch (e: Exception){ handlerError(e) }
-
-        }
 
     }
 

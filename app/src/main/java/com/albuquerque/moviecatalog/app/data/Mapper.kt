@@ -17,7 +17,13 @@ fun Movie.toEntity(category: TypeMovies): MovieEntity {
 }
 
 fun MovieEntity.toUI(): MovieUI {
-    return null!!
+    return MovieUI(
+            this.id,
+            this.title,
+            this.overview,
+            this.releaseDate,
+            ""
+    )
 }
 
 fun Movie.toUI(): MovieUI {

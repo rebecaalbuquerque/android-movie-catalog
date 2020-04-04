@@ -3,10 +3,8 @@ package com.albuquerque.moviecatalog.core.application
 import android.app.Application
 import com.albuquerque.moviecatalog.app.data.AppDatabase
 import com.albuquerque.moviecatalog.app.repository.*
-import com.albuquerque.moviecatalog.app.usecase.GetNowPlayingUseCase
-import com.albuquerque.moviecatalog.app.usecase.GetPopularUseCase
-import com.albuquerque.moviecatalog.app.usecase.GetTopRatedUseCase
-import com.albuquerque.moviecatalog.app.usecase.GetUpcomingUseCase
+import com.albuquerque.moviecatalog.app.usecase.GetMoviesPaginatedUseCase
+import com.albuquerque.moviecatalog.app.usecase.GetMoviesUseCase
 import com.albuquerque.moviecatalog.app.viewmodel.MoviesPaginationViewModel
 import com.albuquerque.moviecatalog.app.viewmodel.MoviesViewModel
 import com.facebook.stetho.Stetho
@@ -43,8 +41,8 @@ class MovieCatalogApplication: Application() {
             androidContext(this@MovieCatalogApplication)
 
             val databaseModule = module {
-                single { AppDatabase.getInstance(get())
-                single { get<AppDatabase>().movieDAO }}
+                single { AppDatabase.getInstance(get()) }
+                single { get<AppDatabase>().movieDAO }
             }
 
             val repositoryModule = module {
@@ -54,26 +52,13 @@ class MovieCatalogApplication: Application() {
             }
 
             val useCaseModule = module {
-                factory { GetPopularUseCase(repository = get()) }
-                factory { GetNowPlayingUseCase(repository = get()) }
-                factory { GetTopRatedUseCase(repository = get()) }
-                factory { GetUpcomingUseCase(repository = get()) }
+                factory { GetMoviesPaginatedUseCase(repository = get()) }
+                factory { GetMoviesUseCase(repository = get()) }
             }
 
             val viewModelModule = module {
-                viewModel { MoviesViewModel(
-                        getPopularUseCase = get(),
-                        getNowPlayingUseCase = get(),
-                        getTopRatedUseCase = get(),
-                        getUpcomingUseCase = get()
-                ) }
-
-                viewModel { MoviesPaginationViewModel(
-                        getPopularUseCase = get(),
-                        getNowPlayingUseCase = get(),
-                        getTopRatedUseCase = get(),
-                        getUpcomingUseCase = get()
-                ) }
+                viewModel { MoviesViewModel(getMoviesPaginatedUseCase = get()) }
+                viewModel { MoviesPaginationViewModel(getMoviesPaginatedUseCase = get()) }
             }
 
             modules(listOf(databaseModule, repositoryModule, useCaseModule, viewModelModule))
