@@ -1,7 +1,9 @@
 package com.albuquerque.moviecatalog.app.repository
 
 import androidx.lifecycle.LiveData
+import com.albuquerque.moviecatalog.app.data.dto.Cast
 import com.albuquerque.moviecatalog.app.data.dto.Movie
+import com.albuquerque.moviecatalog.app.data.entity.CastEntity
 import com.albuquerque.moviecatalog.app.data.entity.MovieEntity
 import com.albuquerque.moviecatalog.app.utils.TypeMovies
 import com.albuquerque.moviecatalog.core.remote.Pagination
@@ -14,5 +16,7 @@ interface IRepository {
     fun getMoviesByCategoryFromDB(category: String): LiveData<List<MovieEntity>>
 
     suspend fun getMoviesPaginatedByCategory(paginationController: Pagination, page: Int, typeMovies: TypeMovies): Result<List<MovieEntity>>
+
+    suspend fun getCastFromMovie(movieId: Int): Result<List<CastEntity>>
 
 }

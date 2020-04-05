@@ -1,7 +1,7 @@
 package com.albuquerque.moviecatalog.app.repository
 
+import com.albuquerque.moviecatalog.app.data.dto.Cast
 import com.albuquerque.moviecatalog.app.data.dto.Movie
-import com.albuquerque.moviecatalog.app.data.dto.Movies
 import com.albuquerque.moviecatalog.app.remote.MoviesAPI
 import com.albuquerque.moviecatalog.app.utils.TypeMovies
 import com.albuquerque.moviecatalog.core.remote.Pagination
@@ -38,5 +38,15 @@ class RemoteRepository: Remote(), IRemoteRepository {
             Result.Error((result as Result.Error).error)
         }
 
+    }
+
+    override suspend fun getCastFromMovie(movieId: Int): Result<List<Cast>> {
+        val result = runRequest(API.fetchCastAndCrew(movieId))
+
+        return if(result is Result.Success) {
+            Result.Success(result.data.cast)
+        } else {
+            Result.Error((result as Result.Error).error)
+        }
     }
 }

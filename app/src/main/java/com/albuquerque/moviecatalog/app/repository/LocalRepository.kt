@@ -8,7 +8,7 @@ class LocalRepository(
         private val movieDao: MovieDao
 ): ILocalRepository {
 
-    override suspend fun saveAll(data: List<MovieEntity>) {
+    override suspend fun saveMovies(data: List<MovieEntity>) {
         movieDao.insertAll(data)
     }
 

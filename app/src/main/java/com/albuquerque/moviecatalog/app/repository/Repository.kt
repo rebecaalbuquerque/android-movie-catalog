@@ -2,10 +2,10 @@ package com.albuquerque.moviecatalog.app.repository
 
 import androidx.lifecycle.LiveData
 import com.albuquerque.moviecatalog.app.data.dto.Movie
+import com.albuquerque.moviecatalog.app.data.entity.CastEntity
 import com.albuquerque.moviecatalog.app.data.entity.MovieEntity
 import com.albuquerque.moviecatalog.app.data.toEntity
 import com.albuquerque.moviecatalog.app.utils.TypeMovies
-import com.albuquerque.moviecatalog.app.utils.TypeMovies.*
 import com.albuquerque.moviecatalog.core.remote.Pagination
 import com.albuquerque.moviecatalog.core.remote.Result
 
@@ -28,7 +28,7 @@ class Repository(
 
             is Result.Success -> {
                 val moviesEntity = result.data.map { it.toEntity(typeMovies) }
-                local.saveAll(moviesEntity)
+                local.saveMovies(moviesEntity)
                 Result.Success(moviesEntity)
             }
 
@@ -40,4 +40,18 @@ class Repository(
 
     override fun getMoviesByCategoryFromDB(category: String): LiveData<List<MovieEntity>> = local.getMoviesByCategory(category)
 
+    override suspend fun getCastFromMovie(movieId: Int): Result<List<CastEntity>> {
+        return when(val result = remote.getCastFromMovie(movieId)) {
+
+            is Result.Success -> {
+                val moviesEntity = result.data.map { it.toEntity() }
+                //local.saveAll(moviesEntity)
+                Result.Success(moviesEntity)
+            }
+
+            is Result.Error -> {
+                Result.Error(result.error)
+            }
+        }
+    }
 }
