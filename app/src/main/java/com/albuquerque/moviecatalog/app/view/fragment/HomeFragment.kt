@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import com.albuquerque.moviecatalog.R
 import com.albuquerque.moviecatalog.app.adapter.MoviesAdapter
 import com.albuquerque.moviecatalog.app.utils.TypeMovies
@@ -32,9 +33,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupView() {
-        /*button.setOnClickListener {
+        headerUpcoming.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_movieDetailFragment)
-        }*/
+        }
 
         seeMoreUpcoming.setOnClickListener {
             startActivity(Intent(context, SeeMoreMoviesActivity::class.java).apply { putExtra(TYPE_MOVIE, TypeMovies.UPCOMING.value) })
@@ -55,7 +56,7 @@ class HomeFragment : Fragment() {
         with(moviesViewModel) {
 
             nowPlaying.observe(viewLifecycleOwner) { list ->
-                activity?.let { slider.setup(list.map { it.poster }) }
+                activity?.let { slider.setup(list.map { it.poster }.take(5)) }
             }
 
             upcoming.observe(viewLifecycleOwner) { list ->
