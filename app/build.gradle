@@ -11,17 +11,52 @@ android {
 
     compileSdkVersion rootProject.compile_sdk_version
 
+    def versionMajor = 0
+    def versionMinor = 0
+    def versionPatch = 1
+
+    def versionNumber = 1
+
     defaultConfig {
         applicationId "com.albuquerque.moviecatalog"
         minSdkVersion rootProject.min_sdk_version
         targetSdkVersion rootProject.target_sdk_version
-        versionCode rootProject.app_version_code
-        versionName rootProject.app_version_name
+        versionCode versionNumber
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    bundle {
+        density {
+            // Different APKs are generated for devices with different screen densities; true by default.
+            enableSplit true
+        }
+        abi {
+            // Different APKs are generated for devices with different CPU architectures; true by default.
+            enableSplit true
+        }
+        language {
+            // This is disabled so that the App Bundle does NOT split the APK for each language. same APK for all languages.
+            enableSplit false
+        }
+    }
+
     buildTypes {
+
+        debug {
+            debuggable true
+            applicationIdSuffix ".debug"
+            resValue "string", "app_name", "MovieCatalog Debug"
+        }
+
+        alpha {
+            debuggable true
+            applicationIdSuffix ".alpha"
+            resValue "string", "app_name", "MovieCatalog Alpha"
+        }
+
         release {
+            debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
