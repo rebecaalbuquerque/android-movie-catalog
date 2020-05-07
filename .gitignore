@@ -52,8 +52,8 @@ captures/
 
 # Keystore files
 # Uncomment the following lines if you do not want to check your keystore files in.
-#*.jks
-#*.keystore
+*.jks
+*.keystore
 
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
@@ -85,3 +85,6 @@ lint/tmp/
 # lint/reports/
 
 app/src/main/java/com/albuquerque/moviecatalog/Credentials.kt
+
+app/alpha
+app/debug

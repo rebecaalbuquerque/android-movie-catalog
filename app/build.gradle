@@ -26,6 +26,27 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        config {
+            keyAlias "moviecatalog_key"
+            keyPassword "u86txAvyUJfFpKNu"
+            storeFile file("../moviecatalog_keystore.jks")
+            storePassword "jTjvDXF85LgT3gXX"
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            def prename = outputFile.name.substring(0, outputFile.name.length() - 4)
+
+            if (outputFile != null && outputFile.name.endsWith('.apk') && !outputFile.name.endsWith('debug.apk')) {
+                def date = new Date().format('yyyyMMddHHmmss')
+                outputFileName = "moviecatalog-${prename}-${versionMajor}.${versionMinor}.${versionPatch}-${versionNumber}-${date}.apk"
+            }
+        }
+    }
+
     bundle {
         density {
             // Different APKs are generated for devices with different screen densities; true by default.
@@ -46,18 +67,21 @@ android {
         debug {
             debuggable true
             applicationIdSuffix ".debug"
+            signingConfig signingConfigs.config
             resValue "string", "app_name", "MovieCatalog Debug"
         }
 
         alpha {
             debuggable true
             applicationIdSuffix ".alpha"
+            signingConfig signingConfigs.config
             resValue "string", "app_name", "MovieCatalog Alpha"
         }
 
         release {
             debuggable false
             minifyEnabled false
+            signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
