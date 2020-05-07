@@ -10,6 +10,8 @@ apply plugin: 'com.google.firebase.crashlytics'
 
 apply plugin: 'com.google.firebase.firebase-perf'
 
+apply plugin: 'com.google.firebase.appdistribution'
+
 android {
     buildToolsVersion "29.0.3"
 
@@ -38,6 +40,8 @@ android {
             storePassword "jTjvDXF85LgT3gXX"
         }
     }
+
+    println firebaseAppDistribution
 
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
@@ -76,6 +80,17 @@ android {
         }
 
         alpha {
+            firebaseAppDistribution {
+                //releaseNotes="Here is new app release note"
+                releaseNotesFile= "$projectDir/distribution/alpha/release_note.txt"
+
+                //testers ="tester1@gmail.com,tester2@gmail.com"
+                testersFile= "$projectDir/distribution/alpha/testers.txt"
+
+                //groups ="qa-team, android-testers"
+                groupsFile= "$projectDir/distribution/alpha/firebase_group.txt"
+
+            }
             debuggable true
             applicationIdSuffix ".alpha"
             signingConfig signingConfigs.config
@@ -83,6 +98,16 @@ android {
         }
 
         release {
+            firebaseAppDistribution {
+                //releaseNotes="Here is new app release note"
+                releaseNotesFile= "$projectDir/distribution/release/release_note.txt"
+
+                //testers ="tester1@gmail.com,tester2@gmail.com"
+                testersFile= "$projectDir/distribution/release/testers.txt"
+
+                //groups ="qa-team, android-testers"
+                groupsFile= "$projectDir/distribution/release/firebase_group.txt"
+            }
             debuggable false
             minifyEnabled false
             signingConfig signingConfigs.config
