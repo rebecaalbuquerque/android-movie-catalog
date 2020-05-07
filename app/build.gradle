@@ -6,6 +6,10 @@ apply plugin: "kotlin-android-extensions"
 
 apply plugin: "kotlin-kapt"
 
+apply plugin: 'com.google.firebase.crashlytics'
+
+apply plugin: 'com.google.firebase.firebase-perf'
+
 android {
     buildToolsVersion "29.0.3"
 
@@ -105,6 +109,14 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation 'androidx.legacy:legacy-support-v4:+'
+    
+    implementation 'com.google.firebase:firebase-analytics:17.4.0'
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
+    implementation 'com.google.firebase:firebase-perf:19.0.7'
+
+    apply plugin: 'com.google.gms.google-services'
 }
 
 dependencies(kotlin_dependencies)
@@ -116,19 +128,3 @@ dependencies(rx_dependencies)
 dependencies(debug_dependencies)
 dependencies(utils_dependencies)
 
-dependencies {
-    implementation 'androidx.legacy:legacy-support-v4:+'
-}
-
-dependencies {
-    // Recommended: Add the Firebase SDK for Google Analytics.
-    implementation 'com.google.firebase:firebase-analytics:17.4.0'
-
-    // Add the Firebase Crashlytics SDK.
-    implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
-    implementation 'com.google.firebase:firebase-perf:19.0.7'
-
-    apply plugin: 'com.google.gms.google-services'
-    apply plugin: 'com.google.firebase.crashlytics'
-    apply plugin: 'com.google.firebase.firebase-perf'
-}
