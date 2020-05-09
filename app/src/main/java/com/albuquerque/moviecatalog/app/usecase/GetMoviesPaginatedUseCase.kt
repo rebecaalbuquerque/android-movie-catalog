@@ -30,11 +30,7 @@ class GetMoviesPaginatedUseCase(
             repository.getMoviesPaginatedByCategory(paginationController, page, typeMovies)
         }
 
-        if(result is Result.Success) {
-            Result.Success(result.data.filter { it.category == typeMovies.value }.map { it.toUI() })
-        } else {
-            throw (result as Result.Error).error
-        }
+        if(result is Result.Error) throw result.error
 
     }
 

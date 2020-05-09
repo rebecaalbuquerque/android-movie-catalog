@@ -13,4 +13,8 @@ class MovieEntity(
         @ColumnInfo(name = "releaseDate") val releaseDate: String,
         @ColumnInfo(name = "poster") val poster: String,
         @ColumnInfo(name = "category") val category: String
-)
+) {
+    override fun toString(): String {
+        return "$title"
+    }
+}

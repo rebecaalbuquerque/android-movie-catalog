@@ -147,4 +147,5 @@ dependencies(retrofit_dependencies)
 dependencies(rx_dependencies)
 dependencies(debug_dependencies)
 dependencies(utils_dependencies)
+dependencies(firebase_dependencies)
 

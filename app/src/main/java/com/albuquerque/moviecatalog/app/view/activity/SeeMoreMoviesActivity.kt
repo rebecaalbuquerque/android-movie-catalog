@@ -69,7 +69,9 @@ class SeeMoreMoviesActivity : BaseActivity() {
         with(moviesViewModel) {
 
             movies.observe(this@SeeMoreMoviesActivity) { list ->
-                list?.let { moviesAdapter.refresh(it) }
+                list?.let {
+                    moviesAdapter.refresh(it)
+                }
             }
 
         }
