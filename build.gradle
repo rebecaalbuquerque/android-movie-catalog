@@ -138,6 +138,12 @@ buildscript {
 
         }
 
+        firebase_dependencies = {
+            implementation 'com.google.firebase:firebase-analytics:17.4.0'
+            implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
+            implementation 'com.google.firebase:firebase-perf:19.0.7'
+        }
+
     }
 
     repositories {

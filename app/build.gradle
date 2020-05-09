@@ -41,8 +41,6 @@ android {
         }
     }
 
-    println firebaseAppDistribution
-
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
             def outputFile = output.outputFile
@@ -82,7 +80,7 @@ android {
         alpha {
             firebaseAppDistribution {
                 //releaseNotes="Here is new app release note"
-                releaseNotesFile= "$projectDir/distribution/alpha/release_note.txt"
+                releaseNotes= "release note"
 
                 //testers ="tester1@gmail.com,tester2@gmail.com"
                 testersFile= "$projectDir/distribution/alpha/testers.txt"
@@ -100,7 +98,7 @@ android {
         release {
             firebaseAppDistribution {
                 //releaseNotes="Here is new app release note"
-                releaseNotesFile= "$projectDir/distribution/release/release_note.txt"
+                releaseNotes= "release note"
 
                 //testers ="tester1@gmail.com,tester2@gmail.com"
                 testersFile= "$projectDir/distribution/release/testers.txt"
@@ -137,10 +135,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation 'androidx.legacy:legacy-support-v4:+'
-
-    implementation 'com.google.firebase:firebase-analytics:17.4.0'
-    implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
-    implementation 'com.google.firebase:firebase-perf:19.0.7'
 
     apply plugin: 'com.google.gms.google-services'
 }
