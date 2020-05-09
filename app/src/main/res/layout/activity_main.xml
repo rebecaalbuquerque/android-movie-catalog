@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".app.view.activity.MainActivity">
 
-    <com.google.android.material.circularreveal.CircularRevealFrameLayout
+    <FrameLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
@@ -22,7 +22,7 @@
             app:defaultNavHost="true"
             app:navGraph="@navigation/bottom_nav_graph" />
 
-    </com.google.android.material.circularreveal.CircularRevealFrameLayout>
+    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

@@ -10,6 +10,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.albuquerque.moviecatalog.R
 import com.albuquerque.moviecatalog.app.adapter.MoviesAdapter
+import com.albuquerque.moviecatalog.app.utils.ImageSliderUtils
 import com.albuquerque.moviecatalog.app.utils.TypeMovies
 import com.albuquerque.moviecatalog.app.view.activity.SeeMoreMoviesActivity
 import com.albuquerque.moviecatalog.app.view.activity.SeeMoreMoviesActivity.Companion.TYPE_MOVIE
@@ -56,7 +57,7 @@ class HomeFragment : Fragment() {
         with(moviesViewModel) {
 
             nowPlaying.observe(viewLifecycleOwner) { list ->
-                activity?.let { slider.setup(list.map { it.poster }.take(5)) }
+                ImageSliderUtils(pager, recyclerViewDots, list.map { it.poster }.take(5)).setupViewPager()
             }
 
             upcoming.observe(viewLifecycleOwner) { list ->
