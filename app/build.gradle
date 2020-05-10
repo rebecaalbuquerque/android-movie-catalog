@@ -81,7 +81,7 @@ android {
 
             firebaseAppDistribution {
                 //releaseNotes="Here is new app release note"
-                releaseNotes= "Correção na paginação da listagem de filmes"
+                releaseNotes= "Correção na paginação da listagem de filmes e adicionando logo"
 
                 //testers ="tester1@gmail.com,tester2@gmail.com"
                 testersFile= "$projectDir/distribution/alpha/testers.txt"

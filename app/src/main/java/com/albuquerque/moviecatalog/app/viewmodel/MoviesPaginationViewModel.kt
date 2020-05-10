@@ -16,15 +16,15 @@ class MoviesPaginationViewModel(
         private val getMoviesPaginatedUseCase: GetMoviesPaginatedUseCase
 ): BaseViewModel() {
 
-    private val pagination = Pagination(0, FIRST_PAGE_PAGINATION)
+    private val pagination = Pagination(FIRST_PAGE_PAGINATION)
 
     val movies: SingleMediatorLiveData<List<MovieUI>> = SingleMediatorLiveData()
 
     fun getMovies(type: TypeMovies) {
 
         getMoviesPaginatedUseCase.invoke(pagination.nextPage, type, pagination).onEach {
-            movies.emit(it)
-
+            if(!pagination.hasLoadLastPage)
+                movies.emit(it)
         }.catch { error ->
             error
         }.launchIn(viewModelScope)

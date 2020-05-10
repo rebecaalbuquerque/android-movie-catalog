@@ -16,7 +16,7 @@ class MoviesViewModel(
         val getMoviesPaginatedUseCase: GetMoviesPaginatedUseCase
 ): BaseViewModel() {
 
-    private val pagination = Pagination(0, FIRST_PAGE_PAGINATION)
+    private val pagination = Pagination(FIRST_PAGE_PAGINATION)
 
     val popular: SingleMediatorLiveData<List<MovieUI>> = SingleMediatorLiveData()
     val nowPlaying: SingleMediatorLiveData<List<MovieUI>> = SingleMediatorLiveData()

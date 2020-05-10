@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
@@ -34,6 +36,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupView() {
+        //setupLoadingView()
+
         headerUpcoming.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_movieDetailFragment)
         }
@@ -82,6 +86,19 @@ class HomeFragment : Fragment() {
 
         }
 
+    }
+
+    private fun setupLoadingView() {
+        val animation = AlphaAnimation(1.0f, 0.6f).apply {
+            this.duration = 900
+            this.startOffset = 20
+            this.repeatMode = Animation.REVERSE
+            this.repeatCount = Animation.INFINITE
+        }
+
+        listOf(loadingSlider, loadingCategory, loadingSeeMore, layout1, layout2, layout3, layout4).forEach {
+            it.startAnimation(animation)
+        }
     }
 
 }

@@ -6,6 +6,140 @@
     android:layout_height="match_parent"
     tools:context=".app.view.fragment.HomeFragment">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutLoading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <View
+            android:id="@+id/loadingSlider"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#cdcdcd"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintDimensionRatio="h,4:5"/>
+
+        <View
+            android:id="@+id/loadingCategory"
+            android:layout_width="150dp"
+            android:layout_height="24dp"
+            android:background="#cdcdcd"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loadingSlider" />
+
+        <View
+            android:id="@+id/loadingSeeMore"
+            android:layout_width="60dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="16dp"
+            android:background="#cdcdcd"
+            app:layout_constraintBottom_toBottomOf="@+id/loadingCategory"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/loadingCategory" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/loadingCategory">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@color/colorAccentSecondary">
+
+                <View
+                    android:id="@+id/poster1"
+                    android:layout_width="0dp"
+                    android:layout_height="160dp"
+                    android:background="#cdcdcd"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintDimensionRatio="27:40"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@color/colorAccentSecondary">
+
+                <View
+                    android:id="@+id/poster2"
+                    android:layout_width="0dp"
+                    android:layout_height="160dp"
+                    android:background="#cdcdcd"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintDimensionRatio="27:40"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@color/colorAccentSecondary">
+
+                <View
+                    android:id="@+id/poster3"
+                    android:layout_width="0dp"
+                    android:layout_height="160dp"
+                    android:background="#cdcdcd"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintDimensionRatio="27:40"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@color/colorAccentSecondary">
+
+                <View
+                    android:id="@+id/poster4"
+                    android:layout_width="0dp"
+                    android:layout_height="160dp"
+                    android:background="#cdcdcd"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintDimensionRatio="27:40"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
