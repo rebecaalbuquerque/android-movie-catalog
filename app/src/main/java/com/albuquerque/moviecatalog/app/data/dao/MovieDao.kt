@@ -1,22 +1,47 @@
 package com.albuquerque.moviecatalog.app.data.dao
 
 import androidx.lifecycle.LiveData
-import com.albuquerque.moviecatalog.app.data.entity.MovieEntity
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.Transaction
+import com.albuquerque.moviecatalog.app.data.entity.MovieEntity
+import com.albuquerque.moviecatalog.app.data.entity.isEqual
+import com.albuquerque.moviecatalog.app.utils.TypeMovies
 
 @Dao
-abstract class MovieDao: BaseDao<MovieEntity> {
+interface MovieDao: BaseDao<MovieEntity> {
 
     @Query("select * from movieentity")
-    abstract fun getAll(): LiveData<List<MovieEntity>>
+    fun getAll(): List<MovieEntity>
 
-    @Query("select * from movieentity where category = :value")
-    abstract fun getAllByCategory(value: String): LiveData<List<MovieEntity>>
+    @Query("select * from movieentity where category = :value order by fetchAt asc")
+    fun getAllByCategory(value: String): LiveData<List<MovieEntity>>
 
     @Query("select * from movieentity where id = 1")
-    abstract fun get(): LiveData<MovieEntity?>
+    fun get(): LiveData<MovieEntity?>
 
     @Query("delete from movieentity")
-    abstract fun dropTable()
+    fun dropTable()
+
+    @Transaction
+    suspend fun insertAllIfNecesseray(list: List<MovieEntity>, typeMovies: TypeMovies) {
+        val db = getAll().filter { it.category == typeMovies.value }
+        val moviesToSaveOrUpdate = mutableListOf<MovieEntity>()
+
+        list.forEach {  movieAPI ->
+            val movieDB = db.firstOrNull { it.id == movieAPI.id }
+
+            movieDB?.let {
+                if(!it.isEqual(movieAPI))
+                    moviesToSaveOrUpdate.add(movieAPI)
+            } ?: kotlin.run {
+                moviesToSaveOrUpdate.add(movieAPI)
+            }
+
+        }
+
+        insertAll(moviesToSaveOrUpdate)
+
+    }
+
 }

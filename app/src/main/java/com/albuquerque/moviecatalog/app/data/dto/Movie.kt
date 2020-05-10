@@ -2,6 +2,7 @@ package com.albuquerque.moviecatalog.app.data.dto
 
 import com.albuquerque.moviecatalog.app.remote.Config
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 data class Movie(
         val id: Int,
@@ -23,4 +24,6 @@ data class Movie(
 ) {
     val poster: String
         get() = Config.BASE_IMAGE_URL.plus(posterPath)
+
+    var fetchAt: Date = Calendar.getInstance().time
 }
