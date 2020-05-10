@@ -7,6 +7,7 @@ import com.albuquerque.moviecatalog.app.utils.TypeMovies
 import com.albuquerque.moviecatalog.core.remote.Pagination
 import com.albuquerque.moviecatalog.core.remote.Remote
 import com.albuquerque.moviecatalog.core.remote.Result
+import java.util.*
 
 class RemoteRepository: Remote(), IRemoteRepository {
 
@@ -33,6 +34,9 @@ class RemoteRepository: Remote(), IRemoteRepository {
 
         return if(result is Result.Success) {
             paginationController.updatePages(page, result.data.totalPages)
+            result.data.results.forEach {
+                it.fetchAt = Calendar.getInstance().time
+            }
             Result.Success(result.data.results.filter { !it.adult })
         } else {
             Result.Error((result as Result.Error).error)

@@ -4,15 +4,18 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.albuquerque.moviecatalog.app.data.dao.MovieDao
 import com.albuquerque.moviecatalog.app.data.entity.MovieEntity
+import com.albuquerque.moviecatalog.core.converter.DateConverter
 
 @Database(
         version = 1,
         exportSchema = false,
         entities = [MovieEntity::class]
 )
+@TypeConverters(DateConverter::class)
 abstract class AppDatabase: RoomDatabase() {
 
     companion object {
