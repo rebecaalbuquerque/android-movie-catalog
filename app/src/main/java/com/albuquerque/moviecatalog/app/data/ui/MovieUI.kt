@@ -1,5 +1,7 @@
 package com.albuquerque.moviecatalog.app.data.ui
 
+import java.io.Serializable
+
 data class MovieUI(
         val id: Int,
         val title: String,
@@ -7,4 +9,4 @@ data class MovieUI(
         val releaseDate: String,
         val poster: String,
         val category: String
-)
+): Serializable

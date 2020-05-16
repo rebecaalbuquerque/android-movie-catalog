@@ -12,13 +12,16 @@ import com.albuquerque.moviecatalog.databinding.ItemMovieBindingImpl
 class MoviesAdapter(): BaseAdapter<MovieUI, MovieViewHolder>() {
 
     private var isGrid: Boolean = false
+    private lateinit var onItemClicked: (movie: MovieUI) -> Unit
 
-    constructor(list: List<MovieUI>, isGrid: Boolean = false) : this() {
+    constructor(list: List<MovieUI>, onItemClicked: (movie: MovieUI) -> Unit, isGrid: Boolean = false) : this() {
         this.isGrid = isGrid
+        this.onItemClicked = onItemClicked
         refresh(list)
     }
 
-    constructor(isGrid: Boolean = false) : this() {
+    constructor(isGrid: Boolean = false, onItemClicked: (movie: MovieUI) -> Unit) : this() {
+        this.onItemClicked = onItemClicked
         this.isGrid = isGrid
     }
 
@@ -27,7 +30,12 @@ class MoviesAdapter(): BaseAdapter<MovieUI, MovieViewHolder>() {
             LayoutInflater.from(parent.context).inflate(R.layout.item_movie_grid, parent, false)
         else
             LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
+
         return MovieViewHolder(ItemMovieBindingImpl(null, view) as ItemMovieBinding)
+    }
+
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+        holder.bind(getItemAt(position), onItemClicked)
     }
 
 }
