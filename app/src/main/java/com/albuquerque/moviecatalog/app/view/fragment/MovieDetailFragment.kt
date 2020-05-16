@@ -1,6 +1,5 @@
 package com.albuquerque.moviecatalog.app.view.fragment
 
-import android.animation.ValueAnimator
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.albuquerque.moviecatalog.R
 import com.albuquerque.moviecatalog.app.view.activity.MainActivity
@@ -18,6 +16,10 @@ import kotlinx.android.synthetic.main.fragment_movie_detail.*
 
 
 class MovieDetailFragment : Fragment() {
+
+    companion object {
+        const val MOVIE = "MOVIE"
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_movie_detail, container, false)

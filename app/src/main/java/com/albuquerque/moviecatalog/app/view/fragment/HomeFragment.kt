@@ -7,15 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.albuquerque.moviecatalog.R
 import com.albuquerque.moviecatalog.app.adapter.MoviesAdapter
+import com.albuquerque.moviecatalog.app.data.ui.MovieUI
 import com.albuquerque.moviecatalog.app.utils.ImageSliderUtils
 import com.albuquerque.moviecatalog.app.utils.TypeMovies
 import com.albuquerque.moviecatalog.app.view.activity.SeeMoreMoviesActivity
 import com.albuquerque.moviecatalog.app.view.activity.SeeMoreMoviesActivity.Companion.TYPE_MOVIE
+import com.albuquerque.moviecatalog.app.view.fragment.MovieDetailFragment.Companion.MOVIE
 import com.albuquerque.moviecatalog.app.viewmodel.MoviesViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -65,15 +68,15 @@ class HomeFragment : Fragment() {
             }
 
             upcoming.observe(viewLifecycleOwner) { list ->
-                list?.let { rvUpcoming.adapter = MoviesAdapter(it) }
+                list?.let { rvUpcoming.adapter = setupAdapter(it) }
             }
 
             popular.observe(viewLifecycleOwner){ list ->
-                list?.let { rvPopular.adapter = MoviesAdapter(it) }
+                list?.let { rvPopular.adapter = setupAdapter(it) }
             }
 
             topRated.observe(viewLifecycleOwner) { list ->
-                list?.let { rvTopRated.adapter = MoviesAdapter(it) }
+                list?.let { rvTopRated.adapter = setupAdapter(it) }
             }
 
             onError.observe(viewLifecycleOwner) {
@@ -86,6 +89,15 @@ class HomeFragment : Fragment() {
 
         }
 
+    }
+
+    private fun setupAdapter(list: List<MovieUI>): MoviesAdapter {
+        return MoviesAdapter(list, {movie ->
+            findNavController().navigate(
+                    R.id.action_homeFragment_to_movieDetailFragment,
+                    bundleOf(MOVIE to movie)
+            )
+        })
     }
 
     private fun setupLoadingView() {

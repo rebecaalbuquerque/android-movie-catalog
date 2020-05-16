@@ -17,7 +17,7 @@ class SeeMoreMoviesActivity : BaseActivity() {
 
     private var typeMovies: TypeMovies? = null
     private val moviesViewModel: MoviesPaginationViewModel by viewModel()
-    private val moviesAdapter = MoviesAdapter(true)
+    private val moviesAdapter = MoviesAdapter(true) {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
