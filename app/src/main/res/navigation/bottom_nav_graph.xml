@@ -10,9 +10,6 @@
         android:name="com.albuquerque.moviecatalog.app.view.fragment.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_homeFragment_to_movieDetailFragment"
-            app:destination="@id/movieDetailFragment" />
     </fragment>
 
     <fragment
@@ -27,10 +24,5 @@
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" />
 
-    <fragment
-        android:id="@+id/movieDetailFragment"
-        android:name="com.albuquerque.moviecatalog.app.view.fragment.MovieDetailFragment"
-        android:label="fragment_movie_detail"
-        tools:layout="@layout/fragment_movie_detail" />
 
 </navigation>

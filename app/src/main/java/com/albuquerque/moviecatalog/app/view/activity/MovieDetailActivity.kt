@@ -1,41 +1,31 @@
-package com.albuquerque.moviecatalog.app.view.fragment
+package com.albuquerque.moviecatalog.app.view.activity
 
 import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import android.widget.Toast
 import com.albuquerque.moviecatalog.R
-import com.albuquerque.moviecatalog.app.view.activity.MainActivity
+import com.albuquerque.moviecatalog.app.data.ui.MovieUI
 import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
-import kotlinx.android.synthetic.main.fragment_movie_detail.*
+import kotlinx.android.synthetic.main.activity_movie_detail.*
 
-
-class MovieDetailFragment : Fragment() {
+class MovieDetailActivity : AppCompatActivity() {
 
     companion object {
         const val MOVIE = "MOVIE"
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_movie_detail, container, false)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_movie_detail)
 
-        (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
+        this.setSupportActionBar(toolbar)
 
-    }
+        val movie = intent?.getSerializableExtra(MOVIE) as MovieUI
+        Toast.makeText(this, movie.title, Toast.LENGTH_LONG).show()
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        appBar.addOnOffsetChangedListener(object : OnOffsetChangedListener {
+        appBar.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
             var scrollRange = -1
 
             override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) { //Initialize the size of the scroll
@@ -59,17 +49,5 @@ class MovieDetailFragment : Fragment() {
                 appBar.alpha = (animation.animatedValue as Float)
             }
         }.start()*/
-
     }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity as MainActivity).hideBottomNavigation()
-    }
-
-    override fun onDetach() {
-        (activity as MainActivity).showBottomNavigation()
-        super.onDetach()
-    }
-
 }

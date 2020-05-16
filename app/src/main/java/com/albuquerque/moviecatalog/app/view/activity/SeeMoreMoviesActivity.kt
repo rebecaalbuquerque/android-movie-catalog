@@ -1,5 +1,6 @@
 package com.albuquerque.moviecatalog.app.view.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
@@ -17,13 +18,11 @@ class SeeMoreMoviesActivity : BaseActivity() {
 
     private var typeMovies: TypeMovies? = null
     private val moviesViewModel: MoviesPaginationViewModel by viewModel()
-    private val moviesAdapter = MoviesAdapter(true) {}
+    private lateinit var moviesAdapter: MoviesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_see_more_movies)
-
-        this.setSupportActionBar(toolbar)
 
         setupView()
         subscribeUI()
@@ -37,6 +36,10 @@ class SeeMoreMoviesActivity : BaseActivity() {
     }
 
     private fun setupView() {
+        moviesAdapter = MoviesAdapter(true) { movie ->
+            startActivity(Intent(this@SeeMoreMoviesActivity, MovieDetailActivity::class.java).apply { putExtra(MovieDetailActivity.MOVIE, movie) })
+        }
+
         intent?.getStringExtra(TYPE_MOVIE)?.let {
             typeMovies = TypeMovies.getByValue(it)
 
