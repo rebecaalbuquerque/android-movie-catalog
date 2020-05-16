@@ -77,6 +77,14 @@ class SeeMoreMoviesActivity : BaseActivity() {
                 }
             }
 
+            onError.observe(this@SeeMoreMoviesActivity) { }
+
+            onStartLoading.observe(this@SeeMoreMoviesActivity) {
+            }
+
+            onFinishLoading.observe(this@SeeMoreMoviesActivity) {
+            }
+
         }
 
     }

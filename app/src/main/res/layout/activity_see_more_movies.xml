@@ -6,23 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".app.view.activity.SeeMoreMoviesActivity">
 
-    <!--<com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </com.google.android.material.appbar.AppBarLayout>-->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMovies"
         android:layout_width="0dp"
@@ -35,6 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:spanCount="3" />
+        app:spanCount="3"
+        tools:listitem="@layout/item_movie_grid"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

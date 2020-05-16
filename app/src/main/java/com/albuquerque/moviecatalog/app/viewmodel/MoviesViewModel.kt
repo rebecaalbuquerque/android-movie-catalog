@@ -23,7 +23,7 @@ class MoviesViewModel(
     val topRated: SingleMediatorLiveData<List<MovieUI>> = SingleMediatorLiveData()
     val upcoming: SingleMediatorLiveData<List<MovieUI>> = SingleMediatorLiveData()
 
-    private var requests: Int = 0
+    private var categories: Int = 4
 
     init {
         getMovies()
@@ -31,36 +31,47 @@ class MoviesViewModel(
     }
 
     private fun getMovies() {
-        onLoading.value = true
+        onStartLoading.value = Any()
 
         getMoviesPaginatedUseCase.invoke(FIRST_PAGE_PAGINATION, TypeMovies.POPULAR, pagination).onEach {
             popular.emit(it)
+            updateRequests()
         }.catch { error ->
             onError.value = error.message
+            updateRequests()
         }.launchIn(viewModelScope)
 
         getMoviesPaginatedUseCase.invoke(FIRST_PAGE_PAGINATION, TypeMovies.NOW_PLAYING, pagination).onEach {
             nowPlaying.emit(it)
+            updateRequests()
         }.catch { error ->
             onError.value = error.message
+            updateRequests()
         }.launchIn(viewModelScope)
 
         getMoviesPaginatedUseCase.invoke(FIRST_PAGE_PAGINATION, TypeMovies.TOP_RATED, pagination).onEach {
             topRated.emit(it)
+            updateRequests()
         }.catch { error ->
             onError.value = error.message
+            updateRequests()
         }.launchIn(viewModelScope)
 
         getMoviesPaginatedUseCase.invoke(FIRST_PAGE_PAGINATION, TypeMovies.UPCOMING, pagination).onEach {
             upcoming.emit(it)
+            updateRequests()
         }.catch { error ->
             onError.value = error.message
+            updateRequests()
         }.launchIn(viewModelScope)
 
     }
 
-    private fun updateLoadingStatus(requests: Int) {
+    private fun updateRequests() {
+        categories -= 1
 
+        if(categories == 0)
+            onFinishLoading.value = Any()
     }
 
 }

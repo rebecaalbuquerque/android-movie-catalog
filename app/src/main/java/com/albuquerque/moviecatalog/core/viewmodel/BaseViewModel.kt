@@ -6,11 +6,13 @@ import androidx.lifecycle.ViewModel
 abstract class BaseViewModel: ViewModel() {
 
     val onError = MutableLiveData<String>()
-    val onLoading = MutableLiveData<Boolean>()
+    val onStartLoading = MutableLiveData<Any>()
+    val onFinishLoading = MutableLiveData<Any>()
 
     open fun handlerError(exception: Exception) {
         // TODO
-        onLoading.value = false
+        onStartLoading.value = Any()
+        onFinishLoading.value = Any()
         onError.value = ""
     }
 
