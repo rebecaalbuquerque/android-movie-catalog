@@ -5,6 +5,7 @@
     <string name="home_header_popular">Populares</string>
     <string name="home_header_upcoming">Em Breve</string>
     <string name="home_header_top_rated">Melhores Avaliados</string>
+    <string name="home_header_now_playing">Em Exibição</string>
     <string name="home_header_see_more">Ver Mais</string>
 
 </resources>
