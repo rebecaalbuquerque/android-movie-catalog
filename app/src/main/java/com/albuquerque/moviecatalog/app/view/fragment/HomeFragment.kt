@@ -12,8 +12,11 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.albuquerque.moviecatalog.R
 import com.albuquerque.moviecatalog.app.adapter.MoviesAdapter
+import com.albuquerque.moviecatalog.app.data.ui.MovieUI
 import com.albuquerque.moviecatalog.app.utils.ImageSliderUtils
 import com.albuquerque.moviecatalog.app.utils.TypeMovies
+import com.albuquerque.moviecatalog.app.view.activity.MovieDetailActivity
+import com.albuquerque.moviecatalog.app.view.activity.MovieDetailActivity.Companion.MOVIE
 import com.albuquerque.moviecatalog.app.view.activity.SeeMoreMoviesActivity
 import com.albuquerque.moviecatalog.app.view.activity.SeeMoreMoviesActivity.Companion.TYPE_MOVIE
 import com.albuquerque.moviecatalog.app.viewmodel.MoviesViewModel
@@ -38,10 +41,6 @@ class HomeFragment : Fragment() {
     private fun setupView() {
         //setupLoadingView()
 
-        headerUpcoming.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_movieDetailFragment)
-        }
-
         seeMoreUpcoming.setOnClickListener {
             startActivity(Intent(context, SeeMoreMoviesActivity::class.java).apply { putExtra(TYPE_MOVIE, TypeMovies.UPCOMING.value) })
         }
@@ -65,15 +64,15 @@ class HomeFragment : Fragment() {
             }
 
             upcoming.observe(viewLifecycleOwner) { list ->
-                list?.let { rvUpcoming.adapter = MoviesAdapter(it) }
+                list?.let { rvUpcoming.adapter = setupAdapter(it) }
             }
 
             popular.observe(viewLifecycleOwner){ list ->
-                list?.let { rvPopular.adapter = MoviesAdapter(it) }
+                list?.let { rvPopular.adapter = setupAdapter(it) }
             }
 
             topRated.observe(viewLifecycleOwner) { list ->
-                list?.let { rvTopRated.adapter = MoviesAdapter(it) }
+                list?.let { rvTopRated.adapter = setupAdapter(it) }
             }
 
             onError.observe(viewLifecycleOwner) {
@@ -86,6 +85,12 @@ class HomeFragment : Fragment() {
 
         }
 
+    }
+
+    private fun setupAdapter(list: List<MovieUI>): MoviesAdapter {
+        return MoviesAdapter(list, {movie ->
+            startActivity(Intent(context, MovieDetailActivity::class.java).apply { putExtra(MOVIE, movie) })
+        })
     }
 
     private fun setupLoadingView() {
