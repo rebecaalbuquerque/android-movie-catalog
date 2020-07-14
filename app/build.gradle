@@ -152,11 +152,3 @@ dependencies(debug_dependencies)
 dependencies(utils_dependencies)
 dependencies(firebase_dependencies)
 
-dependencies {
-    implementation 'androidx.legacy:legacy-support-v4:+'
-}
-
-dependencies {
-    implementation 'androidx.appcompat:appcompat:+'
-    implementation 'androidx.constraintlayout:constraintlayout:+'
-}
