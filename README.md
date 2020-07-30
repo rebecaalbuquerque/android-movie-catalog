@@ -5,7 +5,9 @@ This app uses the TMDb API to display the movies.
 
 > App still in development
 
-[screenshots]
+<img src="https://user-images.githubusercontent.com/41158713/88875228-42703a80-d1f7-11ea-8677-f48ada96ee92.png" width="350"> <img src="https://user-images.githubusercontent.com/41158713/88875235-48661b80-d1f7-11ea-9bdd-be3de160ca77.png" width="350"> 
+# Architectural Design Pattern
+in this project the MVVM architecture was used along with the repository pattern and use cases.
 
 # Android Architecture Components
 In this app some items from Android Architecture Components were used, such as:
@@ -26,17 +28,5 @@ In this app some items from Android Architecture Components were used, such as:
 # Firebase
 Some Firebase tools were also used, such as: app distribution, crashlytics and performance
 
-### App Distribution
-Nullam cursus nisi vel turpis rutrum, at semper justo mollis. Praesent et viverra nisi. Curabitur sodales est eget lacus aliquam, at finibus felis hendrerit. Vestibulum varius felis id leo interdum efficitur.
-
 [screenshots]
 
-### Crashlytics
-Nam gravida molestie magna, vel maximus erat sollicitudin ac. Vestibulum vel massa sed turpis suscipit bibendum sit amet in metus. Nullam tristique nulla lectus, nec mollis dolor feugiat vitae.
-
-[screenshots]
-
-### Performance
-Curabitur dictum dolor quis augue ullamcorper, at bibendum massa scelerisque. Maecenas cursus egestas ipsum a molestie. Nulla quam elit, accumsan nec aliquet vestibulum, consectetur eu eros.
-
-[screenshots]
