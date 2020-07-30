@@ -1,6 +1,8 @@
 # MovieCatalog
 Something that every movie lover should have on their cell phone: an app that highlights popular, now playing, top rated and upcoming movies.
 
+This app uses the TMDb API to display the movies.
+
 [screenshots]
 
 # Android Architecture Components
