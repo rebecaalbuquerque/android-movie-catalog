@@ -24,9 +24,4 @@ Some items from Android Architecture Components were used, such as:
 - Gson
 - OkHttp3
 - Coroutines
-
-# Firebase
-Some Firebase tools were also used, such as: app distribution, crashlytics and performance
-
-[screenshots]
-
+- Firebase (app distribution, crashlytics and performance)
