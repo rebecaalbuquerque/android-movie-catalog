@@ -22,6 +22,7 @@ class GetMoviesPaginatedUseCase(
 
         emit(
                 repository.getMoviesByCategoryFromDB(typeMovies.value).map { list ->
+                    paginationController.hasReachedEndPagination(list.size)
                     list.map { it.toUI() }
                 }
         )

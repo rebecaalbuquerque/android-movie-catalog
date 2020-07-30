@@ -3,6 +3,7 @@ package com.albuquerque.moviecatalog.app.repository
 import androidx.lifecycle.LiveData
 import com.albuquerque.moviecatalog.app.data.dao.MovieDao
 import com.albuquerque.moviecatalog.app.data.entity.MovieEntity
+import com.albuquerque.moviecatalog.app.utils.TypeMovies
 
 class LocalRepository(
         private val movieDao: MovieDao
@@ -12,7 +13,9 @@ class LocalRepository(
         movieDao.insertAll(data)
     }
 
-    override fun getMovies(): LiveData<List<MovieEntity>> = movieDao.getAll()
+    override suspend fun saveMovies(data: List<MovieEntity>, typeMovies: TypeMovies) {
+        movieDao.insertAllIfNecesseray(data, typeMovies)
+    }
 
     override fun getMoviesByCategory(category: String): LiveData<List<MovieEntity>> = movieDao.getAllByCategory(category)
 }

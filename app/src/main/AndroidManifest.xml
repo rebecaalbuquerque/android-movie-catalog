@@ -7,25 +7,28 @@
     <application
         android:name=".core.application.MovieCatalogApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
         <activity
             android:name=".app.view.activity.MainActivity"
-            android:theme="@style/Theme.Design.NoActionBar">
+            android:theme="@style/MovieCatalogNoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
             android:name=".app.view.activity.SeeMoreMoviesActivity"
-            android:theme="@style/Theme.Design.NoActionBar"/>
+            android:theme="@style/MovieCatalogActionBar" />
+
+        <activity
+            android:name=".app.view.activity.MovieDetailActivity"
+            android:theme="@style/MovieCatalogNoActionBar"/>
 
     </application>
 

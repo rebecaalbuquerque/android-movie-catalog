@@ -16,51 +16,59 @@ class MoviesViewModel(
         val getMoviesPaginatedUseCase: GetMoviesPaginatedUseCase
 ): BaseViewModel() {
 
-    private val pagination = Pagination(0, FIRST_PAGE_PAGINATION)
+    private val pagination = Pagination(FIRST_PAGE_PAGINATION)
 
     val popular: SingleMediatorLiveData<List<MovieUI>> = SingleMediatorLiveData()
     val nowPlaying: SingleMediatorLiveData<List<MovieUI>> = SingleMediatorLiveData()
     val topRated: SingleMediatorLiveData<List<MovieUI>> = SingleMediatorLiveData()
     val upcoming: SingleMediatorLiveData<List<MovieUI>> = SingleMediatorLiveData()
 
-    private var requests: Int = 0
+    private var categories: Int = 0
 
     init {
         getMovies()
 
     }
 
-    private fun getMovies() {
-        onLoading.value = true
+    fun getMovies() {
+        categories = 4
+        onStartLoading.value = Any()
 
         getMoviesPaginatedUseCase.invoke(FIRST_PAGE_PAGINATION, TypeMovies.POPULAR, pagination).onEach {
             popular.emit(it)
-        }.catch { error ->
-            onError.value = error.message
+        }.catch { _ ->
+            onError.value = ""
+            checkLoadedCategories()
         }.launchIn(viewModelScope)
 
         getMoviesPaginatedUseCase.invoke(FIRST_PAGE_PAGINATION, TypeMovies.NOW_PLAYING, pagination).onEach {
             nowPlaying.emit(it)
-        }.catch { error ->
-            onError.value = error.message
+        }.catch { _ ->
+            onError.value = ""
+            checkLoadedCategories()
         }.launchIn(viewModelScope)
 
         getMoviesPaginatedUseCase.invoke(FIRST_PAGE_PAGINATION, TypeMovies.TOP_RATED, pagination).onEach {
             topRated.emit(it)
-        }.catch { error ->
-            onError.value = error.message
+        }.catch { _ ->
+            onError.value = ""
+            checkLoadedCategories()
         }.launchIn(viewModelScope)
 
         getMoviesPaginatedUseCase.invoke(FIRST_PAGE_PAGINATION, TypeMovies.UPCOMING, pagination).onEach {
             upcoming.emit(it)
-        }.catch { error ->
-            onError.value = error.message
+        }.catch { _ ->
+            onError.value = ""
+            checkLoadedCategories()
         }.launchIn(viewModelScope)
 
     }
 
-    private fun updateLoadingStatus(requests: Int) {
+    fun checkLoadedCategories() {
+        categories -= 1
 
+        if(categories == 0)
+            onFinishLoading.value = Any()
     }
 
 }

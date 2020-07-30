@@ -7,6 +7,7 @@ import com.albuquerque.moviecatalog.app.utils.TypeMovies
 import com.albuquerque.moviecatalog.core.remote.Pagination
 import com.albuquerque.moviecatalog.core.remote.Remote
 import com.albuquerque.moviecatalog.core.remote.Result
+import java.util.*
 
 class RemoteRepository: Remote(), IRemoteRepository {
 
@@ -24,18 +25,29 @@ class RemoteRepository: Remote(), IRemoteRepository {
 
     override suspend fun getMoviesPaginatedByCategory(paginationController: Pagination, page: Int, typeMovies: TypeMovies): Result<List<Movie>> {
 
-        val result = when(typeMovies) {
-            TypeMovies.POPULAR -> runRequest(API.fetchPopular(page))
-            TypeMovies.NOW_PLAYING -> runRequest(API.fetchNowPlaying(page))
-            TypeMovies.TOP_RATED -> runRequest(API.fetchTopRated(page))
-            TypeMovies.UPCOMING -> runRequest(API.fetchUpcoming(page))
-        }
+        return if(!paginationController.hasLoadLastPage) {
+            val result = when(typeMovies) {
+                TypeMovies.POPULAR -> runRequest(API.fetchPopular(page))
+                TypeMovies.NOW_PLAYING -> runRequest(API.fetchNowPlaying(page))
+                TypeMovies.TOP_RATED -> runRequest(API.fetchTopRated(page))
+                TypeMovies.UPCOMING -> runRequest(API.fetchUpcoming(page))
+            }
 
-        return if(result is Result.Success) {
-            paginationController.updatePages(page, result.data.totalPages)
-            Result.Success(result.data.results.filter { !it.adult })
+            return if(result is Result.Success) {
+                val data = result.data
+
+                paginationController.updatePages(page, data.totalPages, data.totalResults)
+
+                data.results.forEach { it.fetchAt = Calendar.getInstance().time }
+
+                Result.Success(data.results.filter { !it.adult })
+
+            } else {
+                Result.Error((result as Result.Error).error)
+            }
+
         } else {
-            Result.Error((result as Result.Error).error)
+            Result.Success(listOf())
         }
 
     }

@@ -7,6 +7,7 @@
     tools:context=".app.view.fragment.HomeFragment">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,7 +27,33 @@
                 app:layout_constraintDimensionRatio="h,4:5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="#cdcdcd" />
+
+            <View
+                android:id="@+id/topPager"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/shape_toolbar"
+                app:layout_constraintDimensionRatio="h,5:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/headerNowPlaying"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="24dp"
+                android:text="@string/home_header_now_playing"
+                android:textColor="@color/colorLabelPrimary"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/topPager"
+                app:layout_constraintEnd_toEndOf="@id/topPager"
+                app:layout_constraintStart_toStartOf="@id/topPager"
+                app:layout_constraintTop_toTopOf="@id/topPager" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewDots"
@@ -76,7 +103,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/headerUpcoming"
-                tools:listitem="@layout/item_movie"/>
+                tools:listitem="@layout/item_movie" />
 
             <TextView
                 android:id="@+id/headerPopular"
@@ -113,7 +140,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/headerPopular"
-                tools:listitem="@layout/item_movie"/>
+                tools:listitem="@layout/item_movie" />
 
             <TextView
                 android:id="@+id/headerTopRated"
@@ -150,10 +177,24 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/headerTopRated"
-                tools:listitem="@layout/item_movie"/>
+                tools:listitem="@layout/item_movie" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/layoutLoading"
+        layout="@layout/loading_home"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/layoutEmpty"
+        layout="@layout/empty_movies"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

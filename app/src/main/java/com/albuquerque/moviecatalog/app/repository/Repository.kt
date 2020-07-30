@@ -28,7 +28,7 @@ class Repository(
 
             is Result.Success -> {
                 val moviesEntity = result.data.map { it.toEntity(typeMovies) }
-                local.saveMovies(moviesEntity)
+                local.saveMovies(moviesEntity, typeMovies)
                 Result.Success(moviesEntity)
             }
 

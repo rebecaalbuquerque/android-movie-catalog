@@ -19,9 +19,8 @@ android {
 
     def versionMajor = 0
     def versionMinor = 0
-    def versionPatch = 1
-
-    def versionNumber = 1
+    def versionPatch = 2
+    def versionNumber = 3
 
     defaultConfig {
         applicationId "com.albuquerque.moviecatalog"
@@ -34,10 +33,13 @@ android {
 
     signingConfigs {
         config {
-            keyAlias "moviecatalog_key"
-            keyPassword "u86txAvyUJfFpKNu"
-            storeFile file("../moviecatalog_keystore.jks")
-            storePassword "jTjvDXF85LgT3gXX"
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+            keyAlias properties.getProperty('keyAlias')
+            keyPassword properties.getProperty('keyPassword')
+            storeFile file(properties.getProperty('storeFile'))
+            storePassword properties.getProperty('storePassword')
         }
     }
 
@@ -78,15 +80,17 @@ android {
         }
 
         alpha {
+            //gradlew assembleAlpha appDistributionUploadAlpha
+
             firebaseAppDistribution {
                 //releaseNotes="Here is new app release note"
-                releaseNotes= "release note"
+                releaseNotes = "Adicionando view de loading e view de tentar novamente."
 
                 //testers ="tester1@gmail.com,tester2@gmail.com"
-                testersFile= "$projectDir/distribution/alpha/testers.txt"
+                testersFile = "$projectDir/distribution/alpha/testers.txt"
 
                 //groups ="qa-team, android-testers"
-                groupsFile= "$projectDir/distribution/alpha/firebase_group.txt"
+                groupsFile = "$projectDir/distribution/alpha/firebase_group.txt"
 
             }
             debuggable true
@@ -96,15 +100,17 @@ android {
         }
 
         release {
+            //gradlew assembleRelease appDistributionUploadRelease
+
             firebaseAppDistribution {
                 //releaseNotes="Here is new app release note"
-                releaseNotes= "release note"
+                releaseNotes = "release note"
 
                 //testers ="tester1@gmail.com,tester2@gmail.com"
-                testersFile= "$projectDir/distribution/release/testers.txt"
+                testersFile = "$projectDir/distribution/release/testers.txt"
 
                 //groups ="qa-team, android-testers"
-                groupsFile= "$projectDir/distribution/release/firebase_group.txt"
+                groupsFile = "$projectDir/distribution/release/firebase_group.txt"
             }
             debuggable false
             minifyEnabled false
@@ -130,11 +136,11 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation 'androidx.legacy:legacy-support-v4:+'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     apply plugin: 'com.google.gms.google-services'
 }

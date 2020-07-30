@@ -19,7 +19,8 @@ fun Movie.toEntity(category: TypeMovies): MovieEntity {
             this.overview,
             this.releaseDate,
             this.poster,
-            category.value
+            category.value,
+            this.fetchAt
     )
 }
 

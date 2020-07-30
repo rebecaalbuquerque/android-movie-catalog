@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
-    tools:context=".app.view.fragment.MovieDetailFragment">
+    tools:context="com.albuquerque.moviecatalog.app.view.activity.MovieDetailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
@@ -24,7 +23,7 @@
             android:layout_height="match_parent" />
 
     </com.google.android.material.appbar.AppBarLayout>
-    
+
     <include layout="@layout/layout_movie_detail"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
