@@ -3,6 +3,8 @@ Something that every movie lover should have on their cell phone: an app that hi
 
 This app uses the TMDb API to display the movies.
 
+> App still in development
+
 [screenshots]
 
 # Android Architecture Components
