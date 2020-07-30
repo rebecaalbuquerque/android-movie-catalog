@@ -21,7 +21,10 @@ import com.albuquerque.moviecatalog.app.view.activity.SeeMoreMoviesActivity.Comp
 import com.albuquerque.moviecatalog.app.viewmodel.MoviesViewModel
 import com.albuquerque.moviecatalog.core.extensions.setGone
 import com.albuquerque.moviecatalog.core.extensions.setVisible
+import kotlinx.android.synthetic.main.empty_movies.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.layoutLoading
+import kotlinx.android.synthetic.main.loading_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
@@ -53,6 +56,10 @@ class HomeFragment : Fragment() {
             startActivity(Intent(context, SeeMoreMoviesActivity::class.java).apply { putExtra(TYPE_MOVIE, TypeMovies.TOP_RATED.value) })
         }
 
+        tentarNovamente.setOnClickListener {
+            moviesViewModel.getMovies()
+        }
+
     }
 
     private fun subscribeUI() {
@@ -60,25 +67,39 @@ class HomeFragment : Fragment() {
         with(moviesViewModel) {
 
             nowPlaying.observe(viewLifecycleOwner) { list ->
-                ImageSliderUtils(pager, recyclerViewDots, list.map { it.poster }.take(5)).setupViewPager()
+                list?.let {
+                    ImageSliderUtils(pager, recyclerViewDots, list.map { it.poster }.take(5)).setupViewPager()
+                    checkLoadedCategories()
+                }
             }
 
             upcoming.observe(viewLifecycleOwner) { list ->
-                list?.let { rvUpcoming.adapter = setupAdapter(it) }
+                list?.let {
+                    rvUpcoming.adapter = setupAdapter(it)
+                    checkLoadedCategories()
+                }
             }
 
             popular.observe(viewLifecycleOwner){ list ->
                 list?.let {
                     rvPopular.adapter = setupAdapter(it)
+                    checkLoadedCategories()
                 }
             }
 
             topRated.observe(viewLifecycleOwner) { list ->
-                list?.let { rvTopRated.adapter = setupAdapter(it) }
+                list?.let {
+                    rvTopRated.adapter = setupAdapter(it)
+                    checkLoadedCategories()
+                }
             }
 
-            onError.observe(viewLifecycleOwner) {
+            onError.observe(viewLifecycleOwner) { erro ->
+                container.setGone()
+                layoutEmpty.setVisible()
 
+                if(!erro.isNullOrEmpty())
+                    text.text = erro
             }
 
             onStartLoading.observe(this@HomeFragment) {
@@ -101,6 +122,7 @@ class HomeFragment : Fragment() {
 
     private fun startLoadingView() {
         container.setGone()
+        layoutEmpty.setGone()
         layoutLoading.setVisible()
 
         val animation = AlphaAnimation(1.0f, 0.6f).apply {

@@ -19,8 +19,8 @@ android {
 
     def versionMajor = 0
     def versionMinor = 0
-    def versionPatch = 1
-    def versionNumber = 2
+    def versionPatch = 2
+    def versionNumber = 3
 
     defaultConfig {
         applicationId "com.albuquerque.moviecatalog"
@@ -33,10 +33,13 @@ android {
 
     signingConfigs {
         config {
-            keyAlias "moviecatalog_key"
-            keyPassword "u86txAvyUJfFpKNu"
-            storeFile file("../moviecatalog_keystore.jks")
-            storePassword "jTjvDXF85LgT3gXX"
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+            keyAlias properties.getProperty('keyAlias')
+            keyPassword properties.getProperty('keyPassword')
+            storeFile file(properties.getProperty('storeFile'))
+            storePassword properties.getProperty('storePassword')
         }
     }
 
@@ -81,7 +84,7 @@ android {
 
             firebaseAppDistribution {
                 //releaseNotes="Here is new app release note"
-                releaseNotes = "Correção na paginação da listagem de filmes e adicionando logo"
+                releaseNotes = "Adicionando view de loading e view de tentar novamente."
 
                 //testers ="tester1@gmail.com,tester2@gmail.com"
                 testersFile = "$projectDir/distribution/alpha/testers.txt"
@@ -133,11 +136,11 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation 'androidx.legacy:legacy-support-v4:+'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     apply plugin: 'com.google.gms.google-services'
 }

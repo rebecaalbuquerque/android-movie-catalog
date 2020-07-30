@@ -23,51 +23,48 @@ class MoviesViewModel(
     val topRated: SingleMediatorLiveData<List<MovieUI>> = SingleMediatorLiveData()
     val upcoming: SingleMediatorLiveData<List<MovieUI>> = SingleMediatorLiveData()
 
-    private var categories: Int = 4
+    private var categories: Int = 0
 
     init {
         getMovies()
 
     }
 
-    private fun getMovies() {
+    fun getMovies() {
+        categories = 4
         onStartLoading.value = Any()
 
         getMoviesPaginatedUseCase.invoke(FIRST_PAGE_PAGINATION, TypeMovies.POPULAR, pagination).onEach {
             popular.emit(it)
-            updateRequests()
-        }.catch { error ->
-            onError.value = error.message
-            updateRequests()
+        }.catch { _ ->
+            onError.value = ""
+            checkLoadedCategories()
         }.launchIn(viewModelScope)
 
         getMoviesPaginatedUseCase.invoke(FIRST_PAGE_PAGINATION, TypeMovies.NOW_PLAYING, pagination).onEach {
             nowPlaying.emit(it)
-            updateRequests()
-        }.catch { error ->
-            onError.value = error.message
-            updateRequests()
+        }.catch { _ ->
+            onError.value = ""
+            checkLoadedCategories()
         }.launchIn(viewModelScope)
 
         getMoviesPaginatedUseCase.invoke(FIRST_PAGE_PAGINATION, TypeMovies.TOP_RATED, pagination).onEach {
             topRated.emit(it)
-            updateRequests()
-        }.catch { error ->
-            onError.value = error.message
-            updateRequests()
+        }.catch { _ ->
+            onError.value = ""
+            checkLoadedCategories()
         }.launchIn(viewModelScope)
 
         getMoviesPaginatedUseCase.invoke(FIRST_PAGE_PAGINATION, TypeMovies.UPCOMING, pagination).onEach {
             upcoming.emit(it)
-            updateRequests()
-        }.catch { error ->
-            onError.value = error.message
-            updateRequests()
+        }.catch { _ ->
+            onError.value = ""
+            checkLoadedCategories()
         }.launchIn(viewModelScope)
 
     }
 
-    private fun updateRequests() {
+    fun checkLoadedCategories() {
         categories -= 1
 
         if(categories == 0)

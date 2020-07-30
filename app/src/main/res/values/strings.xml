@@ -8,7 +8,8 @@
     <string name="home_header_now_playing">Em Exibição</string>
     <string name="home_header_see_more">Ver Mais</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="tentar_novamente">Tentar novamente</string>
 
 </resources>
