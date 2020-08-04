@@ -19,6 +19,7 @@ fun Movie.toEntity(category: TypeMovies): MovieEntity {
             this.overview,
             this.releaseDate,
             this.poster,
+            this.backdrop,
             category.value,
             this.fetchAt
     )
@@ -31,6 +32,7 @@ fun MovieEntity.toUI(): MovieUI {
             this.overview,
             this.releaseDate,
             this.poster,
+            this.backdrop,
             this.category
     )
 }

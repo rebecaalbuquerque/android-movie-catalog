@@ -13,19 +13,20 @@ data class MovieEntity(
         @ColumnInfo(name = "overview") val overview: String,
         @ColumnInfo(name = "releaseDate") val releaseDate: String,
         @ColumnInfo(name = "poster") val poster: String,
+        @ColumnInfo(name = "backdrop") val backdrop: String,
         @ColumnInfo(name = "category") val category: String,
         @ColumnInfo(name = "fetchAt") val fetchAt: Date
 )
 
 fun MovieEntity.isEqual(other: MovieEntity): Boolean {
+
     return this.id == other.id &&
             this.originalTitle == other.originalTitle &&
             this.title == other.title &&
             this.overview == other.overview &&
             this.releaseDate == other.releaseDate &&
             this.poster == other.poster &&
+            this.backdrop == other.backdrop &&
             this.category == other.category
-
-
 
 }

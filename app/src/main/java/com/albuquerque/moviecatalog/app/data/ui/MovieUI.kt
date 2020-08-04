@@ -8,5 +8,6 @@ data class MovieUI(
         val overview: String,
         val releaseDate: String,
         val poster: String,
+        val backdrop: String,
         val category: String
 ): Serializable
