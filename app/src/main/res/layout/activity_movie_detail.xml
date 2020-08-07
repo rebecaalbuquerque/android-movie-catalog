@@ -15,7 +15,7 @@
         android:id="@+id/motionLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#cccccc"
+        android:background="@color/colorAccentSecondary"
         app:layoutDescription="@xml/motion_scene_movie_detail">
 
         <ImageView
@@ -45,8 +45,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:tint="@color/colorAccent"
                 android:src="?attr/homeAsUpIndicator"
+                android:tint="@color/colorAccent"
                 tools:ignore="ContentDescription" />
 
         </LinearLayout>
@@ -72,27 +72,81 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline1">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/teste1"
+                android:id="@+id/movieDetails"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="#a6a6a6"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:elevation="8dp"
                 android:paddingTop="16dp"
+                android:paddingBottom="32dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
+                    android:id="@+id/movieTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@{movie.title}"
                     android:layout_marginStart="56dp"
-                    android:textSize="20sp"
+                    android:layout_marginEnd="16dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@{movie.title}"
                     android:textColor="@color/colorLabelPrimary"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Movie Title" />
+
+                <TextView
+                    android:id="@+id/movieReleaseDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@{movie.releaseDate}"
+                    android:textColor="@color/colorLabelPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/movieTitle"
+                    tools:text="06/08/2020"/>
+
+                <TextView
+                    android:id="@+id/movieRuntime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@{movie.runtime}"
+                    android:textColor="@color/colorLabelPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/movieReleaseDate"
+                    tools:text="143 min"/>
+
+                <TextView
+                    android:id="@+id/movieGenres"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:textColor="@color/colorLabelPrimary"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/movieRuntime"
+                    tools:text="Action, Adventure, Fantasy"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -101,7 +155,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/teste1">
+                app:layout_constraintTop_toBottomOf="@id/movieDetails">
 
                 <LinearLayout
                     android:id="@+id/content"
@@ -110,33 +164,21 @@
                     android:orientation="vertical">
 
                     <View
-                        android:id="@+id/teste2"
+                        android:id="@+id/movieOverview"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:layout_marginTop="16dp"
-                        android:background="@color/colorLabelPrimary" />
+                        android:background="@color/colorLabelPrimary"
+                        android:elevation="8dp" />
 
                     <View
-                        android:id="@+id/teste3"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:layout_marginTop="16dp"
-                        android:background="@color/colorLabelPrimary" />
-
-                    <View
-                        android:id="@+id/teste4"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:layout_marginTop="16dp"
-                        android:background="@color/colorAccent" />
-
-                    <View
-                        android:id="@+id/teste5"
+                        android:id="@+id/movieCast"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
-                        android:background="@color/colorPrimary" />
+                        android:background="@color/colorLabelPrimary"
+                        android:elevation="8dp" />
 
                 </LinearLayout>
 

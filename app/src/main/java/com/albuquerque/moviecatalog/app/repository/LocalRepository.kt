@@ -18,4 +18,12 @@ class LocalRepository(
     }
 
     override fun getMoviesByCategory(category: String): LiveData<List<MovieEntity>> = movieDao.getAllByCategory(category)
+
+    override suspend fun updateMovie(movie: MovieEntity) {
+        movieDao.update(movie)
+    }
+
+    override fun getMovie(movieId: Int): LiveData<MovieEntity?> {
+        return movieDao.get(movieId)
+    }
 }

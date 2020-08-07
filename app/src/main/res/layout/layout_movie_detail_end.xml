@@ -5,7 +5,7 @@
     android:id="@+id/motionLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#cccccc"
+    android:background="@color/colorAccentSecondary"
     app:layoutDescription="@xml/motion_scene_movie_detail">
 
     <ImageView
@@ -65,17 +65,17 @@
         app:layout_constraintTop_toBottomOf="@id/guideline1">
 
         <View
-            android:id="@+id/teste1"
+            android:id="@+id/movieDetails"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@color/colorLabelPrimary"
+            android:background="@color/colorPrimary"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/teste1">
+            app:layout_constraintTop_toBottomOf="@id/movieDetails">
 
             <LinearLayout
                 android:id="@+id/content"
@@ -84,33 +84,18 @@
                 android:orientation="vertical">
 
                 <View
-                    android:id="@+id/teste2"
+                    android:id="@+id/movieOverview"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="16dp"
                     android:background="@color/colorLabelPrimary" />
 
                 <View
-                    android:id="@+id/teste3"
+                    android:id="@+id/movieCast"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="16dp"
                     android:background="@color/colorLabelPrimary" />
-
-                <View
-                    android:id="@+id/teste4"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@color/colorAccent" />
-
-                <View
-                    android:id="@+id/teste5"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@color/colorPrimary" />
 
             </LinearLayout>
 

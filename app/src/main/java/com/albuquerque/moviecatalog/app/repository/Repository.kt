@@ -5,6 +5,7 @@ import com.albuquerque.moviecatalog.app.data.dto.Movie
 import com.albuquerque.moviecatalog.app.data.entity.CastEntity
 import com.albuquerque.moviecatalog.app.data.entity.MovieEntity
 import com.albuquerque.moviecatalog.app.data.toEntity
+import com.albuquerque.moviecatalog.app.data.ui.MovieUI
 import com.albuquerque.moviecatalog.app.utils.TypeMovies
 import com.albuquerque.moviecatalog.core.remote.Pagination
 import com.albuquerque.moviecatalog.core.remote.Result
@@ -19,9 +20,24 @@ class Repository(
         val local: ILocalRepository
 ): IRepository {
 
-    override suspend fun getMovie(): Result<Movie> {
-        return remote.getMovie()
+    override suspend fun getMovieDetails(movieUI: MovieUI): Result<MovieEntity> {
+
+        return when(val result = remote.getMovie(movieUI.id)) {
+
+            is Result.Success -> {
+                val movieEntity = result.data.toEntity(TypeMovies.getByValue(movieUI.category), movieUI.fetchAt)
+                local.updateMovie(movieEntity)
+                Result.Success(movieEntity)
+            }
+
+            is Result.Error -> {
+                Result.Error(result.error)
+            }
+        }
     }
+
+    override fun getMovieFromDB(movieId: Int): LiveData<MovieEntity?> = local.getMovie(movieId)
+
 
     override suspend fun getMoviesPaginatedByCategory(paginationController: Pagination, page: Int, typeMovies: TypeMovies): Result<List<MovieEntity>> {
         return when(val result = remote.getMoviesPaginatedByCategory(paginationController, page, typeMovies)) {

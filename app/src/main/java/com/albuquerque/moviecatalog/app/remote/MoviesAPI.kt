@@ -9,8 +9,10 @@ import retrofit2.http.Query
 
 interface MoviesAPI {
 
-    @GET("movie/24428?api_key=${Credentials.API_KEY}")
-    suspend fun fetchMovie(): Movie
+    @GET("movie/{movieId}?api_key=${Credentials.API_KEY}")
+    suspend fun fetchMovie(
+            @Path("movieId") movieId: Int
+    ): Movie
 
     @GET("movie/now_playing?api_key=${Credentials.API_KEY}")
     suspend fun fetchNowPlaying(

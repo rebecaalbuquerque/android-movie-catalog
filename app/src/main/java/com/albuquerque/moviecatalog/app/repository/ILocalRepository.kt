@@ -10,6 +10,10 @@ interface ILocalRepository {
 
     suspend fun saveMovies(data: List<MovieEntity>, typeMovies: TypeMovies)
 
+    suspend fun updateMovie(movie: MovieEntity)
+
     fun getMoviesByCategory(category: String): LiveData<List<MovieEntity>>
+
+    fun getMovie(movieId: Int): LiveData<MovieEntity?>
 
 }

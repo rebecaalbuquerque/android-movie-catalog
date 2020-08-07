@@ -13,8 +13,8 @@ class RemoteRepository: Remote(), IRemoteRepository {
 
     private val API by lazy { getRetrofitBuilder().create(MoviesAPI::class.java) }
 
-    override suspend fun getMovie(): Result<Movie> {
-        val result = runRequest(API.fetchMovie())
+    override suspend fun getMovie(movieId: Int): Result<Movie> {
+        val result = runRequest(API.fetchMovie(movieId))
 
         return if(result is Result.Success) {
             Result.Success(result.data)

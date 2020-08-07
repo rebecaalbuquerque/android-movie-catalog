@@ -23,7 +23,9 @@ data class Movie (
         @SerializedName("backdrop_path")
         val backdropPath: String,
 
-        val adult: Boolean
+        val adult: Boolean,
+
+        val runtime: Int
 ) {
     val poster: String
         get() = Config.BASE_IMAGE_URL.plus(posterPath)

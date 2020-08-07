@@ -17,8 +17,8 @@ interface MovieDao: BaseDao<MovieEntity> {
     @Query("select * from movieentity where category = :value order by fetchAt asc")
     fun getAllByCategory(value: String): LiveData<List<MovieEntity>>
 
-    @Query("select * from movieentity where id = 1")
-    fun get(): LiveData<MovieEntity?>
+    @Query("select * from movieentity where id = :movieId")
+    fun get(movieId: Int): LiveData<MovieEntity?>
 
     @Query("delete from movieentity")
     fun dropTable()

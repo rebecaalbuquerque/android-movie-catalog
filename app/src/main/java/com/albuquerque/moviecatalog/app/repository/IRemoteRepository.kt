@@ -8,7 +8,7 @@ import com.albuquerque.moviecatalog.core.remote.Result
 
 interface IRemoteRepository {
 
-    suspend fun getMovie(): Result<Movie>
+    suspend fun getMovie(movieId: Int): Result<Movie>
 
     suspend fun getMoviesPaginatedByCategory(paginationController: Pagination, page: Int, typeMovies: TypeMovies): Result<List<Movie>>
 

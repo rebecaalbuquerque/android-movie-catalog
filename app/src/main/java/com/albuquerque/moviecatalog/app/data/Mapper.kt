@@ -7,6 +7,7 @@ import com.albuquerque.moviecatalog.app.data.entity.MovieEntity
 import com.albuquerque.moviecatalog.app.data.ui.CastUI
 import com.albuquerque.moviecatalog.app.data.ui.MovieUI
 import com.albuquerque.moviecatalog.app.utils.TypeMovies
+import java.util.*
 
 /*
 * Movie
@@ -21,7 +22,23 @@ fun Movie.toEntity(category: TypeMovies): MovieEntity {
             this.poster,
             this.backdrop,
             category.value,
+            "${this.runtime} min",
             this.fetchAt
+    )
+}
+
+fun Movie.toEntity(category: TypeMovies, fetchAt: Date): MovieEntity {
+    return MovieEntity(
+            this.id,
+            this.originalTitle,
+            this.title,
+            this.overview,
+            this.releaseDate,
+            this.poster,
+            this.backdrop,
+            category.value,
+            "${this.runtime} min",
+            fetchAt
     )
 }
 
@@ -33,7 +50,9 @@ fun MovieEntity.toUI(): MovieUI {
             this.releaseDate,
             this.poster,
             this.backdrop,
-            this.category
+            this.category,
+            this.runtime,
+            this.fetchAt
     )
 }
 
@@ -46,7 +65,6 @@ fun CastEntity.toUI(): CastUI {
             this.id,
             this.character,
             this.gender,
-            this.order,
             this.name,
             this.profilePath
     )
