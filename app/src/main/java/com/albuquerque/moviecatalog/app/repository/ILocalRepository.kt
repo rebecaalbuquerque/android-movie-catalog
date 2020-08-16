@@ -1,8 +1,8 @@
 package com.albuquerque.moviecatalog.app.repository
 
-import androidx.lifecycle.LiveData
 import com.albuquerque.moviecatalog.app.data.entity.MovieEntity
 import com.albuquerque.moviecatalog.app.utils.TypeMovies
+import kotlinx.coroutines.flow.Flow
 
 interface ILocalRepository {
 
@@ -12,8 +12,8 @@ interface ILocalRepository {
 
     suspend fun updateMovie(movie: MovieEntity)
 
-    fun getMoviesByCategory(category: String): LiveData<List<MovieEntity>>
+    fun getMoviesByCategory(category: String): Flow<List<MovieEntity>>
 
-    fun getMovie(movieId: Int): LiveData<MovieEntity?>
+    suspend fun getMovie(movieId: Int): MovieEntity?
 
 }

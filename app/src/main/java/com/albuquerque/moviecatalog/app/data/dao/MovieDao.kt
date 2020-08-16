@@ -7,6 +7,7 @@ import androidx.room.Transaction
 import com.albuquerque.moviecatalog.app.data.entity.MovieEntity
 import com.albuquerque.moviecatalog.app.data.entity.isEqual
 import com.albuquerque.moviecatalog.app.utils.TypeMovies
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDao: BaseDao<MovieEntity> {
@@ -15,10 +16,10 @@ interface MovieDao: BaseDao<MovieEntity> {
     fun getAll(): List<MovieEntity>
 
     @Query("select * from movieentity where category = :value order by fetchAt asc")
-    fun getAllByCategory(value: String): LiveData<List<MovieEntity>>
+    fun getAllByCategory(value: String): Flow<List<MovieEntity>>
 
     @Query("select * from movieentity where id = :movieId")
-    fun get(movieId: Int): LiveData<MovieEntity?>
+    suspend fun get(movieId: Int): MovieEntity?
 
     @Query("delete from movieentity")
     fun dropTable()

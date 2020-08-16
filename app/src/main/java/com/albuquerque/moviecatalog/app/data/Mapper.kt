@@ -27,21 +27,6 @@ fun Movie.toEntity(category: TypeMovies): MovieEntity {
     )
 }
 
-fun Movie.toEntity(category: TypeMovies, fetchAt: Date): MovieEntity {
-    return MovieEntity(
-            this.id,
-            this.originalTitle,
-            this.title,
-            this.overview,
-            this.releaseDate,
-            this.poster,
-            this.backdrop,
-            category.value,
-            "${this.runtime} min",
-            fetchAt
-    )
-}
-
 fun MovieEntity.toUI(): MovieUI {
     return MovieUI(
             this.id,

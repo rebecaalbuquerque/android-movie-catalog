@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.albuquerque.moviecatalog.app.data.dao.MovieDao
 import com.albuquerque.moviecatalog.app.data.entity.MovieEntity
 import com.albuquerque.moviecatalog.app.utils.TypeMovies
+import kotlinx.coroutines.flow.Flow
 
 class LocalRepository(
         private val movieDao: MovieDao
@@ -17,13 +18,13 @@ class LocalRepository(
         movieDao.insertAllIfNecesseray(data, typeMovies)
     }
 
-    override fun getMoviesByCategory(category: String): LiveData<List<MovieEntity>> = movieDao.getAllByCategory(category)
+    override fun getMoviesByCategory(category: String): Flow<List<MovieEntity>> = movieDao.getAllByCategory(category)
 
     override suspend fun updateMovie(movie: MovieEntity) {
         movieDao.update(movie)
     }
 
-    override fun getMovie(movieId: Int): LiveData<MovieEntity?> {
+    override suspend fun getMovie(movieId: Int): MovieEntity? {
         return movieDao.get(movieId)
     }
 }

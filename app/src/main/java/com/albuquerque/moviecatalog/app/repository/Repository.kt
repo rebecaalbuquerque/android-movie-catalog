@@ -1,14 +1,13 @@
 package com.albuquerque.moviecatalog.app.repository
 
-import androidx.lifecycle.LiveData
+import com.albuquerque.moviecatalog.app.data.dto.Cast
 import com.albuquerque.moviecatalog.app.data.dto.Movie
-import com.albuquerque.moviecatalog.app.data.entity.CastEntity
 import com.albuquerque.moviecatalog.app.data.entity.MovieEntity
 import com.albuquerque.moviecatalog.app.data.toEntity
-import com.albuquerque.moviecatalog.app.data.ui.MovieUI
 import com.albuquerque.moviecatalog.app.utils.TypeMovies
 import com.albuquerque.moviecatalog.core.remote.Pagination
-import com.albuquerque.moviecatalog.core.remote.Result
+import kotlinx.coroutines.flow.Flow
+import java.util.*
 
 /**
  * @see RemoteRepository
@@ -18,56 +17,43 @@ import com.albuquerque.moviecatalog.core.remote.Result
 class Repository(
         val remote: IRemoteRepository,
         val local: ILocalRepository
-): IRepository {
+) : IRepository {
 
-    override suspend fun getMovieDetails(movieUI: MovieUI): Result<MovieEntity> {
+    override suspend fun getMovieDetails(movieId: Int, movieCategory: String, fetchAt: Date): Result<Movie> {
 
-        return when(val result = remote.getMovie(movieUI.id)) {
+        return remote.getMovie(movieId, fetchAt)
+                .onSuccess { result ->
+                    val movieEntity = result.toEntity(TypeMovies.getByValue(movieCategory)).apply { restoreFromDB() }
+                    local.updateMovie(movieEntity)
+                }
 
-            is Result.Success -> {
-                val movieEntity = result.data.toEntity(TypeMovies.getByValue(movieUI.category), movieUI.fetchAt)
-                local.updateMovie(movieEntity)
-                Result.Success(movieEntity)
-            }
-
-            is Result.Error -> {
-                Result.Error(result.error)
-            }
-        }
     }
 
-    override fun getMovieFromDB(movieId: Int): LiveData<MovieEntity?> = local.getMovie(movieId)
+    override suspend fun getMovieFromDB(movieId: Int): MovieEntity? = local.getMovie(movieId)
 
+    override suspend fun getMoviesPaginatedByCategory(paginationController: Pagination, page: Int, typeMovies: TypeMovies): Result<List<Movie>> {
 
-    override suspend fun getMoviesPaginatedByCategory(paginationController: Pagination, page: Int, typeMovies: TypeMovies): Result<List<MovieEntity>> {
-        return when(val result = remote.getMoviesPaginatedByCategory(paginationController, page, typeMovies)) {
-
-            is Result.Success -> {
-                val moviesEntity = result.data.map { it.toEntity(typeMovies) }
-                local.saveMovies(moviesEntity, typeMovies)
-                Result.Success(moviesEntity)
-            }
-
-            is Result.Error -> {
-                Result.Error(result.error)
-            }
-        }
+        return remote.getMoviesPaginatedByCategory(paginationController, page, typeMovies)
+                .onSuccess { result ->
+                    val moviesEntity = result.map { it.toEntity(typeMovies) }
+                    local.saveMovies(moviesEntity, typeMovies)
+                }
     }
 
-    override fun getMoviesByCategoryFromDB(category: String): LiveData<List<MovieEntity>> = local.getMoviesByCategory(category)
+    override fun getMoviesByCategoryFromDB(category: String): Flow<List<MovieEntity>> = local.getMoviesByCategory(category)
 
-    override suspend fun getCastFromMovie(movieId: Int): Result<List<CastEntity>> {
-        return when(val result = remote.getCastFromMovie(movieId)) {
+    override suspend fun getCastFromMovie(movieId: Int): Result<List<Cast>> {
 
-            is Result.Success -> {
-                val moviesEntity = result.data.map { it.toEntity() }
-                //local.saveAll(moviesEntity)
-                Result.Success(moviesEntity)
-            }
+        return remote.getCastFromMovie(movieId)
+                .onSuccess { result ->
+                    val moviesEntity = result.map { it.toEntity() }
+                    //local.saveAll(moviesEntity)
+                }
+    }
 
-            is Result.Error -> {
-                Result.Error(result.error)
-            }
+    private suspend fun MovieEntity.restoreFromDB() {
+        local.getMovie(this.id)?.let { movie ->
+            this.fetchAt = movie.fetchAt
         }
     }
 }

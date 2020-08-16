@@ -16,7 +16,7 @@ data class MovieEntity(
         @ColumnInfo(name = "backdrop") val backdrop: String,
         @ColumnInfo(name = "category") val category: String,
         @ColumnInfo(name = "runtime") val runtime: String,
-        @ColumnInfo(name = "fetchAt") val fetchAt: Date
+        @ColumnInfo(name = "fetchAt") var fetchAt: Date
 )
 
 fun MovieEntity.isEqual(other: MovieEntity): Boolean {
