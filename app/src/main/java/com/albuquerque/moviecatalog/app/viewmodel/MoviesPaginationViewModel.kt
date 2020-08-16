@@ -1,5 +1,7 @@
 package com.albuquerque.moviecatalog.app.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.albuquerque.moviecatalog.app.data.ui.MovieUI
 import com.albuquerque.moviecatalog.app.usecase.GetMoviesPaginatedUseCase
@@ -8,9 +10,8 @@ import com.albuquerque.moviecatalog.core.mediator.SingleMediatorLiveData
 import com.albuquerque.moviecatalog.core.remote.Pagination
 import com.albuquerque.moviecatalog.core.remote.Remote.Companion.FIRST_PAGE_PAGINATION
 import com.albuquerque.moviecatalog.core.viewmodel.BaseViewModel
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class MoviesPaginationViewModel(
         private val getMoviesPaginatedUseCase: GetMoviesPaginatedUseCase
@@ -18,26 +19,26 @@ class MoviesPaginationViewModel(
 
     private val pagination = Pagination(FIRST_PAGE_PAGINATION)
 
-    val movies: SingleMediatorLiveData<List<MovieUI>> = SingleMediatorLiveData()
+    private val _movies = SingleMediatorLiveData<List<MovieUI>>().apply {
+        viewModelScope.launch { this@apply.emit(getMoviesPaginatedUseCase.invokeFromDb(TypeMovies.POPULAR, pagination).asLiveData()) }
+    }
+
+    val movies = _movies as LiveData<List<MovieUI>>
 
     fun getMovies(type: TypeMovies) {
         onStartLoading.value = Any()
 
-        getMoviesPaginatedUseCase.invoke(pagination.nextPage, type, pagination).onEach {
+        viewModelScope.launch {
+            getMoviesPaginatedUseCase.invokeFromApi(pagination.nextPage, type, pagination).collect { result ->
+                onFinishLoading.postValue(Any())
 
-            if(!pagination.hasLoadLastPage)
-                movies.emit(it)
+                if(result.isFailure) {
+                    onError.value = result.exceptionOrNull()?.message ?: ""
+                }
 
-            onFinishLoading.value = Any()
-        }.catch { error ->
-            onError.value = error.message ?: ""
-            onFinishLoading.value = Any()
-        }.launchIn(viewModelScope)
+            }
+        }
 
     }
-
-    /*override fun getNext(refresh: Boolean) {
-        getMovies(type!!)
-    }*/
 
 }

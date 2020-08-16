@@ -6,7 +6,7 @@ data class Cast(
         val id: String,
         val character: String,
         val gender: String? = null,
-        val order: String,
+        val order: Int,
         val name: String,
         @SerializedName("profile_path") val profilePath: String? = null
 )

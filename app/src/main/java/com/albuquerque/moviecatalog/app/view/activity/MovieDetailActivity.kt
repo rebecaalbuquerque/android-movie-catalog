@@ -1,14 +1,14 @@
 package com.albuquerque.moviecatalog.app.view.activity
 
-import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.observe
 import com.albuquerque.moviecatalog.R
 import com.albuquerque.moviecatalog.app.data.ui.MovieUI
-import com.google.android.material.appbar.AppBarLayout
-import kotlinx.android.synthetic.main.activity_movie_detail.*
+import com.albuquerque.moviecatalog.app.viewmodel.MovieDetailViewModel
+import com.albuquerque.moviecatalog.databinding.ActivityMovieDetailBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieDetailActivity : AppCompatActivity() {
 
@@ -16,38 +16,50 @@ class MovieDetailActivity : AppCompatActivity() {
         const val MOVIE = "MOVIE"
     }
 
+    private val movieDetailViewModel: MovieDetailViewModel by viewModel()
+    private lateinit var binding: ActivityMovieDetailBinding
+
+    private lateinit var movie: MovieUI
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movie_detail)
 
-        this.setSupportActionBar(toolbar)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_detail)
+        movie = intent?.getSerializableExtra(MOVIE) as MovieUI
 
-        val movie = intent?.getSerializableExtra(MOVIE) as MovieUI
-        Toast.makeText(this, movie.title, Toast.LENGTH_LONG).show()
+        setupDataBinding()
+        subscribeUI()
 
-        appBar.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
-            var scrollRange = -1
-
-            override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) { //Initialize the size of the scroll
-                if (scrollRange == -1) {
-                    scrollRange = appBarLayout.totalScrollRange
-                }
-                //Check if the view is collapsed
-                /*if (scrollRange + verticalOffset == 0) {
-                    toolbar.setBackgroundColor(ContextCompat.getColor(context!!, R.color.YOUR_COLLAPSED_COLOR))
-                } else {
-                    toolbar.setBackgroundColor(ContextCompat.getColor(context!!, R.color.OTHER_COLOR))
-                }*/
-
-                Log.d("teste", "$verticalOffset, ${appBarLayout.totalScrollRange}")
-
-            }
-        })
-
-        /*ValueAnimator.ofFloat(1f, 0f).apply {
-            addUpdateListener { animation ->
-                appBar.alpha = (animation.animatedValue as Float)
-            }
-        }.start()*/
     }
+
+    override fun onResume() {
+        super.onResume()
+        movieDetailViewModel.getDetails(movie)
+    }
+
+    private fun setupDataBinding() {
+        with(binding) {
+            lifecycleOwner = this@MovieDetailActivity
+            //todo: passar viewmodel ao inves do movie
+            movie = this@MovieDetailActivity.movie
+            executePendingBindings()
+        }
+    }
+
+    private fun subscribeUI() {
+
+        with(movieDetailViewModel) {
+
+            movie.observe(this@MovieDetailActivity) {
+                binding.movie = it
+            }
+
+            onError.observe(this@MovieDetailActivity) {
+                it
+            }
+
+        }
+
+    }
+
 }

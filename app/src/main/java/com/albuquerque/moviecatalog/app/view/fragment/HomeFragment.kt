@@ -67,31 +67,19 @@ class HomeFragment : Fragment() {
         with(moviesViewModel) {
 
             nowPlaying.observe(viewLifecycleOwner) { list ->
-                list?.let {
-                    ImageSliderUtils(pager, recyclerViewDots, list.map { it.poster }.take(5)).setupViewPager()
-                    checkLoadedCategories()
-                }
+                ImageSliderUtils(pager, recyclerViewDots, list.map { it.poster }.take(5)).setupViewPager()
             }
 
-            upcoming.observe(viewLifecycleOwner) { list ->
-                list?.let {
-                    rvUpcoming.adapter = setupAdapter(it)
-                    checkLoadedCategories()
-                }
+            upcoming.observe(viewLifecycleOwner) {
+                rvUpcoming.adapter = setupAdapter(it)
             }
 
-            popular.observe(viewLifecycleOwner){ list ->
-                list?.let {
-                    rvPopular.adapter = setupAdapter(it)
-                    checkLoadedCategories()
-                }
+            popular.observe(viewLifecycleOwner){
+                rvPopular.adapter = setupAdapter(it)
             }
 
-            topRated.observe(viewLifecycleOwner) { list ->
-                list?.let {
-                    rvTopRated.adapter = setupAdapter(it)
-                    checkLoadedCategories()
-                }
+            topRated.observe(viewLifecycleOwner) {
+                rvTopRated.adapter = setupAdapter(it)
             }
 
             onError.observe(viewLifecycleOwner) { erro ->
@@ -102,11 +90,11 @@ class HomeFragment : Fragment() {
                     text.text = erro
             }
 
-            onStartLoading.observe(this@HomeFragment) {
+            onStartLoading.observe(viewLifecycleOwner) {
                 startLoadingView()
             }
 
-            onFinishLoading.observe(this@HomeFragment) {
+            onFinishLoading.observe(viewLifecycleOwner) {
                 stopLoadingView()
             }
 
