@@ -14,13 +14,19 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".app.view.activity.MainActivity"
+            android:name=".app.view.activity.SplashActivity"
             android:theme="@style/MovieCatalogNoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
+        <activity
+            android:name=".app.view.activity.MainActivity"
+            android:theme="@style/MovieCatalogNoActionBar"/>
 
         <activity
             android:name=".app.view.activity.SeeMoreMoviesActivity"
@@ -28,7 +34,7 @@
 
         <activity
             android:name=".app.view.activity.MovieDetailActivity"
-            android:theme="@style/MovieCatalogNoActionBar"/>
+            android:theme="@style/MovieCatalogNoActionBar" />
 
     </application>
 

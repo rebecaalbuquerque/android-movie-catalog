@@ -61,30 +61,30 @@ class MoviesViewModel(
             }
 
             getMoviesPaginatedUseCase.invokeFromApi(FIRST_PAGE_PAGINATION,TypeMovies.UPCOMING, pagination).collect { result ->
+                checkLoadedCategories()
                 if(result.isFailure) {
                     onError.postValue(result.exceptionOrNull()?.message ?: "")
-                    checkLoadedCategories()
                 }
             }
 
             getMoviesPaginatedUseCase.invokeFromApi(FIRST_PAGE_PAGINATION,TypeMovies.POPULAR, pagination).collect { result ->
+                checkLoadedCategories()
                 if(result.isFailure) {
                     onError.postValue(result.exceptionOrNull()?.message ?: "")
-                    checkLoadedCategories()
                 }
             }
 
             getMoviesPaginatedUseCase.invokeFromApi(FIRST_PAGE_PAGINATION,TypeMovies.TOP_RATED, pagination).collect { result ->
+                checkLoadedCategories()
                 if(result.isFailure) {
                     onError.postValue(result.exceptionOrNull()?.message ?: "")
-                    checkLoadedCategories()
                 }
             }
         }
 
     }
 
-    fun checkLoadedCategories() {
+    private fun checkLoadedCategories() {
         categories -= 1
 
         if(categories == 0)
