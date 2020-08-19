@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import com.albuquerque.moviecatalog.R
 import com.albuquerque.moviecatalog.app.adapter.MoviesAdapter
 import com.albuquerque.moviecatalog.app.data.ui.MovieUI
@@ -16,11 +19,10 @@ import com.albuquerque.moviecatalog.app.utils.ImageSliderUtils
 import com.albuquerque.moviecatalog.app.utils.TypeMovies
 import com.albuquerque.moviecatalog.app.view.activity.MovieDetailActivity
 import com.albuquerque.moviecatalog.app.view.activity.MovieDetailActivity.Companion.MOVIE
-import com.albuquerque.moviecatalog.app.view.activity.SeeMoreMoviesActivity
-import com.albuquerque.moviecatalog.app.view.activity.SeeMoreMoviesActivity.Companion.TYPE_MOVIE
 import com.albuquerque.moviecatalog.app.viewmodel.MoviesViewModel
 import com.albuquerque.moviecatalog.core.extensions.setGone
 import com.albuquerque.moviecatalog.core.extensions.setVisible
+import com.albuquerque.moviecatalog.databinding.FragmentHomeBinding
 import kotlinx.android.synthetic.main.empty_movies.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.layoutLoading
@@ -29,10 +31,22 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
 
+    private lateinit var binding: FragmentHomeBinding
     private val moviesViewModel: MoviesViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        (activity as AppCompatActivity?)?.supportActionBar?.hide()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity?)?.supportActionBar?.show()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,20 +54,35 @@ class HomeFragment : Fragment() {
 
         subscribeUI()
         setupView()
+        setupDataBinding()
+    }
+
+    private fun setupDataBinding() {
+        with(binding) {
+            lifecycleOwner = this@HomeFragment
+            viewModel = moviesViewModel
+            executePendingBindings()
+        }
     }
 
     private fun setupView() {
 
         seeMoreUpcoming.setOnClickListener {
-            startActivity(Intent(context, SeeMoreMoviesActivity::class.java).apply { putExtra(TYPE_MOVIE, TypeMovies.UPCOMING.value) })
+            findNavController().navigate(
+                    HomeFragmentDirections.actionSeeMoreMovies(TypeMovies.UPCOMING.value)
+            )
         }
 
         seeMorePopular.setOnClickListener {
-            startActivity(Intent(context, SeeMoreMoviesActivity::class.java).apply { putExtra(TYPE_MOVIE, TypeMovies.POPULAR.value) })
+            findNavController().navigate(
+                    HomeFragmentDirections.actionSeeMoreMovies(TypeMovies.POPULAR.value)
+            )
         }
 
         seeMoreTopRated.setOnClickListener {
-            startActivity(Intent(context, SeeMoreMoviesActivity::class.java).apply { putExtra(TYPE_MOVIE, TypeMovies.TOP_RATED.value) })
+            findNavController().navigate(
+                    HomeFragmentDirections.actionSeeMoreMovies(TypeMovies.TOP_RATED.value)
+            )
         }
 
         tentarNovamente.setOnClickListener {
