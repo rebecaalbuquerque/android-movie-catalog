@@ -32,7 +32,7 @@
     <fragment
         android:id="@+id/search_destination"
         android:name="com.albuquerque.moviecatalog.app.view.fragment.SearchFragment"
-        android:label="fragment_search"
+        android:label="Buscar"
         tools:layout="@layout/fragment_search" />
 
     <fragment

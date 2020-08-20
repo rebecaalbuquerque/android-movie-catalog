@@ -40,6 +40,7 @@ class MainActivity : BaseActivity() {
 
                     R.id.home_destination -> {
                         supportActionBar?.hide()
+                        bottom_navigation_view.setVisible()
                     }
 
                     R.id.movie_detail_destination -> {

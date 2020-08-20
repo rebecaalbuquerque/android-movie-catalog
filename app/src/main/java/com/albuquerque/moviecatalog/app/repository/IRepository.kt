@@ -19,4 +19,6 @@ interface IRepository {
 
     suspend fun fetchCastFromMovie(movieId: Int): Result<List<Cast>>
 
+    suspend fun fetchSearch(query: String): Result<List<Movie>>
+
 }

@@ -69,4 +69,9 @@ class RemoteRepository : Remote(), IRemoteRepository {
     override suspend fun fetchCastFromMovie(movieId: Int): Result<List<Cast>> {
         return runRequest { tmdbApi.fetchCastAndCrew(movieId).cast }
     }
+
+    override suspend fun fetchSearch(query: String): Result<List<Movie>> {
+        return runRequest { tmdbApi.fetchSearch(query) }.map { list -> list.results.filter { !it.adult } }
+    }
+
 }

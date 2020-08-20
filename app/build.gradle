@@ -22,7 +22,7 @@ android {
     def versionMajor = 0
     def versionMinor = 0
     def versionPatch = 3
-    def versionNumber = 4
+    def versionNumber = 5
 
     defaultConfig {
         applicationId "com.albuquerque.moviecatalog"
@@ -88,8 +88,8 @@ android {
                 //releaseNotes="Here is new app release note"
                 releaseNotes = "Melhorando tela de detalhe de um filme"
 
-                //testers ="tester1@gmail.com,tester2@gmail.com"
-                testersFile = "$projectDir/distribution/alpha/testers.txt"
+                testers ="rebeca.albuquerque96@gmail.com"
+                //testersFile = "$projectDir/distribution/alpha/testers.txt"
 
                 //groups ="qa-team, android-testers"
                 groupsFile = "$projectDir/distribution/alpha/firebase_group.txt"

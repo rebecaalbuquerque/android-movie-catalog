@@ -3,13 +3,11 @@ package com.albuquerque.moviecatalog.core.application
 import android.app.Application
 import com.albuquerque.moviecatalog.app.data.AppDatabase
 import com.albuquerque.moviecatalog.app.repository.*
-import com.albuquerque.moviecatalog.app.usecase.GetMovieCastUseCase
-import com.albuquerque.moviecatalog.app.usecase.GetMovieDetailsUseCase
-import com.albuquerque.moviecatalog.app.usecase.GetMoviesPaginatedUseCase
-import com.albuquerque.moviecatalog.app.usecase.GetMoviesUseCase
+import com.albuquerque.moviecatalog.app.usecase.*
 import com.albuquerque.moviecatalog.app.viewmodel.MovieDetailViewModel
 import com.albuquerque.moviecatalog.app.viewmodel.MoviesPaginationViewModel
 import com.albuquerque.moviecatalog.app.viewmodel.MoviesViewModel
+import com.albuquerque.moviecatalog.app.viewmodel.SearchViewModel
 import com.facebook.stetho.Stetho
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -59,12 +57,14 @@ class MovieCatalogApplication: Application() {
                 factory { GetMoviesUseCase(repository = get()) }
                 factory { GetMovieDetailsUseCase(repository = get()) }
                 factory { GetMovieCastUseCase(repository = get()) }
+                factory { SearchMoviesUseCase(repository = get()) }
             }
 
             val viewModelModule = module {
                 viewModel { MoviesViewModel(getMoviesPaginatedUseCase = get()) }
                 viewModel { MovieDetailViewModel(getMovieDetailsUseCase = get(), getMovieCastUseCase = get()) }
                 viewModel { MoviesPaginationViewModel(getMoviesPaginatedUseCase = get()) }
+                viewModel { SearchViewModel(searchMoviesUseCase = get()) }
             }
 
             modules(listOf(databaseModule, repositoryModule, useCaseModule, viewModelModule))

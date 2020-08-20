@@ -7,10 +7,25 @@ import com.albuquerque.moviecatalog.app.data.entity.MovieEntity
 import com.albuquerque.moviecatalog.app.data.ui.CastUI
 import com.albuquerque.moviecatalog.app.data.ui.MovieUI
 import com.albuquerque.moviecatalog.app.utils.TypeMovies
+import java.util.*
 
 /*
 * Movie
 * */
+fun Movie.toUI(): MovieUI {
+    return MovieUI(
+            this.id,
+            this.title,
+            if(this.overview.isEmpty()) "N/A" else this.overview,
+            this.releaseDate,
+            this.poster,
+            this.backdrop,
+            "",
+            "${this.runtime} min",
+            Calendar.getInstance().time
+    )
+}
+
 fun Movie.toEntity(category: TypeMovies? = null): MovieEntity {
     return MovieEntity(
             this.id,

@@ -57,6 +57,10 @@ class Repository(
         return remote.fetchCastFromMovie(movieId)
     }
 
+    override suspend fun fetchSearch(query: String): Result<List<Movie>> {
+        return remote.fetchSearch(query)
+    }
+
     private suspend fun MovieEntity.restoreFromDB() {
         local.getMovie(this.id)?.let { movie ->
             this.fetchAt = movie.fetchAt

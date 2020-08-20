@@ -44,4 +44,10 @@ interface MoviesAPI {
             @Path("movie_id") movieId: Int
     ): CastList
 
+    @GET("search/movie?api_key=${Credentials.API_KEY}")
+    suspend fun fetchSearch(
+            @Query("query") query: String,
+            @Query("language") language: String = "pt-BR"
+    ): Movies
+
 }

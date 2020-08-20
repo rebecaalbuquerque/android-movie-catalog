@@ -11,5 +11,6 @@
     <string name="movie_detail_overview_title">Sinopse</string>
     <string name="movie_detail_cast_title">Elenco</string>
     <string name="label_not_available">N/A</string>
+    <string name="action_search_title">Busca</string>
 
 </resources>
