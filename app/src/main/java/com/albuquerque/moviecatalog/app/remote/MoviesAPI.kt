@@ -11,32 +11,38 @@ interface MoviesAPI {
 
     @GET("movie/{movieId}?api_key=${Credentials.API_KEY}")
     suspend fun fetchMovie(
-            @Path("movieId") movieId: Int
+            @Path("movieId") movieId: Int,
+            @Query("language") language: String = "pt-BR"
     ): Movie
 
     @GET("movie/now_playing?api_key=${Credentials.API_KEY}")
     suspend fun fetchNowPlaying(
-            @Query("page") page: Int = 1
+            @Query("page") page: Int = 1,
+            @Query("language") language: String = "pt-BR"
     ): Movies
 
     @GET("movie/popular?api_key=${Credentials.API_KEY}")
     suspend fun fetchPopular(
-            @Query("page") page: Int = 1
+            @Query("page") page: Int = 1,
+            @Query("language") language: String = "pt-BR"
     ): Movies
 
     @GET("movie/top_rated?api_key=${Credentials.API_KEY}")
     suspend fun fetchTopRated(
-            @Query("page") page: Int = 1
+            @Query("page") page: Int = 1,
+            @Query("language") language: String = "pt-BR"
     ): Movies
 
     @GET("movie/upcoming?api_key=${Credentials.API_KEY}")
     suspend fun fetchUpcoming(
-            @Query("page") page: Int = 1
+            @Query("page") page: Int = 1,
+            @Query("language") language: String = "pt-BR"
     ): Movies
 
     @GET("/movie/{movie_id}/credits?api_key=${Credentials.API_KEY}")
     suspend fun fetchCastAndCrew(
-            @Path("movie_id") movieId: Int
+            @Path("movie_id") movieId: Int,
+            @Query("language") language: String = "pt-BR"
     ): CastList
 
 }

@@ -8,5 +8,6 @@
     <string name="home_header_now_playing">Em Exibição</string>
     <string name="home_header_see_more">Ver Mais</string>
     <string name="tentar_novamente">Tentar novamente</string>
+    <string name="movie_detail_overview_title">Sinopse</string>
 
 </resources>

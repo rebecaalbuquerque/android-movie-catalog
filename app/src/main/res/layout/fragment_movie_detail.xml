@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.albuquerque.moviecatalog.app.viewmodel.MovieDetailViewModel" />
@@ -81,8 +82,8 @@
                 android:elevation="8dp"
                 android:paddingTop="16dp"
                 android:paddingBottom="32dp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
@@ -109,12 +110,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:text="@{viewModel.movie.releaseDate}"
+                    android:text="@{`Lançado em ` + viewModel.movie.releaseDateFormatted}"
                     android:textColor="@color/colorLabelPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/movieTitle"
-                    tools:text="06/08/2020"/>
+                    tools:text="Lançado em 06/08/2020" />
 
                 <TextView
                     android:id="@+id/movieRuntime"
@@ -128,7 +129,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/movieReleaseDate"
-                    tools:text="143 min"/>
+                    tools:text="143 min" />
 
                 <TextView
                     android:id="@+id/movieGenres"
@@ -137,13 +138,34 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:textColor="@color/colorLabelPrimary"
-                    android:maxLines="2"
                     android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="@color/colorLabelPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/movieRuntime"
-                    tools:text="Action, Adventure, Fantasy"/>
+                    tools:text="Action, Adventure, Fantasy" />
+
+                <LinearLayout
+                    android:id="@+id/containerDetailsLoading"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:background="@color/colorPrimary"
+                    app:isVisible="@{viewModel.onLoading}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="gone">
+
+                    <ProgressBar
+                        android:id="@+id/detailsLoading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:progressTint="@color/colorAccent" />
+
+                </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -160,13 +182,64 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <View
-                        android:id="@+id/movieOverview"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/containerMovieOverview"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:background="@color/colorLabelPrimary"
-                        android:elevation="8dp" />
+                        android:elevation="8dp"
+                        android:minHeight="200dp"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/movieOverviewTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/movie_detail_overview_title"
+                            android:textColor="@color/colorLabelSecondary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/movieOverview"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:text="@{viewModel.movie.overview}"
+                            android:textColor="@color/colorLabelSecondary"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/movieOverviewTitle"
+                            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pretium pellentesque sagittis. Suspendisse sed lectus velit. Aliquam ut lorem convallis orci posuere aliquam." />
+
+                        <LinearLayout
+                            android:id="@+id/containerOverviewLoading"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:gravity="center"
+                            android:background="@color/colorLabelPrimary"
+                            app:isVisible="@{viewModel.onLoading}"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:visibility="gone">
+
+                            <ProgressBar
+                                android:id="@+id/overviewLoading"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:progressTint="@color/colorAccent" />
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                     <View
                         android:id="@+id/movieCast"

@@ -37,7 +37,12 @@ class MainActivity : BaseActivity() {
             addOnDestinationChangedListener { _, destination, _ ->
 
                 when(destination.id) {
-                    R.id.home_destination, R.id.movie_detail_destination -> {
+
+                    R.id.home_destination -> {
+                        supportActionBar?.hide()
+                    }
+
+                    R.id.movie_detail_destination -> {
                         supportActionBar?.hide()
                         bottom_navigation_view.setGone()
                     }

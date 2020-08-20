@@ -5,5 +5,6 @@
     <color name="colorAccent">#E5131E</color>
     <color name="colorAccentSecondary">#B6C6D5</color>
     <color name="colorLabelPrimary">#FFFFFF</color>
+    <color name="colorLabelSecondary">#121212</color>
 
 </resources>

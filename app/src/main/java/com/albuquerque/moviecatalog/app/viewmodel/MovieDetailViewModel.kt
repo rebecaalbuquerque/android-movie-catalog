@@ -1,6 +1,7 @@
 package com.albuquerque.moviecatalog.app.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.albuquerque.moviecatalog.app.data.ui.MovieUI
@@ -14,6 +15,8 @@ class MovieDetailViewModel(
         private val getMovieDetailsUseCase: GetMovieDetailsUseCase
 ) : BaseViewModel() {
 
+    val onLoading = MutableLiveData<Boolean>()
+
     private val _movie = SingleMediatorLiveData<MovieUI>()
     val movie = _movie as LiveData<MovieUI>
 
@@ -26,6 +29,7 @@ class MovieDetailViewModel(
         }
 
     private fun getDetails(movieId: Int) {
+        onLoading.postValue(true)
 
         viewModelScope.launch {
 
@@ -33,9 +37,11 @@ class MovieDetailViewModel(
                     .collect { result ->
                         result
                                 .onSuccess {
+                                    onLoading.postValue(false)
                                     _movie.emit(getMovieDetailsUseCase.invokeFromDb(movieId).asLiveData())
                                 }
                                 .onFailure {
+                                    onLoading.postValue(false)
                                     onError.value = it.message
                                 }
                     }

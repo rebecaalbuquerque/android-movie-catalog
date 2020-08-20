@@ -16,7 +16,7 @@ fun Movie.toEntity(category: TypeMovies? = null): MovieEntity {
             this.id,
             this.originalTitle,
             this.title,
-            this.overview,
+            if(this.overview.isEmpty()) "N/A" else this.overview,
             this.releaseDate,
             this.poster,
             this.backdrop,

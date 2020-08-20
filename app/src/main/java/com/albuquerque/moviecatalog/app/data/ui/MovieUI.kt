@@ -1,5 +1,7 @@
 package com.albuquerque.moviecatalog.app.data.ui
 
+import com.albuquerque.moviecatalog.core.extensions.format
+import com.albuquerque.moviecatalog.core.extensions.parse
 import java.io.Serializable
 import java.util.*
 
@@ -13,4 +15,8 @@ data class MovieUI(
         val category: String,
         val runtime: String,
         var fetchAt: Date
-): Serializable
+): Serializable {
+
+    val releaseDateFormatted: String = releaseDate.parse("yyyy-MM-dd").format()
+
+}
