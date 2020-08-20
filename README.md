@@ -1,11 +1,19 @@
 # MovieCatalog
+
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/41158713/90835529-43424b00-e323-11ea-9842-738c4318b2c3.png" width="660">
+</p>
+
+<br/>
+<br/>
+
 Something that every movie lover should have on their cell phone: an app that highlights popular, now playing, top rated and upcoming movies.
 
 This app uses the TMDb API to display the movies.
 
 > App still in development
 
-<img src="https://user-images.githubusercontent.com/41158713/88875228-42703a80-d1f7-11ea-8677-f48ada96ee92.png" width="350"> <img src="https://user-images.githubusercontent.com/41158713/88875235-48661b80-d1f7-11ea-9bdd-be3de160ca77.png" width="350"> 
 # Architectural Design Pattern
 In this project the MVVM architecture was used along with the repository pattern and use cases.
 
