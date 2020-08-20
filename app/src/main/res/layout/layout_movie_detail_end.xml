@@ -20,26 +20,17 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
 
-    <LinearLayout
-        android:id="@+id/containerBackButton"
+    <ImageButton
+        android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="?attr/actionBarSize"
-        android:layout_marginStart="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         android:elevation="4dp"
-        android:gravity="center_vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageButton
-            android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="?attr/homeAsUpIndicator"
-            android:tint="@color/colorAccent"
-            tools:ignore="ContentDescription" />
-
-    </LinearLayout>
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="?attr/homeAsUpIndicator"
+        android:tint="@color/colorAccent"
+        tools:ignore="ContentDescription" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"

@@ -9,5 +9,7 @@
     <string name="home_header_see_more">Ver Mais</string>
     <string name="tentar_novamente">Tentar novamente</string>
     <string name="movie_detail_overview_title">Sinopse</string>
+    <string name="movie_detail_cast_title">Elenco</string>
+    <string name="label_not_available">N/A</string>
 
 </resources>

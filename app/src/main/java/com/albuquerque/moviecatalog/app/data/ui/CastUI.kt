@@ -5,5 +5,5 @@ data class CastUI(
         val character: String,
         val gender: String,
         val name: String,
-        val profilePath: String?
+        val profilePicture: String?
 )

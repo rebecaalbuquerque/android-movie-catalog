@@ -6,5 +6,5 @@ class CastEntity(
         val gender: String,
         val order: Int,
         val name: String,
-        val profilePath: String?
+        val profilePicture: String?
 )

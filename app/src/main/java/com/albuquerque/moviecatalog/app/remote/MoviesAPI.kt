@@ -39,10 +39,9 @@ interface MoviesAPI {
             @Query("language") language: String = "pt-BR"
     ): Movies
 
-    @GET("/movie/{movie_id}/credits?api_key=${Credentials.API_KEY}")
+    @GET("movie/{movie_id}/credits?api_key=${Credentials.API_KEY}")
     suspend fun fetchCastAndCrew(
-            @Path("movie_id") movieId: Int,
-            @Query("language") language: String = "pt-BR"
+            @Path("movie_id") movieId: Int
     ): CastList
 
 }

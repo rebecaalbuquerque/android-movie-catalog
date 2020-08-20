@@ -72,6 +72,10 @@
             android:name="movieId"
             app:argType="integer" />
 
+        <action
+            android:id="@+id/back_home_action"
+            app:popUpTo="@id/home_destination"/>
+
     </fragment>
 
 </navigation>

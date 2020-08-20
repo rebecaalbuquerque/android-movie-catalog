@@ -29,25 +29,16 @@
             tools:ignore="ContentDescription"
             tools:src="@drawable/ic_launcher_background" />
 
-        <LinearLayout
-            android:id="@+id/containerBackButton"
+        <ImageButton
+            android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="?attr/actionBarSize"
-            android:layout_marginStart="16dp"
-            android:gravity="center_vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageButton
-                android:id="@+id/backButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="?attr/homeAsUpIndicator"
-                android:tint="@color/colorAccent"
-                tools:ignore="ContentDescription" />
-
-        </LinearLayout>
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="?attr/homeAsUpIndicator"
+            android:tint="@color/colorAccent"
+            tools:ignore="ContentDescription" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline1"
@@ -150,9 +141,9 @@
                     android:id="@+id/containerDetailsLoading"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:gravity="center"
                     android:background="@color/colorPrimary"
-                    app:isVisible="@{viewModel.onLoading}"
+                    android:gravity="center"
+                    app:isVisible="@{viewModel.onMovieLoading}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -221,9 +212,9 @@
                             android:id="@+id/containerOverviewLoading"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:gravity="center"
                             android:background="@color/colorLabelPrimary"
-                            app:isVisible="@{viewModel.onLoading}"
+                            android:gravity="center"
+                            app:isVisible="@{viewModel.onMovieLoading}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -241,14 +232,78 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                    <View
-                        android:id="@+id/movieCast"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/containerMovieCast"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
                         android:background="@color/colorLabelPrimary"
-                        android:elevation="8dp" />
+                        android:elevation="8dp"
+                        android:minHeight="200dp"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/movieCastTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/movie_detail_cast_title"
+                            android:textColor="@color/colorLabelSecondary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvCast"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:orientation="horizontal"
+                            app:items="@{viewModel.cast}"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/movieCastTitle"
+                            tools:listitem="@layout/item_cast" />
+
+                        <TextView
+                            android:id="@+id/castNotAvailable"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/label_not_available"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorLabelSecondary"
+                            app:isVisible="@{viewModel.onMovieCastError}"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/movieCastTitle" />
+
+                        <LinearLayout
+                            android:id="@+id/containerCastLoading"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:background="@color/colorLabelPrimary"
+                            android:gravity="center"
+                            app:isVisible="@{viewModel.onMovieCastLoading}"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:visibility="gone">
+
+                            <ProgressBar
+                                android:id="@+id/castLoading"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:progressTint="@color/colorAccent" />
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>
 

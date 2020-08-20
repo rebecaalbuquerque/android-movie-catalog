@@ -17,6 +17,6 @@ interface IRepository {
 
     suspend fun fetchMoviesPaginatedByCategory(paginationController: Pagination, page: Int, typeMovies: TypeMovies): Result<List<Movie>>
 
-    suspend fun getCastFromMovie(movieId: Int): Result<List<Cast>>
+    suspend fun fetchCastFromMovie(movieId: Int): Result<List<Cast>>
 
 }

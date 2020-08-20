@@ -50,7 +50,7 @@ fun CastEntity.toUI(): CastUI {
             this.character,
             this.gender,
             this.name,
-            this.profilePath
+            this.profilePicture
     )
 }
 
@@ -61,6 +61,6 @@ fun Cast.toEntity(): CastEntity {
             this.gender ?: "N/I",
             this.order,
             this.name,
-            this.profilePath
+            this.profilePicture
     )
 }

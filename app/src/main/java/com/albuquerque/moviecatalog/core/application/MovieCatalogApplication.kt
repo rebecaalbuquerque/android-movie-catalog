@@ -3,6 +3,7 @@ package com.albuquerque.moviecatalog.core.application
 import android.app.Application
 import com.albuquerque.moviecatalog.app.data.AppDatabase
 import com.albuquerque.moviecatalog.app.repository.*
+import com.albuquerque.moviecatalog.app.usecase.GetMovieCastUseCase
 import com.albuquerque.moviecatalog.app.usecase.GetMovieDetailsUseCase
 import com.albuquerque.moviecatalog.app.usecase.GetMoviesPaginatedUseCase
 import com.albuquerque.moviecatalog.app.usecase.GetMoviesUseCase
@@ -57,11 +58,12 @@ class MovieCatalogApplication: Application() {
                 factory { GetMoviesPaginatedUseCase(repository = get()) }
                 factory { GetMoviesUseCase(repository = get()) }
                 factory { GetMovieDetailsUseCase(repository = get()) }
+                factory { GetMovieCastUseCase(repository = get()) }
             }
 
             val viewModelModule = module {
                 viewModel { MoviesViewModel(getMoviesPaginatedUseCase = get()) }
-                viewModel { MovieDetailViewModel(getMovieDetailsUseCase = get()) }
+                viewModel { MovieDetailViewModel(getMovieDetailsUseCase = get(), getMovieCastUseCase = get()) }
                 viewModel { MoviesPaginationViewModel(getMoviesPaginatedUseCase = get()) }
             }
 

@@ -53,13 +53,8 @@ class Repository(
 
     override fun getMoviesByCategoryFromDB(category: String): Flow<List<MovieEntity>> = local.getMoviesByCategory(category)
 
-    override suspend fun getCastFromMovie(movieId: Int): Result<List<Cast>> {
-
+    override suspend fun fetchCastFromMovie(movieId: Int): Result<List<Cast>> {
         return remote.fetchCastFromMovie(movieId)
-                .onSuccess { result ->
-                    val moviesEntity = result.map { it.toEntity() }
-                    //local.saveAll(moviesEntity)
-                }
     }
 
     private suspend fun MovieEntity.restoreFromDB() {
