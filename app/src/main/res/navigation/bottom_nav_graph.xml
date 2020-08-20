@@ -41,21 +41,36 @@
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" />
 
-    <activity
-        android:id="@+id/movie_detail_destination"
-        android:name="com.albuquerque.moviecatalog.app.view.activity.MovieDetailActivity"
-        tools:layout="@layout/activity_movie_detail"/>
-
     <fragment
         android:id="@+id/see_more_movies_destination"
         android:name="com.albuquerque.moviecatalog.app.view.fragment.SeeMoreMoviesFragment"
         android:label="SeeMoreMoviesFragment"
         tools:layout="@layout/fragment_see_more_movies">
 
+        <action
+            android:id="@+id/action_movie_detail"
+            app:destination="@id/movie_detail_destination"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
         <argument
             android:name="typeMovies"
             android:defaultValue="Populares"
             app:argType="string" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/movie_detail_destination"
+        android:name="com.albuquerque.moviecatalog.app.view.fragment.MovieDetailFragment"
+        android:label="MovieDetailFragment"
+        tools:layout="@layout/fragment_movie_detail">
+
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
 
     </fragment>
 

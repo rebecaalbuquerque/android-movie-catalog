@@ -1,6 +1,5 @@
 package com.albuquerque.moviecatalog.app.repository
 
-import androidx.lifecycle.LiveData
 import com.albuquerque.moviecatalog.app.data.dao.MovieDao
 import com.albuquerque.moviecatalog.app.data.entity.MovieEntity
 import com.albuquerque.moviecatalog.app.utils.TypeMovies
@@ -18,13 +17,13 @@ class LocalRepository(
         movieDao.insertAllIfNecesseray(data, typeMovies)
     }
 
-    override fun getMoviesByCategory(category: String): Flow<List<MovieEntity>> = movieDao.getAllByCategory(category)
-
     override suspend fun updateMovie(movie: MovieEntity) {
         movieDao.update(movie)
     }
 
-    override suspend fun getMovie(movieId: Int): MovieEntity? {
-        return movieDao.get(movieId)
-    }
+    override fun getMoviesByCategory(category: String): Flow<List<MovieEntity>> = movieDao.getAllByCategory(category)
+
+    override fun getMovieAsFlow(movieId: Int): Flow<MovieEntity> = movieDao.getAsFlow(movieId)
+
+    override suspend fun getMovie(movieId: Int): MovieEntity? = movieDao.get(movieId)
 }

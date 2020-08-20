@@ -6,8 +6,8 @@ import com.albuquerque.moviecatalog.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
-@BindingAdapter("src")
-fun loadImage(imageView: ImageView, src: String) {
+@BindingAdapter("src", requireAll = false)
+fun loadImage(imageView: ImageView, src: String?) {
 
     Glide
             .with(imageView.context)

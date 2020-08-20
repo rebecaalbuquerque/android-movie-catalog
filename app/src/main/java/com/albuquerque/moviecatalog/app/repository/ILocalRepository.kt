@@ -14,6 +14,8 @@ interface ILocalRepository {
 
     fun getMoviesByCategory(category: String): Flow<List<MovieEntity>>
 
+    fun getMovieAsFlow(movieId: Int): Flow<MovieEntity>
+
     suspend fun getMovie(movieId: Int): MovieEntity?
 
 }

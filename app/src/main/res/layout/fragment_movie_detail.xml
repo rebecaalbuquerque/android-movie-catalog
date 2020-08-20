@@ -1,14 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
-            name="movie"
-            type="com.albuquerque.moviecatalog.app.data.ui.MovieUI" />
-
+            name="viewModel"
+            type="com.albuquerque.moviecatalog.app.viewmodel.MovieDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
@@ -27,7 +24,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:src="@{movie.backdrop}"
+            app:src="@{viewModel.movie.backdrop}"
             tools:ignore="ContentDescription"
             tools:src="@drawable/ic_launcher_background" />
 
@@ -96,7 +93,7 @@
                     android:layout_marginEnd="16dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="@{movie.title}"
+                    android:text="@{viewModel.movie.title}"
                     android:textColor="@color/colorLabelPrimary"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -112,7 +109,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:text="@{movie.releaseDate}"
+                    android:text="@{viewModel.movie.releaseDate}"
                     android:textColor="@color/colorLabelPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -126,7 +123,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:text="@{movie.runtime}"
+                    android:text="@{viewModel.movie.runtime}"
                     android:textColor="@color/colorLabelPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -189,4 +186,3 @@
     </androidx.constraintlayout.motion.widget.MotionLayout>
 
 </layout>
-

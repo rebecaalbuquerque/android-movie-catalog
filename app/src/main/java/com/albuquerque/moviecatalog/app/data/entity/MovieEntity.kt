@@ -14,7 +14,7 @@ data class MovieEntity(
         @ColumnInfo(name = "releaseDate") val releaseDate: String,
         @ColumnInfo(name = "poster") val poster: String,
         @ColumnInfo(name = "backdrop") val backdrop: String,
-        @ColumnInfo(name = "category") val category: String,
+        @ColumnInfo(name = "category") var category: String,
         @ColumnInfo(name = "runtime") val runtime: String,
         @ColumnInfo(name = "fetchAt") var fetchAt: Date
 )

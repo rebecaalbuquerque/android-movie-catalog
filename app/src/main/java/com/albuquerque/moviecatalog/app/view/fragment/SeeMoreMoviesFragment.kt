@@ -1,20 +1,18 @@
 package com.albuquerque.moviecatalog.app.view.fragment
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.albuquerque.moviecatalog.R
 import com.albuquerque.moviecatalog.app.adapter.MoviesAdapter
 import com.albuquerque.moviecatalog.app.utils.TypeMovies
-import com.albuquerque.moviecatalog.app.view.activity.MovieDetailActivity
 import com.albuquerque.moviecatalog.app.viewmodel.MoviesPaginationViewModel
 import com.albuquerque.moviecatalog.databinding.FragmentSeeMoreMoviesBinding
 import kotlinx.android.synthetic.main.fragment_see_more_movies.*
@@ -59,7 +57,7 @@ class SeeMoreMoviesFragment : Fragment() {
         }
 
         moviesAdapter = MoviesAdapter(true) { movie ->
-            startActivity(Intent(this.context, MovieDetailActivity::class.java).apply { putExtra(MovieDetailActivity.MOVIE, movie) })
+            SeeMoreMoviesFragmentDirections.actionMovieDetail(movie.id)
         }
 
         with(rvMovies) {

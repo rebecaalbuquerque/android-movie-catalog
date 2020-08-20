@@ -34,4 +34,7 @@ data class Movie (
         get() = Config.BASE_IMAGE_URL.plus(backdropPath)
 
     var fetchAt: Date = Calendar.getInstance().time
+
+    var category: String = ""
+
 }

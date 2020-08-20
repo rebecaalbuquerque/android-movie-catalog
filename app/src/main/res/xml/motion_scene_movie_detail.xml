@@ -5,7 +5,7 @@
 
     <Transition
         app:constraintSetEnd="@layout/layout_movie_detail_end"
-        app:constraintSetStart="@layout/activity_movie_detail"
+        app:constraintSetStart="@layout/fragment_movie_detail"
         app:duration="1000">
 
         <OnSwipe

@@ -1,6 +1,5 @@
 package com.albuquerque.moviecatalog.app.data.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
@@ -17,6 +16,9 @@ interface MovieDao: BaseDao<MovieEntity> {
 
     @Query("select * from movieentity where category = :value order by fetchAt asc")
     fun getAllByCategory(value: String): Flow<List<MovieEntity>>
+
+    @Query("select * from movieentity where id = :movieId")
+    fun getAsFlow(movieId: Int): Flow<MovieEntity>
 
     @Query("select * from movieentity where id = :movieId")
     suspend fun get(movieId: Int): MovieEntity?

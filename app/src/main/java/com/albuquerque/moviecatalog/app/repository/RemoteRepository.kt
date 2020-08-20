@@ -10,29 +10,26 @@ import java.util.*
 
 class RemoteRepository : Remote(), IRemoteRepository {
 
-    private val API by lazy { getRetrofitBuilder().create(MoviesAPI::class.java) }
+    private val tmdbApi by lazy { getRetrofitBuilder().create(MoviesAPI::class.java) }
 
-    override suspend fun getMovie(movieId: Int, fetchAt: Date): Result<Movie> {
-        val result = runRequest { API.fetchMovie(movieId) }
-
-        if(result.isSuccess) {
-            result.map {
-                it.fetchAt = fetchAt
-            }
+    override suspend fun fetchMovie(movieId: Int): Result<Movie> {
+        return runRequest {
+            tmdbApi.fetchMovie(movieId)
+        }.map {
+            it.fetchAt = Calendar.getInstance().time
+            it
         }
-
-        return result
 
     }
 
-    override suspend fun getMoviesPaginatedByCategory(paginationController: Pagination, page: Int, typeMovies: TypeMovies): Result<List<Movie>> {
+    override suspend fun fetchMoviesPaginatedByCategory(paginationController: Pagination, page: Int, typeMovies: TypeMovies): Result<List<Movie>> {
         // TODO: corrigir paginação
         /*return if (!paginationController.hasLoadLastPage) {
             val result = when (typeMovies) {
-                TypeMovies.POPULAR -> runRequest { API.fetchPopular(page) }
-                TypeMovies.NOW_PLAYING -> runRequest { API.fetchNowPlaying(page) }
-                TypeMovies.TOP_RATED -> runRequest { API.fetchTopRated(page) }
-                TypeMovies.UPCOMING -> runRequest { API.fetchUpcoming(page) }
+                TypeMovies.POPULAR -> runRequest { tmdbApi.fetchPopular(page) }
+                TypeMovies.NOW_PLAYING -> runRequest { tmdbApi.fetchNowPlaying(page) }
+                TypeMovies.TOP_RATED -> runRequest { tmdbApi.fetchTopRated(page) }
+                TypeMovies.UPCOMING -> runRequest { tmdbApi.fetchUpcoming(page) }
             }.onSuccess { movies ->
                 paginationController.updatePages(page, movies.totalPages, movies.totalResults)
             }
@@ -49,10 +46,10 @@ class RemoteRepository : Remote(), IRemoteRepository {
         }*/
 
         val result = when (typeMovies) {
-            TypeMovies.POPULAR -> runRequest { API.fetchPopular(page) }
-            TypeMovies.NOW_PLAYING -> runRequest { API.fetchNowPlaying(page) }
-            TypeMovies.TOP_RATED -> runRequest { API.fetchTopRated(page) }
-            TypeMovies.UPCOMING -> runRequest { API.fetchUpcoming(page) }
+            TypeMovies.POPULAR -> runRequest { tmdbApi.fetchPopular(page) }
+            TypeMovies.NOW_PLAYING -> runRequest { tmdbApi.fetchNowPlaying(page) }
+            TypeMovies.TOP_RATED -> runRequest { tmdbApi.fetchTopRated(page) }
+            TypeMovies.UPCOMING -> runRequest { tmdbApi.fetchUpcoming(page) }
         }.onSuccess { movies ->
             paginationController.updatePages(page, movies.totalPages, movies.totalResults)
         }
@@ -69,7 +66,7 @@ class RemoteRepository : Remote(), IRemoteRepository {
 
     }
 
-    override suspend fun getCastFromMovie(movieId: Int): Result<List<Cast>> {
-        return runRequest { API.fetchCastAndCrew(movieId).cast }
+    override suspend fun fetchCastFromMovie(movieId: Int): Result<List<Cast>> {
+        return runRequest { tmdbApi.fetchCastAndCrew(movieId).cast }
     }
 }

@@ -7,7 +7,6 @@ import com.albuquerque.moviecatalog.app.data.toEntity
 import com.albuquerque.moviecatalog.app.utils.TypeMovies
 import com.albuquerque.moviecatalog.core.remote.Pagination
 import kotlinx.coroutines.flow.Flow
-import java.util.*
 
 /**
  * @see RemoteRepository
@@ -19,21 +18,33 @@ class Repository(
         val local: ILocalRepository
 ) : IRepository {
 
-    override suspend fun getMovieDetails(movieId: Int, movieCategory: String, fetchAt: Date): Result<Movie> {
+    override suspend fun fetchMovieDetails(movieId: Int): Result<Movie> {
+        var category = ""
 
-        return remote.getMovie(movieId, fetchAt)
+        val result = remote.fetchMovie(movieId)
                 .onSuccess { result ->
-                    val movieEntity = result.toEntity(TypeMovies.getByValue(movieCategory)).apply { restoreFromDB() }
+                    val movieEntity = result
+                            .toEntity()
+                            .apply { restoreFromDB() }
+
+                    category = movieEntity.category
+
                     local.updateMovie(movieEntity)
                 }
 
+        if(result.isSuccess) {
+            result.map { it.category = category }
+        }
+
+        return result
+
     }
 
-    override suspend fun getMovieFromDB(movieId: Int): MovieEntity? = local.getMovie(movieId)
+    override fun getMovieFromDB(movieId: Int): Flow<MovieEntity> = local.getMovieAsFlow(movieId)
 
-    override suspend fun getMoviesPaginatedByCategory(paginationController: Pagination, page: Int, typeMovies: TypeMovies): Result<List<Movie>> {
+    override suspend fun fetchMoviesPaginatedByCategory(paginationController: Pagination, page: Int, typeMovies: TypeMovies): Result<List<Movie>> {
 
-        return remote.getMoviesPaginatedByCategory(paginationController, page, typeMovies)
+        return remote.fetchMoviesPaginatedByCategory(paginationController, page, typeMovies)
                 .onSuccess { result ->
                     val moviesEntity = result.map { it.toEntity(typeMovies) }
                     local.saveMovies(moviesEntity, typeMovies)
@@ -44,7 +55,7 @@ class Repository(
 
     override suspend fun getCastFromMovie(movieId: Int): Result<List<Cast>> {
 
-        return remote.getCastFromMovie(movieId)
+        return remote.fetchCastFromMovie(movieId)
                 .onSuccess { result ->
                     val moviesEntity = result.map { it.toEntity() }
                     //local.saveAll(moviesEntity)
@@ -54,6 +65,7 @@ class Repository(
     private suspend fun MovieEntity.restoreFromDB() {
         local.getMovie(this.id)?.let { movie ->
             this.fetchAt = movie.fetchAt
+            this.category = movie.category
         }
     }
 }

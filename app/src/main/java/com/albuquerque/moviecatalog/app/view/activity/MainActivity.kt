@@ -9,6 +9,8 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.albuquerque.moviecatalog.R
+import com.albuquerque.moviecatalog.core.extensions.setGone
+import com.albuquerque.moviecatalog.core.extensions.setVisible
 import com.albuquerque.moviecatalog.core.view.activity.BaseActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,6 +33,22 @@ class MainActivity : BaseActivity() {
         with(host.navController) {
             setupActionBar(this, appBarConfiguration)
             setupBottomNavMenu(this)
+
+            addOnDestinationChangedListener { _, destination, _ ->
+
+                when(destination.id) {
+                    R.id.home_destination, R.id.movie_detail_destination -> {
+                        supportActionBar?.hide()
+                        bottom_navigation_view.setGone()
+                    }
+
+                    else -> {
+                        supportActionBar?.show()
+                        bottom_navigation_view.setVisible()
+                    }
+                }
+
+            }
         }
 
     }
