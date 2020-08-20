@@ -18,4 +18,6 @@ interface ILocalRepository {
 
     suspend fun getMovie(movieId: Int): MovieEntity?
 
+    fun getFavorites(): Flow<List<MovieEntity>>
+
 }

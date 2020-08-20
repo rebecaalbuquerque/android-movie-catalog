@@ -1,6 +1,5 @@
 package com.albuquerque.moviecatalog.app.usecase
 
-import com.albuquerque.moviecatalog.app.data.toEntity
 import com.albuquerque.moviecatalog.app.data.toUI
 import com.albuquerque.moviecatalog.app.data.ui.MovieUI
 import com.albuquerque.moviecatalog.app.repository.IRepository
@@ -17,7 +16,7 @@ class SearchMoviesUseCase(
 
     suspend fun invokeFromApi(query: String): Flow<Result<List<MovieUI>>> = flow {
         emitAll(
-                repository.fetchSearch(query)
+                repository.fetchSearchFromAPI(query)
                         .map { list -> list.map { it.toUI() } }
                         .asFlow()
                         .flowOn(Dispatchers.IO)

@@ -26,4 +26,6 @@ class LocalRepository(
     override fun getMovieAsFlow(movieId: Int): Flow<MovieEntity> = movieDao.getAsFlow(movieId)
 
     override suspend fun getMovie(movieId: Int): MovieEntity? = movieDao.get(movieId)
+
+    override fun getFavorites(): Flow<List<MovieEntity>> = movieDao.getFavorites()
 }

@@ -5,14 +5,17 @@ import com.albuquerque.moviecatalog.app.data.ui.CastUI
 import com.albuquerque.moviecatalog.app.data.ui.MovieUI
 import com.albuquerque.moviecatalog.app.usecase.GetMovieCastUseCase
 import com.albuquerque.moviecatalog.app.usecase.GetMovieDetailsUseCase
+import com.albuquerque.moviecatalog.app.usecase.ToggleFavoriteUseCase
 import com.albuquerque.moviecatalog.core.mediator.SingleMediatorLiveData
 import com.albuquerque.moviecatalog.core.viewmodel.BaseViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class MovieDetailViewModel(
         private val getMovieDetailsUseCase: GetMovieDetailsUseCase,
-        private val getMovieCastUseCase: GetMovieCastUseCase
+        private val getMovieCastUseCase: GetMovieCastUseCase,
+        private val toggleFavoriteUseCase: ToggleFavoriteUseCase
 ) : BaseViewModel() {
 
     val onMovieLoading = MutableLiveData<Boolean>()
@@ -77,6 +80,14 @@ class MovieDetailViewModel(
             }
         }
 
+    }
+
+    fun handleFavorite() {
+        movieId?.let {  id ->
+            viewModelScope.launch(Dispatchers.IO) {
+                toggleFavoriteUseCase.invoke(id)
+            }
+        }
     }
 
 }

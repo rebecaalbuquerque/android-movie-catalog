@@ -17,7 +17,7 @@ class GetMovieCastUseCase(
 
     suspend fun invokeFromApi(movieId: Int): Flow<Result<List<CastUI>>> = flow {
         emitAll(
-                repository.fetchCastFromMovie(movieId)
+                repository.fetchCastMovieFromAPI(movieId)
                         .map { list -> list.map { it.toEntity().toUI() } }
                         .asFlow()
                         .flowOn(Dispatchers.IO)

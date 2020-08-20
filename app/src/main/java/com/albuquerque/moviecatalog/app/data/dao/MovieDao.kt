@@ -17,6 +17,9 @@ interface MovieDao: BaseDao<MovieEntity> {
     @Query("select * from movieentity where category = :value order by fetchAt asc")
     fun getAllByCategory(value: String): Flow<List<MovieEntity>>
 
+    @Query("select * from movieentity where isFavorite = 1")
+    fun getFavorites(): Flow<List<MovieEntity>>
+
     @Query("select * from movieentity where id = :movieId")
     fun getAsFlow(movieId: Int): Flow<MovieEntity>
 

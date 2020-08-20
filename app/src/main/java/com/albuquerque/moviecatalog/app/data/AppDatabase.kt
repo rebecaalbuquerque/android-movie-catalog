@@ -11,7 +11,7 @@ import com.albuquerque.moviecatalog.app.data.entity.MovieEntity
 import com.albuquerque.moviecatalog.core.converter.DateConverter
 
 @Database(
-        version = 2,
+        version = 1,
         exportSchema = false,
         entities = [MovieEntity::class]
 )

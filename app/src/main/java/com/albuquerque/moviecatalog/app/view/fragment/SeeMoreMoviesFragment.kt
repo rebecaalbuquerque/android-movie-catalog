@@ -56,7 +56,7 @@ class SeeMoreMoviesFragment : Fragment() {
             title = typeMovies.value
         }
 
-        moviesAdapter = MoviesAdapter(true) { movie ->
+        moviesAdapter = MoviesAdapter(MoviesAdapter.TypeMovieView.GRID) { movie ->
             SeeMoreMoviesFragmentDirections.actionMovieDetail(movie.id)
         }
 

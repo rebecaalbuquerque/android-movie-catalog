@@ -4,10 +4,7 @@ import android.app.Application
 import com.albuquerque.moviecatalog.app.data.AppDatabase
 import com.albuquerque.moviecatalog.app.repository.*
 import com.albuquerque.moviecatalog.app.usecase.*
-import com.albuquerque.moviecatalog.app.viewmodel.MovieDetailViewModel
-import com.albuquerque.moviecatalog.app.viewmodel.MoviesPaginationViewModel
-import com.albuquerque.moviecatalog.app.viewmodel.MoviesViewModel
-import com.albuquerque.moviecatalog.app.viewmodel.SearchViewModel
+import com.albuquerque.moviecatalog.app.viewmodel.*
 import com.facebook.stetho.Stetho
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -58,13 +55,16 @@ class MovieCatalogApplication: Application() {
                 factory { GetMovieDetailsUseCase(repository = get()) }
                 factory { GetMovieCastUseCase(repository = get()) }
                 factory { SearchMoviesUseCase(repository = get()) }
+                factory { ToggleFavoriteUseCase(repository = get()) }
+                factory { GetFavoritesUseCase(repository = get()) }
             }
 
             val viewModelModule = module {
                 viewModel { MoviesViewModel(getMoviesPaginatedUseCase = get()) }
-                viewModel { MovieDetailViewModel(getMovieDetailsUseCase = get(), getMovieCastUseCase = get()) }
+                viewModel { MovieDetailViewModel(getMovieDetailsUseCase = get(), getMovieCastUseCase = get(), toggleFavoriteUseCase = get()) }
                 viewModel { MoviesPaginationViewModel(getMoviesPaginatedUseCase = get()) }
                 viewModel { SearchViewModel(searchMoviesUseCase = get()) }
+                viewModel { FavoritesViewModel(getFavoritesUseCase = get()) }
             }
 
             modules(listOf(databaseModule, repositoryModule, useCaseModule, viewModelModule))

@@ -13,6 +13,7 @@ import java.util.*
 * Movie
 * */
 fun Movie.toUI(): MovieUI {
+    // todo: melhorar depois
     return MovieUI(
             this.id,
             this.title,
@@ -22,7 +23,8 @@ fun Movie.toUI(): MovieUI {
             this.backdrop,
             "",
             "${this.runtime} min",
-            Calendar.getInstance().time
+            Calendar.getInstance().time,
+            false
     )
 }
 
@@ -51,7 +53,8 @@ fun MovieEntity.toUI(): MovieUI {
             this.backdrop,
             this.category,
             this.runtime,
-            this.fetchAt
+            this.fetchAt,
+            this.isFavorite
     )
 }
 

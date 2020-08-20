@@ -38,7 +38,7 @@
     <fragment
         android:id="@+id/favorites_destination"
         android:name="com.albuquerque.moviecatalog.app.view.fragment.FavoritesFragment"
-        android:label="fragment_favorites"
+        android:label="Favoritos"
         tools:layout="@layout/fragment_favorites" />
 
     <fragment

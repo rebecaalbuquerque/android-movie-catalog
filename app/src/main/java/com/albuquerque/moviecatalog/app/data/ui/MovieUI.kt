@@ -14,7 +14,8 @@ data class MovieUI(
         val backdrop: String,
         val category: String,
         val runtime: String,
-        var fetchAt: Date
+        var fetchAt: Date,
+        var isFavorite: Boolean
 ): Serializable {
 
     val releaseDateFormatted: String = releaseDate.parse("yyyy-MM-dd").format()

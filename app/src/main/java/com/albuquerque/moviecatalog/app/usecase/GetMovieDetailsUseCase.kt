@@ -22,7 +22,7 @@ class GetMovieDetailsUseCase(
 
     suspend fun invokeFromApi(movieId: Int): Flow<Result<MovieUI>> = flow {
         emitAll(
-                repository.fetchMovieDetails(movieId)
+                repository.fetchMovieFromAPI(movieId)
                         .map {
                             it.toEntity().toUI()
                         }

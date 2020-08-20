@@ -1,5 +1,6 @@
 package com.albuquerque.moviecatalog.core.bidingAdapter
 
+import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.albuquerque.moviecatalog.R
@@ -15,5 +16,15 @@ fun loadImage(imageView: ImageView, src: String?) {
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .placeholder(R.drawable.ic_launcher_foreground)
             .into(imageView)
+
+}
+
+@BindingAdapter("app:isFavorite", requireAll = false)
+fun setFavoriteIcon(imageButton: ImageButton, favorite: Boolean = false) {
+
+    if(favorite)
+        imageButton.setImageResource(R.drawable.ic_star_on)
+    else
+        imageButton.setImageResource(R.drawable.ic_star_off)
 
 }

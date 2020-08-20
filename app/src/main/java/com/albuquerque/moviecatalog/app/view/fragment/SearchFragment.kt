@@ -54,7 +54,7 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rvMovies.adapter = MoviesAdapter(true) {}
+        rvMovies.adapter = MoviesAdapter(MoviesAdapter.TypeMovieView.GRID) {}
 
         setupDatabinding()
     }

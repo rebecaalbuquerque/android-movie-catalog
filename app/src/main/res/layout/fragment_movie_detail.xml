@@ -38,6 +38,8 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="?attr/homeAsUpIndicator"
             android:tint="@color/colorAccent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             tools:ignore="ContentDescription" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -94,16 +96,29 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Movie Title" />
 
+                <ImageButton
+                    android:id="@+id/favoriteButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?attr/actionBarSize"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:onClick="@{() -> viewModel.handleFavorite()}"
+                    app:isFavorite="@{viewModel.movie.favorite}"
+                    app:layout_constraintTop_toBottomOf="@id/movieTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:src="@drawable/ic_star_on"
+                    tools:ignore="ContentDescription" />
+
                 <TextView
                     android:id="@+id/movieReleaseDate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
                     android:text="@{`Lançado em ` + viewModel.movie.releaseDateFormatted}"
                     android:textColor="@color/colorLabelPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/favoriteButton"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/movieTitle"
                     tools:text="Lançado em 06/08/2020" />
@@ -114,10 +129,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
                     android:text="@{viewModel.movie.runtime}"
                     android:textColor="@color/colorLabelPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/favoriteButton"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/movieReleaseDate"
                     tools:text="143 min" />

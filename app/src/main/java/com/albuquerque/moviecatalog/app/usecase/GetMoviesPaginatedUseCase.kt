@@ -16,7 +16,7 @@ class GetMoviesPaginatedUseCase(
 
     suspend fun invokeFromDb(typeMovies: TypeMovies, paginationController: Pagination) = flow {
         emitAll(
-                repository.getMoviesByCategoryFromDB(typeMovies.value)
+                repository.getMoviesFromDB(typeMovies.value)
                         .map { list ->
                             paginationController.hasReachedEndPagination(list.size)
                             list.map { it.toUI() }
@@ -27,7 +27,7 @@ class GetMoviesPaginatedUseCase(
 
     suspend fun invokeFromApi(page: Int, typeMovies: TypeMovies, paginationController: Pagination): Flow<Result<List<MovieUI>>> = flow {
         emitAll(
-                repository.fetchMoviesPaginatedByCategory(paginationController, page, typeMovies)
+                repository.fetchMoviesFromAPI(paginationController, page, typeMovies)
                         .map { list ->
                             list.map { it.toEntity(typeMovies).toUI() }
                         }

@@ -18,7 +18,7 @@ class Repository(
         val local: ILocalRepository
 ) : IRepository {
 
-    override suspend fun fetchMovieDetails(movieId: Int): Result<Movie> {
+    override suspend fun fetchMovieFromAPI(movieId: Int): Result<Movie> {
         var category = ""
 
         val result = remote.fetchMovie(movieId)
@@ -42,29 +42,40 @@ class Repository(
 
     override fun getMovieFromDB(movieId: Int): Flow<MovieEntity> = local.getMovieAsFlow(movieId)
 
-    override suspend fun fetchMoviesPaginatedByCategory(paginationController: Pagination, page: Int, typeMovies: TypeMovies): Result<List<Movie>> {
+    override suspend fun fetchMoviesFromAPI(paginationController: Pagination, page: Int, typeMovies: TypeMovies): Result<List<Movie>> {
 
         return remote.fetchMoviesPaginatedByCategory(paginationController, page, typeMovies)
                 .onSuccess { result ->
-                    val moviesEntity = result.map { it.toEntity(typeMovies) }
+                    val moviesEntity = result.map { it.toEntity(typeMovies).apply { restoreFromDB() } }
                     local.saveMovies(moviesEntity, typeMovies)
                 }
     }
 
-    override fun getMoviesByCategoryFromDB(category: String): Flow<List<MovieEntity>> = local.getMoviesByCategory(category)
+    override fun getMoviesFromDB(category: String): Flow<List<MovieEntity>> = local.getMoviesByCategory(category)
 
-    override suspend fun fetchCastFromMovie(movieId: Int): Result<List<Cast>> {
+    override suspend fun fetchCastMovieFromAPI(movieId: Int): Result<List<Cast>> {
         return remote.fetchCastFromMovie(movieId)
     }
 
-    override suspend fun fetchSearch(query: String): Result<List<Movie>> {
+    override suspend fun fetchSearchFromAPI(query: String): Result<List<Movie>> {
         return remote.fetchSearch(query)
     }
+
+    override suspend fun handleFavorite(movieId: Int) {
+        local.getMovie(movieId)?.apply {
+            this.isFavorite = !this.isFavorite
+        }?.let {
+            local.updateMovie(it)
+        }
+    }
+
+    override fun getFavoritesFromDB(): Flow<List<MovieEntity>> = local.getFavorites()
 
     private suspend fun MovieEntity.restoreFromDB() {
         local.getMovie(this.id)?.let { movie ->
             this.fetchAt = movie.fetchAt
             this.category = movie.category
+            this.isFavorite = movie.isFavorite
         }
     }
 }
