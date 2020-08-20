@@ -38,9 +38,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            app:isVisible="@{viewModel.onEmptyMovies}"
             android:textColor="@color/colorLabelPrimary"
-            android:text='@{`Nenhum resultado encontrado para "` + viewModel.query + `".`}'
+            app:query="@{viewModel.query}"
+            app:search_status="@{viewModel.statusSearch}"
             android:gravity="center"
             android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="parent"
