@@ -21,8 +21,8 @@ android {
 
     def versionMajor = 0
     def versionMinor = 0
-    def versionPatch = 2
-    def versionNumber = 3
+    def versionPatch = 3
+    def versionNumber = 4
 
     defaultConfig {
         applicationId "com.albuquerque.moviecatalog"
@@ -86,7 +86,7 @@ android {
 
             firebaseAppDistribution {
                 //releaseNotes="Here is new app release note"
-                releaseNotes = "Adicionando view de loading e view de tentar novamente."
+                releaseNotes = "Melhorando tela de detalhe de um filme"
 
                 //testers ="tester1@gmail.com,tester2@gmail.com"
                 testersFile = "$projectDir/distribution/alpha/testers.txt"
