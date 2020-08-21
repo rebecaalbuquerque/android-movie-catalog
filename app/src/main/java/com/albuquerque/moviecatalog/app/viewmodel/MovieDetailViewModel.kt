@@ -45,14 +45,16 @@ class MovieDetailViewModel(
 
             getMovieDetailsUseCase.invokeFromApi(movieId)
                     .collect { result ->
+
+                        onMovieLoading.postValue(false)
+
                         result
                                 .onSuccess {
                                     _movie.emit(getMovieDetailsUseCase.invokeFromDb(movieId).asLiveData())
-                                    onMovieLoading.postValue(false)
                                 }
                                 .onFailure {
-                                    onMovieLoading.postValue(false)
-                                    onError.postValue(it.message)
+                                    _movie.emit(getMovieDetailsUseCase.invokeFromDb(movieId).asLiveData())
+                                    onSnackBarError.postValue(it.message)
                                 }
                     }
 
@@ -64,18 +66,16 @@ class MovieDetailViewModel(
 
         viewModelScope.launch {
             getMovieCastUseCase.invokeFromApi(movieId).collect { result ->
+                onMovieCastLoading.postValue(false)
+
                 result
                         .onSuccess {
                             _cast.emit(liveData { emit(it) })
-
                             if(it.isEmpty()) onMovieCastError.postValue(true)
-
-                            onMovieCastLoading.postValue(false)
                         }
                         .onFailure {
-                            onMovieCastLoading.postValue(false)
                             onMovieCastError.postValue(true)
-                            onError.value = it.message
+                            onSnackBarError.value = it.message
                         }
             }
         }

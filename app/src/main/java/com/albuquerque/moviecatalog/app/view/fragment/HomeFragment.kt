@@ -12,13 +12,15 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.albuquerque.moviecatalog.R
 import com.albuquerque.moviecatalog.app.adapter.MoviesAdapter
-import com.albuquerque.moviecatalog.app.data.ui.MovieUI
 import com.albuquerque.moviecatalog.app.utils.ImageSliderUtils
 import com.albuquerque.moviecatalog.app.utils.TypeMovies
+import com.albuquerque.moviecatalog.app.view.activity.MainActivity
 import com.albuquerque.moviecatalog.app.viewmodel.MoviesViewModel
 import com.albuquerque.moviecatalog.core.extensions.setGone
 import com.albuquerque.moviecatalog.core.extensions.setVisible
+import com.albuquerque.moviecatalog.core.extensions.showSnackbar
 import com.albuquerque.moviecatalog.databinding.FragmentHomeBinding
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.empty_movies.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.layoutLoading
@@ -53,6 +55,24 @@ class HomeFragment : Fragment() {
 
     private fun setupView() {
 
+        rvUpcoming.adapter = MoviesAdapter { movie ->
+            findNavController().navigate(
+                    HomeFragmentDirections.actionMovieDetail(movie.id)
+            )
+        }
+
+        rvTopRated.adapter = MoviesAdapter { movie ->
+            findNavController().navigate(
+                    HomeFragmentDirections.actionMovieDetail(movie.id)
+            )
+        }
+
+        rvPopular.adapter = MoviesAdapter { movie ->
+            findNavController().navigate(
+                    HomeFragmentDirections.actionMovieDetail(movie.id)
+            )
+        }
+
         seeMoreUpcoming.setOnClickListener {
             findNavController().navigate(
                     HomeFragmentDirections.actionSeeMoreMovies(TypeMovies.UPCOMING.value)
@@ -71,9 +91,7 @@ class HomeFragment : Fragment() {
             )
         }
 
-        tentarNovamente.setOnClickListener {
-            moviesViewModel.getMovies()
-        }
+        tentarNovamente.setOnClickListener { moviesViewModel.getMovies() }
 
     }
 
@@ -85,44 +103,24 @@ class HomeFragment : Fragment() {
                 ImageSliderUtils(pager, recyclerViewDots, list.map { it.poster }.take(5)).setupViewPager()
             }
 
-            upcoming.observe(viewLifecycleOwner) {
-                rvUpcoming.adapter = setupAdapter(it)
-            }
-
-            popular.observe(viewLifecycleOwner){
-                rvPopular.adapter = setupAdapter(it)
-            }
-
-            topRated.observe(viewLifecycleOwner) {
-                rvTopRated.adapter = setupAdapter(it)
-            }
-
-            onError.observe(viewLifecycleOwner) { erro ->
+            onLayoutError.observe(viewLifecycleOwner) {
                 container.setGone()
                 layoutEmpty.setVisible()
-
-                if(!erro.isNullOrEmpty())
-                    text.text = erro
             }
 
-            onStartLoading.observe(viewLifecycleOwner) {
-                startLoadingView()
+            onSnackBarError.observe(viewLifecycleOwner) {
+
             }
 
-            onFinishLoading.observe(viewLifecycleOwner) {
-                stopLoadingView()
+            onLoading.observe(viewLifecycleOwner) { loading ->
+                if(loading)
+                    startLoadingView()
+                else
+                    stopLoadingView()
             }
 
         }
 
-    }
-
-    private fun setupAdapter(list: List<MovieUI>): MoviesAdapter {
-        return MoviesAdapter(list, {movie ->
-            findNavController().navigate(
-                    HomeFragmentDirections.actionMovieDetail(movie.id)
-            )
-        })
     }
 
     private fun startLoadingView() {

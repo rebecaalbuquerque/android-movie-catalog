@@ -47,6 +47,7 @@ class MovieViewHolder(binding: ViewDataBinding): BaseAdapter.BaseViewHolder<Movi
             LINEAR -> {
                 with(binding as ItemMovieLinearBinding) {
                     movie = item
+                    root.setOnClickListener { onItemClicked(item) }
                 }
             }
         }

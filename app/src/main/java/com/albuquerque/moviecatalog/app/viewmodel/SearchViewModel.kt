@@ -43,7 +43,7 @@ class SearchViewModel(
                                 }
                                 .onFailure {
                                     statusSearch.postValue(StatusSearch.ERROR)
-                                    onError.postValue(it.message)
+                                    onSnackBarError.postValue(it.message)
                                 }
                     }
         }

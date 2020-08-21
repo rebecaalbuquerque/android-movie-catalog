@@ -26,14 +26,14 @@ class MoviesPaginationViewModel(
     val movies = _movies as LiveData<List<MovieUI>>
 
     fun getMovies(type: TypeMovies) {
-        onStartLoading.value = Any()
+        onLoading.postValue(true)
 
         viewModelScope.launch {
             getMoviesPaginatedUseCase.invokeFromApi(pagination.nextPage, type, pagination).collect { result ->
-                onFinishLoading.postValue(Any())
+                onLoading.postValue(false)
 
-                if(result.isFailure) {
-                    onError.value = result.exceptionOrNull()?.message ?: ""
+                result.onFailure { error ->
+                    onSnackBarError.postValue(error.message)
                 }
 
             }

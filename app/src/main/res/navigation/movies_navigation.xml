@@ -33,13 +33,33 @@
         android:id="@+id/search_destination"
         android:name="com.albuquerque.moviecatalog.app.view.fragment.SearchFragment"
         android:label="Buscar"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+
+        <action
+            android:id="@+id/action_movie_detail"
+            app:destination="@id/movie_detail_destination"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/favorites_destination"
         android:name="com.albuquerque.moviecatalog.app.view.fragment.FavoritesFragment"
         android:label="Favoritos"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+
+        <action
+            android:id="@+id/action_movie_detail"
+            app:destination="@id/movie_detail_destination"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/see_more_movies_destination"
@@ -75,6 +95,18 @@
         <action
             android:id="@+id/back_home_action"
             app:popUpTo="@id/home_destination"/>
+
+        <action
+            android:id="@+id/back_favorites_action"
+            app:popUpTo="@id/favorites_destination"/>
+
+        <action
+            android:id="@+id/back_search_action"
+            app:popUpTo="@id/search_destination"/>
+
+        <action
+            android:id="@+id/back_see_more_action"
+            app:popUpTo="@id/see_more_movies_destination"/>
 
     </fragment>
 

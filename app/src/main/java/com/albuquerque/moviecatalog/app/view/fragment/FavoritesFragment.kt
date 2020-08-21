@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.albuquerque.moviecatalog.R
 import com.albuquerque.moviecatalog.app.adapter.MoviesAdapter
 import com.albuquerque.moviecatalog.app.viewmodel.FavoritesViewModel
@@ -27,8 +28,10 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rvFavorites.adapter = MoviesAdapter(MoviesAdapter.TypeMovieView.LINEAR) {
-            // todo
+        rvFavorites.adapter = MoviesAdapter(MoviesAdapter.TypeMovieView.LINEAR) { movie ->
+            findNavController().navigate(
+                    FavoritesFragmentDirections.actionMovieDetail(movie.id)
+            )
         }
 
         setupDatabinding()

@@ -21,8 +21,8 @@ android {
 
     def versionMajor = 0
     def versionMinor = 0
-    def versionPatch = 3
-    def versionNumber = 5
+    def versionPatch = 4
+    def versionNumber = 6
 
     defaultConfig {
         applicationId "com.albuquerque.moviecatalog"
@@ -31,6 +31,10 @@ android {
         versionCode versionNumber
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        dataBinding true
     }
 
     signingConfigs {
@@ -121,8 +125,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
-    dataBinding { enabled = true }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

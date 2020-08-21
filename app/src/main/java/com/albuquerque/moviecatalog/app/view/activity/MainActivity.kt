@@ -1,6 +1,7 @@
 package com.albuquerque.moviecatalog.app.view.activity
 
 import android.os.Bundle
+import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -11,6 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.albuquerque.moviecatalog.R
 import com.albuquerque.moviecatalog.core.extensions.setGone
 import com.albuquerque.moviecatalog.core.extensions.setVisible
+import com.albuquerque.moviecatalog.core.extensions.showSnackbar
 import com.albuquerque.moviecatalog.core.view.activity.BaseActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -21,12 +23,13 @@ class MainActivity : BaseActivity() {
     private lateinit var appBarConfiguration : AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.MovieCatalogNoActionBar)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(toolbar)
 
-        val host: NavHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_host) as NavHostFragment? ?: return
+        val host: NavHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentHost) as NavHostFragment? ?: return
 
         appBarConfiguration = AppBarConfiguration(setOf(R.id.home_destination, R.id.search_destination, R.id.favorites_destination))
 
@@ -40,17 +43,17 @@ class MainActivity : BaseActivity() {
 
                     R.id.home_destination -> {
                         supportActionBar?.hide()
-                        bottom_navigation_view.setVisible()
+                        bottomNavigationView.setVisible()
                     }
 
                     R.id.movie_detail_destination -> {
                         supportActionBar?.hide()
-                        bottom_navigation_view.setGone()
+                        bottomNavigationView.setGone()
                     }
 
                     else -> {
                         supportActionBar?.show()
-                        bottom_navigation_view.setVisible()
+                        bottomNavigationView.setVisible()
                     }
                 }
 
@@ -60,7 +63,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun setupBottomNavMenu(navController: NavController) {
-        findViewById<BottomNavigationView>(R.id.bottom_navigation_view)?.apply {
+        findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.apply {
             this.setupWithNavController(navController)
         }
     }
@@ -70,7 +73,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return findNavController(R.id.fragment_host).navigateUp(appBarConfiguration)
+        return findNavController(R.id.fragmentHost).navigateUp(appBarConfiguration)
     }
 
 }

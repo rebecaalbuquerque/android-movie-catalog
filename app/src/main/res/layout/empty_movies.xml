@@ -24,11 +24,12 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:gravity="center_horizontal"
-        android:text="Não foi possível exibir os filmes."
+        android:text="Ocorreu um erro inesperado, tente novamente."
         android:textColor="@color/colorAccentSecondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/icon" />
+        app:layout_constraintTop_toBottomOf="@+id/icon"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/tentarNovamente"

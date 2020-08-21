@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.albuquerque.moviecatalog.R
 import com.albuquerque.moviecatalog.app.adapter.MoviesAdapter
 import com.albuquerque.moviecatalog.app.viewmodel.SearchViewModel
@@ -45,8 +46,6 @@ class SearchFragment : Fragment() {
                 searchViewModel.fetchSearch(it)
             }
 
-
-
         }
 
     }
@@ -54,7 +53,12 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rvMovies.adapter = MoviesAdapter(MoviesAdapter.TypeMovieView.GRID) {}
+        rvMovies.adapter = MoviesAdapter(MoviesAdapter.TypeMovieView.GRID) { movie ->
+            // todo
+            /*findNavController().navigate(
+                    SearchFragmentDirections.actionMovieDetail(movie.id)
+            )*/
+        }
 
         setupDatabinding()
     }

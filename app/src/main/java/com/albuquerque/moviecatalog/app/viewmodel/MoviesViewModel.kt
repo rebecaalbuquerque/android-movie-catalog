@@ -1,11 +1,11 @@
 package com.albuquerque.moviecatalog.app.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.albuquerque.moviecatalog.app.data.ui.MovieUI
 import com.albuquerque.moviecatalog.app.usecase.GetMoviesPaginatedUseCase
-import com.albuquerque.moviecatalog.app.utils.TypeMovies
+import com.albuquerque.moviecatalog.app.utils.TypeMovies.*
 import com.albuquerque.moviecatalog.core.mediator.SingleMediatorLiveData
 import com.albuquerque.moviecatalog.core.remote.Pagination
 import com.albuquerque.moviecatalog.core.remote.Remote.Companion.FIRST_PAGE_PAGINATION
@@ -22,20 +22,46 @@ class MoviesViewModel(
 
     private val _popular = SingleMediatorLiveData<List<MovieUI>>().apply {
         viewModelScope.launch {
-            this@apply.emit(getMoviesPaginatedUseCase.invokeFromDb(TypeMovies.POPULAR, pagination).asLiveData())
+            getMoviesPaginatedUseCase.invokeFromDb(POPULAR, pagination).collect { result ->
+                if(result.isEmpty())
+                    onLayoutError.postValue(Any())
+                else
+                    this@apply.emit(liveData { emit(result) })
+            }
         }
     }
 
     private val _nowPlaying = SingleMediatorLiveData<List<MovieUI>>().apply {
-        viewModelScope.launch { this@apply.emit(getMoviesPaginatedUseCase.invokeFromDb(TypeMovies.NOW_PLAYING, pagination).asLiveData()) }
+        viewModelScope.launch {
+            getMoviesPaginatedUseCase.invokeFromDb(NOW_PLAYING, pagination).collect { result ->
+                if(result.isEmpty())
+                    onLayoutError.postValue(Any())
+                else
+                    this@apply.emit(liveData { emit(result) })
+            }
+        }
     }
 
     private val _topRated = SingleMediatorLiveData<List<MovieUI>>().apply {
-        viewModelScope.launch { this@apply.emit(getMoviesPaginatedUseCase.invokeFromDb(TypeMovies.TOP_RATED, pagination).asLiveData()) }
+        viewModelScope.launch {
+            getMoviesPaginatedUseCase.invokeFromDb(TOP_RATED, pagination).collect { result ->
+                if(result.isEmpty())
+                    onLayoutError.postValue(Any())
+                else
+                    this@apply.emit(liveData { emit(result) })
+            }
+        }
     }
 
     private val _upcoming = SingleMediatorLiveData<List<MovieUI>>().apply {
-        viewModelScope.launch { this@apply.emit(getMoviesPaginatedUseCase.invokeFromDb(TypeMovies.UPCOMING, pagination).asLiveData()) }
+        viewModelScope.launch {
+            getMoviesPaginatedUseCase.invokeFromDb(UPCOMING, pagination).collect { result ->
+                if(result.isEmpty())
+                    onLayoutError.postValue(Any())
+                else
+                    this@apply.emit(liveData { emit(result) })
+            }
+        }
     }
 
     val popular = _popular as LiveData<List<MovieUI>>
@@ -49,35 +75,38 @@ class MoviesViewModel(
 
     fun getMovies() {
         categories = 4
-        onStartLoading.value = Any()
+        onLoading.postValue(true)
 
         viewModelScope.launch {
-            getMoviesPaginatedUseCase.invokeFromApi(FIRST_PAGE_PAGINATION,TypeMovies.NOW_PLAYING, pagination).collect { result ->
+            getMoviesPaginatedUseCase.invokeFromApi(FIRST_PAGE_PAGINATION, NOW_PLAYING, pagination).collect { result ->
                 checkLoadedCategories()
 
-                if(result.isFailure) {
-                    onError.postValue(result.exceptionOrNull()?.message ?: "")
+                result.onFailure { error ->
+                    onSnackBarError.postValue(error.message)
                 }
             }
 
-            getMoviesPaginatedUseCase.invokeFromApi(FIRST_PAGE_PAGINATION,TypeMovies.UPCOMING, pagination).collect { result ->
+            getMoviesPaginatedUseCase.invokeFromApi(FIRST_PAGE_PAGINATION, UPCOMING, pagination).collect { result ->
                 checkLoadedCategories()
-                if(result.isFailure) {
-                    onError.postValue(result.exceptionOrNull()?.message ?: "")
+
+                result.onFailure { error ->
+                    onSnackBarError.postValue(error.message)
                 }
             }
 
-            getMoviesPaginatedUseCase.invokeFromApi(FIRST_PAGE_PAGINATION,TypeMovies.POPULAR, pagination).collect { result ->
+            getMoviesPaginatedUseCase.invokeFromApi(FIRST_PAGE_PAGINATION, POPULAR, pagination).collect { result ->
                 checkLoadedCategories()
-                if(result.isFailure) {
-                    onError.postValue(result.exceptionOrNull()?.message ?: "")
+
+                result.onFailure { error ->
+                    onSnackBarError.postValue(error.message)
                 }
             }
 
-            getMoviesPaginatedUseCase.invokeFromApi(FIRST_PAGE_PAGINATION,TypeMovies.TOP_RATED, pagination).collect { result ->
+            getMoviesPaginatedUseCase.invokeFromApi(FIRST_PAGE_PAGINATION, TOP_RATED, pagination).collect { result ->
                 checkLoadedCategories()
-                if(result.isFailure) {
-                    onError.postValue(result.exceptionOrNull()?.message ?: "")
+
+                result.onFailure { error ->
+                    onSnackBarError.postValue(error.message)
                 }
             }
         }
@@ -88,7 +117,7 @@ class MoviesViewModel(
         categories -= 1
 
         if(categories == 0)
-            onFinishLoading.value = Any()
+            onLoading.postValue(false)
     }
 
 }

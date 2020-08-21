@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.albuquerque.moviecatalog.R
@@ -57,7 +58,9 @@ class SeeMoreMoviesFragment : Fragment() {
         }
 
         moviesAdapter = MoviesAdapter(MoviesAdapter.TypeMovieView.GRID) { movie ->
-            SeeMoreMoviesFragmentDirections.actionMovieDetail(movie.id)
+            findNavController().navigate(
+                    SeeMoreMoviesFragmentDirections.actionMovieDetail(movie.id)
+            )
         }
 
         with(rvMovies) {
@@ -85,11 +88,13 @@ class SeeMoreMoviesFragment : Fragment() {
                 moviesAdapter.refresh(it)
             }
 
-            onError.observe(viewLifecycleOwner) { }
+            onSnackBarError.observe(viewLifecycleOwner) {
 
-            onStartLoading.observe(viewLifecycleOwner) {}
+            }
 
-            onFinishLoading.observe(viewLifecycleOwner) {}
+            onLoading.observe(viewLifecycleOwner) {
+                // todo
+            }
 
         }
 
