@@ -7,14 +7,14 @@
 
         <variable
             name="viewModel"
-            type="com.albuquerque.moviecatalog.app.viewmodel.SearchViewModel" />
+            type="com.albuquerque.moviecatalog.viewmodel.SearchViewModel" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".app.view.fragment.SearchFragment">
+        tools:context=".view.fragment.SearchFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvMovies"

@@ -6,13 +6,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.albuquerque.moviecatalog.app.viewmodel.MoviesViewModel" />
+            type="com.albuquerque.moviecatalog.viewmodel.MoviesViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".app.view.fragment.HomeFragment">
+        tools:context=".view.fragment.HomeFragment">
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/container"

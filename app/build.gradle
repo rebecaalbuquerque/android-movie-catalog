@@ -16,7 +16,6 @@ apply plugin: 'com.google.firebase.appdistribution'
 
 android {
     buildToolsVersion "29.0.3"
-
     compileSdkVersion rootProject.compile_sdk_version
 
     def versionMajor = 0
@@ -92,7 +91,7 @@ android {
                 //releaseNotes="Here is new app release note"
                 releaseNotes = "Melhorando tela de detalhe de um filme"
 
-                testers ="rebeca.albuquerque96@gmail.com"
+                testers = "rebeca.albuquerque96@gmail.com"
                 //testersFile = "$projectDir/distribution/alpha/testers.txt"
 
                 //groups ="qa-team, android-testers"
@@ -139,20 +138,15 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation project(":domain")
+    implementation project(":core")
+    implementation project(":data")
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    // Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
 
     // Androidx
     implementation "androidx.core:core-ktx:$androidx_corektx_version"
@@ -167,38 +161,17 @@ dependencies {
     // Material Components
     implementation "com.google.android.material:material:$materialcomponents_version"
 
-    // Room
-    api "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    api "androidx.room:room-ktx:$room_version"
-
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
 
-    // retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-
-    // logging
-    implementation "com.squareup.okhttp3:logging-interceptor:$retrofit_logging_version"
-
-    implementation "io.reactivex.rxjava2:rxjava:$rx_java_version"
-    implementation "io.reactivex.rxjava2:rxkotlin:$rx_kotlin_version"
-    implementation "io.reactivex.rxjava2:rxandroid:$rx_android_version"
-
     // Stetho
     implementation "com.facebook.stetho:stetho:$stetho_version"
     implementation "com.facebook.stetho:stetho-okhttp3:$stetho_okhttpp3_version", {
         exclude group: 'com.google.code.findbugs', module: 'jsr305'
     }
-
-    // Koin
-    implementation "org.koin:koin-android:$koin_version"
-    implementation "org.koin:koin-androidx-scope:$koin_version"
-    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
     // Glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
@@ -212,6 +185,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
     implementation 'com.google.firebase:firebase-perf:19.0.8'
 
-    apply plugin: 'com.google.gms.google-services'
-}
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    apply plugin: 'com.google.gms.google-services'
+
+}

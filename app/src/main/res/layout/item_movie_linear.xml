@@ -7,7 +7,7 @@
 
         <variable
             name="movie"
-            type="com.albuquerque.moviecatalog.app.data.ui.MovieUI" />
+            type="com.albuquerque.data.ui.MovieUI" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

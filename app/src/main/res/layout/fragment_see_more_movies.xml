@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.albuquerque.moviecatalog.app.viewmodel.MoviesPaginationViewModel" />
+            type="com.albuquerque.moviecatalog.viewmodel.MoviesPaginationViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -15,15 +15,16 @@ This app uses the TMDb API to display the movies.
 > App still in development
 
 # Architectural Design Pattern
-In this project the MVVM architecture was used along with the repository pattern and use cases.
+In this project the MVVM architecture was used along with the Clean Architecture. This choice was made because MVVM + Clean Architecture makes it easier to test, makes the code even more decoupled and makes the project easier to maintain.
 
 # Android Architecture Components
-Some items from Android Architecture Components were used, such as:
+Some components of the Android Architecture Components library collection were also used in this project, such as:
 - Room
 - LiveData
 - ViewModel
 - Lifecycle-aware components
 - ViewBinding
+- Navigation
 
 # Other libraries
 - Koin

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/home_destination"
-        android:name="com.albuquerque.moviecatalog.app.view.fragment.HomeFragment"
+        android:name="com.albuquerque.moviecatalog.view.fragment.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
 
@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/search_destination"
-        android:name="com.albuquerque.moviecatalog.app.view.fragment.SearchFragment"
+        android:name="com.albuquerque.moviecatalog.view.fragment.SearchFragment"
         android:label="Buscar"
         tools:layout="@layout/fragment_search" >
 
@@ -47,7 +47,7 @@
 
     <fragment
         android:id="@+id/favorites_destination"
-        android:name="com.albuquerque.moviecatalog.app.view.fragment.FavoritesFragment"
+        android:name="com.albuquerque.moviecatalog.view.fragment.FavoritesFragment"
         android:label="Favoritos"
         tools:layout="@layout/fragment_favorites" >
 
@@ -63,7 +63,7 @@
 
     <fragment
         android:id="@+id/see_more_movies_destination"
-        android:name="com.albuquerque.moviecatalog.app.view.fragment.SeeMoreMoviesFragment"
+        android:name="com.albuquerque.moviecatalog.view.fragment.SeeMoreMoviesFragment"
         android:label="SeeMoreMoviesFragment"
         tools:layout="@layout/fragment_see_more_movies">
 
@@ -84,7 +84,7 @@
 
     <fragment
         android:id="@+id/movie_detail_destination"
-        android:name="com.albuquerque.moviecatalog.app.view.fragment.MovieDetailFragment"
+        android:name="com.albuquerque.moviecatalog.view.fragment.MovieDetailFragment"
         android:label="MovieDetailFragment"
         tools:layout="@layout/fragment_movie_detail">
 

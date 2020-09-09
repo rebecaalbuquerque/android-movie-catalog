@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="com.albuquerque.moviecatalog.app.viewmodel.FavoritesViewModel" />
+            type="com.albuquerque.moviecatalog.viewmodel.FavoritesViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".app.view.fragment.FavoritesFragment">
+        tools:context=".view.fragment.FavoritesFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvFavorites"

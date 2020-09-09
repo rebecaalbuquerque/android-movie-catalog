@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.albuquerque.moviecatalog.app.viewmodel.MovieDetailViewModel" />
+            type="com.albuquerque.moviecatalog.viewmodel.MovieDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout

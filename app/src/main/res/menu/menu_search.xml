@@ -5,7 +5,7 @@
     <item android:id="@+id/action_search_movies"
         android:icon="@drawable/ic_search"
         android:title="@string/action_search_title"
-        app:actionViewClass="com.albuquerque.moviecatalog.core.widget.SearchView"
+        app:actionViewClass="com.albuquerque.moviecatalog.widget.SearchView"
         app:showAsAction="always|collapseActionView"/>
 
 </menu>
