@@ -1,5 +1,10 @@
-include ':data'
-include ':domain'
-include ':core'
-rootProject.name='MovieCatalog'
-include ':app'
+rootProject.name = 'MovieCatalog'
+include(":app")
+
+include("features:home")
+include("features:contentdetail")
+
+include(":infrastructure:domain")
+include(":infrastructure:data")
+include(":infrastructure:common")
+include(":infrastructure:common-ui")
